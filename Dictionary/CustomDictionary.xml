@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CommentDictionary>
+  <Version>1.06</Version>
+  <CommentItem>
+    <ID>1</ID>
+    <Comment>If the value for * is greater than zero</Comment>
+    <Name>If Number Has Value</Name>
+    <Pattern>if\s?\(\w+\s?&gt;\s?0\)</Pattern>
+    <TargetPattern>\(\w+</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>2</ID>
+    <Comment>If the * string exists</Comment>
+    <Name>TextHelper.Exists</Name>
+    <Pattern>if\s?\(TextHelper.Exists\(\w+\)\)</Pattern>
+    <TargetPattern>\(\w+\)</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>3</ID>
+    <Comment>If the * object exists</Comment>
+    <Name>NullHelper.Exists</Name>
+    <Pattern>if\s?\(NullHelper.Exists\(\w+\)\)</Pattern>
+    <TargetPattern>\(\w+\)</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>4</ID>
+    <Comment>If the * collection exists and has one or more items</Comment>
+    <Name>If List Has One Or More Items</Name>
+    <Pattern>if\s?\(ListHelper.HasOneOrMoreItems\(\w*\)\)</Pattern>
+    <TargetPattern>(?&amp;lt;=Items).*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>5</ID>
+    <Comment>Enable or disable controls</Comment>
+    <Name>UIEnable</Name>
+    <Pattern>UIEnable</Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>6</ID>
+    <Comment>If the strings * and % both exist</Comment>
+    <Name>IfTwoStringsExist</Name>
+    <Pattern>if\s?\(TextHelper.Exists\(\w*,\s?\w+\)\)</Pattern>
+    <TargetPattern>(?&amp;lt;=s)\(\w*</TargetPattern>
+    <TargetPattern2>\w*\)</TargetPattern2>
+    <!--<HasReplacements>True</HasReplacements>
+    <Replacements>
+      <Replacement>
+        <Find>s(</Find>
+        <Replace></Replace>
+        <Target>ApplyToTarget1</Target>
+      </Replacement>
+    </Replacements>-->
+  </CommentItem>
+   <CommentItem>
+    <Comment></Comment>
+    <Name></Name>
+    <Pattern></Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+</CommentDictionary>

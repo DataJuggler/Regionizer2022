@@ -1,0 +1,103 @@
+Regionizer C# with Auto Commenting System
+
+Updates for Version 2.1.7
+
+1. CommentType was removed from CommentItem object and the enum CommentTypeEnum was removed.
+This was never used and I couldn't think of any good use for it, so I removed it.
+
+2. Each Comment Item now has an ID, this was added so that child objects could load parent objects and vice versa.
+
+3. The IsMatch method now checks if there are one or more matches and takes the first match.
+Prior to this update there had to be exactly 1 match and it made the regular expressions more complicated than
+they needed to be.
+
+4. You can now add a Replacements to any CommentItem and perform a Find and Replace for either the 
+source code, the target 1 or target 2 objects.
+
+An example of a Replacements section is listed below:
+
+<CommentItem>
+  <ID>6</ID>
+  <Comment>If the strings * and % both exist</Comment>
+  <Name>IfTwoStringsExist</Name>
+  <Pattern>if\s?\(TextHelper.Exists\(\w*,\s?\w+\)\)</Pattern>
+  <TargetPattern>(?&amp;lt;=s)\(\w*</TargetPattern>
+  <TargetPattern2>\w*\)</TargetPattern2>
+  <HasReplacements>True</HasReplacements>
+  <Replacements>
+    <Replacement>
+      <Find>s(</Find>                 
+      <Replace></Replace>             
+      <Target>ApplyToTarget1</Target> (ApplyToSourceCode or ApplyToTarget2 options)
+    </Replacement>
+  </Replacements>
+</CommentItem>
+
+Fixes for Version 2.1.6
+
+It was discovered that the Data Juggler Button (a button with a link to my website) 
+did not look correct when I added a mouse enter and mouse leave event to the turn the mouse 
+pointer into a hand while you are over the button.
+
+This is due to the fact WPF by default want to turn a button gray (stupid feature but I am not a WPF fan).
+I created an ImageButton that behaves correctly.
+
+It is a lot of work to add a custom control or the other option was a control template, all because WPF does not have
+a 'DisableDefaultMouseOverEffect' option.
+
+If you agree this option is needed, vote for it on VisualStudio.UserVoice:
+
+http://visualstudio.uservoice.com/forums/121579-visual-studio/suggestions/5998510-create-a-disabledefaultmouseovereffect-property
+
+Fixes for Version 2.1.5
+
+The control was too tall vertically from some displays.
+
+There were not any code changes, but the control's vertical margins were decreased
+so the control should fit in most displays now.
+
+As of version 2.1, Regionizer now comes with a C# auto commenting system based upon regular expressions.
+
+View the Documentation Tab for more information.
+
+Fixes for version 2.1.4
+
+It is no longer required to run Visual Studio as an administrator to update the Registry.
+
+It is possible to teach an old dog new tricks; after I posted a video on YouTube and then posted a link on Reddit,
+the trolls quickly schooled me on the error of my ways.
+
+At first my ego was insulted, but I then did a Google search and learned I was writing to HKey Local Machine
+which is only in Windows 8.1 and above; So now I use Registry.CurrentUser\Software\DataJuggler\Regionizer\ to store
+the comment dictionary.
+
+Fixes for version 2.1.2
+
+The target and target 2 variables are not trimmed of spaces. This was needed as some patterns were hard for me to match and get rid of the space.
+
+Fixes for version 2.1.1
+
+The Update Registry button was only enabled after you had clicked the "Check For Updates Button", now this is not required. You can edit the Custom Dictionary now and update the registry without checking for the comment dictionary update.
+
+Fixes for version 2.1
+
+1. The Auto Commenting System now includes an option to include custom dictionary
+2. The Xml Reserved Character Helper can now be launched from within Visual Studio
+3. Target Pattern 2 was added
+
+To help create regular expressions for the commenting system, Reg Ex Hero is a really cool website: www.regexhero.com 
+
+www.regexhero.com 
+
+Fixes for Version 2.0 (Not Published, but included in 2.1 version)
+
+1. If you are inserting an Event, and the Events region doesn't exist, you are now shown a message to this fact.
+2. If you are inserting a Method, and the Methods region doesn't exist, you are now shown a message to this fact.
+3. If you are creating a Property and the Properties region doesn't exist, you are now shown a message to this fact.
+4. The Auto Commenting System Is Now Included With Regionizer
+5. The project was updated to DOT Net Framework 4.5.1 and now runs on Visual Studio 2013 (recommended) or Visual Studio 2012.
+6. The source code for XMLMirror.RunTime is included for the first time. Data Juggler plans to release this as an open source
+project in the near future, but Regionizer downloaders get first access to this useful project.
+
+All of the Passwords for the Keyfiles have been removed.
+

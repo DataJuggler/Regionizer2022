@@ -1,0 +1,20 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataJuggler.WPF.Controls.TabControls" x:Class="DataJuggler.WPF.Controls.TabControls.TabHostControl" 
+             mc:Ignorable="d" 
+             d:DesignHeight="64" d:DesignWidth="1600">
+    <DockPanel>
+        <DockPanel.Background>
+            <ImageBrush ImageSource="../Images\DarkShadow.png"/>
+        </DockPanel.Background>
+        <local:TabButton x:Name="TabButton1" Height="48" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,0,0,0" ButtonNumber="1" />
+        <local:TabButton x:Name="TabButton2" Height="48" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" ButtonNumber="2"/>
+        <local:TabButton x:Name="TabButton3" Height="48" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" ButtonNumber="3"/>
+        <local:TabButton x:Name="TabButton4" Height="48" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" ButtonNumber="4" />
+        <local:TabButton x:Name="TabButton5" Height="48" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" ButtonNumber="5" />
+        <local:TabButton x:Name="TabButton6" Height="48" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" ButtonNumber="6" />
+    </DockPanel>
+</UserControl>

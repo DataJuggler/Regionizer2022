@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h" />
+  <!--This header contains the command ids for the menus provided by the shell. -->
+  <Extern href="vsshlids.h" />
+  <Commands package="guidRegionizerPkg">
+    <Groups>
+      <Group guid="guidRegionizerCmdSet" id="RegionizerMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+      </Group>
+    </Groups>
+    
+    <!--Buttons section. -->
+    <Buttons>
+      <Button guid="guidRegionizerCmdSet" id="cmdRegionizerPro" priority="0x0100" type="Button">
+        <Parent guid="guidRegionizerCmdSet" id="RegionizerMenuGroup" />
+        <Icon guid="guidImages" id="RegionizerBitmap" />
+        <Strings>
+          <CommandName>cmdRegionizerPro</CommandName>
+          <ButtonText>Regionizer</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidRegionizerCmdSet" id="cmdRegionizerToolWindow" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Icon guid="guidImages" id="RegionizerBitmap" />
+        <Strings>
+          <CommandName>cmdRegionizerToolWindow</CommandName>
+          <ButtonText>RegionizerToolWindow</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+   
+    <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\Regionizer32.bmp" usedList="RegionizerBitmap" />
+    </Bitmaps>
+  </Commands>
+  <Symbols>
+    <!-- This is the package guid. -->
+    <GuidSymbol name="guidRegionizerPkg" value="{d44d0c72-ce3a-49c6-8b35-25b2a7c3907b}" />
+    
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidRegionizerCmdSet" value="{99470ae8-db16-4ebd-8bc2-19f709cdbc39}">
+      <IDSymbol name="RegionizerMenuGroup" value="0x1020" />
+      <IDSymbol name="cmdRegionizerPro" value="0x0100" />
+      <IDSymbol name="cmdRegionizerToolWindow" value="0x0101" />
+    </GuidSymbol>
+    
+    <GuidSymbol name="guidImages" value="{61a15931-57e8-4b37-a40f-a3f84596997d}">
+      <IDSymbol name="RegionizerBitmap" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

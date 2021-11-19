@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CommentDictionary>
+  <Version>1.24</Version>
+  <CommentItem>
+    <ID>1</ID>
+    <Comment>If the * object exists</Comment>
+    <Name>If Object Exists</Name>
+    <Pattern>if\s?\(this\.Has\w*\)</Pattern>
+    <TargetPattern>(?&lt;=Has).*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>2</ID>
+   <Comment>If the * object exists</Comment>
+   <Name>If Object Is Not Null</Name>
+   <Pattern>if\s?\(\w*\s?!=\s?null\)</Pattern>
+   <TargetPattern>\(\w*</TargetPattern>
+ </CommentItem>
+  <CommentItem>
+    <ID>3</ID>
+    <Comment>If the * object doesn't exist</Comment>
+    <Name>If Object Is Null</Name>
+    <Pattern>if\s?\(\w*\s?==\s?null\)</Pattern>
+    <TargetPattern>\(\w*</TargetPattern>
+  </CommentItem>
+ <CommentItem>
+   <ID>4</ID>
+    <Comment>Determine the action by the *</Comment>
+    <Name>Switch Statement</Name>
+    <Pattern>switch\s?\(\w*\)</Pattern>
+    <TargetPattern>\(\w+\)</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>5</ID>
+    <Comment>Iterate the collection of * objects</Comment>
+    <Name>Iterate Collection</Name>
+    <Pattern>foreach\s?\(\w*\s\w*\sin\s\w*\)</Pattern>
+    <TargetPattern>\(\w*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>6</ID>
+    <Comment>If the value for * is set</Comment>
+    <Name>If Number Has Value</Name>
+    <Pattern>if\s?\(\w+\s?&gt;\s?0\)</Pattern>
+    <TargetPattern>\(\w+</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>7</ID>
+    <Comment>if the value for * is greater than %</Comment>
+    <Name>If Value Is Greater Than Another Value</Name>
+    <Pattern>if\s?\(\w*\s?>\s?\d\)</Pattern>
+    <TargetPattern>\(\w*</TargetPattern>
+    <TargetPattern2>\d\)</TargetPattern2>
+  </CommentItem>
+  <CommentItem>
+    <ID>8</ID>
+    <Comment>Create a new collection of '*' objects.</Comment>
+    <Name>Create List Of Objects</Name>
+    <Pattern>=\snew\s\w*\&lt;\w*\&gt;\(</Pattern>
+    <TargetPattern>\&amp;lt;\w*\&amp;gt;\(</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>9</ID>
+    <Comment>Create a new instance of a(n) '*' object.</Comment>
+    <Name>Create New Object</Name>
+    <Pattern>=\snew\s\w*\(</Pattern>
+    <TargetPattern>\b\w+\(</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>10</ID>
+    <Comment>if the value for * is true</Comment>
+    <Name>If Statement Is True</Name>
+    <Pattern>if\s?\(\w*\)</Pattern>
+    <TargetPattern>\(\w*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>11</ID>
+    <Comment>if the value for * is false</Comment>
+    <Name>If Statement Is False</Name>
+    <Pattern>if\s?\(\!\w*\)</Pattern>
+    <TargetPattern>(?&lt;=\!).*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>12</ID>
+    <Comment>If the * object exists and the % is set</Comment>
+    <Name>If Object Exists and Integer Is Set</Name>
+    <Pattern>if\s?\(\(\w*\s\!=\snull\)\s?&amp;&amp;\s\(\w*\s\&amp;gt;\s0\)\)</Pattern>
+    <TargetPattern>\(\(\w*</TargetPattern>
+    <TargetPattern2>(?&lt;=\&amp;\&amp;\s).\w*</TargetPattern2>
+  </CommentItem>
+ <CommentItem>
+   <ID>13</ID>
+    <Comment>Change the cursor to a hand</Comment>
+    <Name>Button Mouse Enter</Name>
+    <Pattern>Cursor = Cursors.Hand</Pattern>
+    <TargetPattern></TargetPattern>
+    <TargetPattern2></TargetPattern2>
+  </CommentItem>
+  <CommentItem>
+    <ID>14</ID>
+    <Comment>Change the cursor back to the default pointer</Comment>
+    <Name>Button Mouse Leave</Name>
+    <Pattern>Cursor = Cursors.Default</Pattern>
+    <TargetPattern></TargetPattern>
+    <TargetPattern2></TargetPattern2>
+  </CommentItem>
+  <CommentItem>
+    <ID>15</ID>
+    <Comment>if the * and % objects both exist</Comment>
+    <Name>If Two Objects Exist</Name>
+    <Pattern>if\s?\(\(\w*\s?!=\s?null\)\s?&amp;&amp;\s?\(\w*\s?!=\s?null\)\)</Pattern>
+    <TargetPattern>\(\(\w*</TargetPattern>
+    <TargetPattern2>\s\(\w*\b</TargetPattern2>
+  </CommentItem>
+  <CommentItem>
+    <ID>16</ID>
+    <Comment>if the * object exists and % is false</Comment>
+    <Name>If Object Exists and false statement</Name>
+    <Pattern>if\s?\(\(\w*\s?!=\s?null\)\s?&amp;&amp;\s?\(!\w*\)\)</Pattern>
+    <TargetPattern>\(\(\w*</TargetPattern>
+    <TargetPattern2>\w*\)\)</TargetPattern2>
+  </CommentItem>
+  <CommentItem>
+    <ID>17</ID>
+    <Comment>Enable or disable controls</Comment>
+    <Name>UIEnable</Name>
+    <Pattern>UIEnable</Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>18</ID>
+    <Comment>If the '*' object and the '%' objects both exist.</Comment>
+    <Name>Has 2 Objects</Name>
+    <Pattern>if\s?\(\(this.Has\w*\)\s?&amp;&amp;\s?\(this.Has\w*\)\)</Pattern>
+    <TargetPattern>(?&amp;lt;=Has)\w*\)\s</TargetPattern>
+    <TargetPattern2>(?&amp;lt;=Has)\w*\)\)</TargetPattern2>
+  </CommentItem>
+  <CommentItem>
+    <ID>19</ID>
+    <Comment>Create Controls</Comment>
+    <Name>InitializeComponent</Name>
+    <Pattern>InitializeComponent</Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>20</ID>
+    <Comment>Perform initializations for this object</Comment>
+    <Name>Init</Name>
+    <Pattern>Init</Pattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>21</ID>
+    <Comment>Increment the value for * </Comment>
+    <Name>Increment</Name>
+    <Pattern>\w*\+\+</Pattern>
+    <TargetPattern>^\w*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <Comment>Decrement the value for * </Comment>
+    <Name>Decrement</Name>
+    <Pattern>\w*\-\-</Pattern>
+    <TargetPattern>^\w*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>22</ID>
+    <Comment>Set the value for the property '*' to true</Comment>
+    <Name>Set Boolean Property True</Name>
+    <Pattern>\w*.\w*\s?=\s?true</Pattern>
+    <TargetPattern>(?&amp;lt;=\.)\w*</TargetPattern>
+  </CommentItem>
+  <CommentItem>
+ <Comment>If the value for the property *.% is true</Comment>
+    <ID>23</ID>
+    <Name>Object With Boolean Property</Name>
+    <Pattern>if\s"?\(\w*.\w*\)</Pattern>
+    <TargetPattern>\(\w*</TargetPattern>
+    <TargetPattern2>\w*\)</TargetPattern2>
+ </CommentItem>
+  <CommentItem>
+    <ID>24</ID>
+    <Comment>If the file exists</Comment>
+    <Name>If File Exists</Name>
+    <Pattern>if\s?\(File.Exists\(\w*\)\)</Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>25</ID>
+    <Comment>Read all the text of the file</Comment>
+    <Name>Read File Text</Name>
+    <Pattern>=\s?File.ReadAllText\(\w*\)</Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>26</ID>
+    <Comment>Append the text to the end of the string.</Comment>
+    <Name>AppendAllText</Name>
+    <Pattern>File.AppendAllText\(</Pattern>
+  </CommentItem>
+   <CommentItem>
+    <ID>27</ID>
+    <Comment>If this is not a post back</Comment>
+    <Name>If not a postback</Name>
+    <Pattern>if\s?\(!this.IsPostBack\)</Pattern>
+  </CommentItem>
+  <CommentItem>
+    <ID>28</ID>
+    <Comment></Comment>
+    <Name></Name>
+    <Pattern></Pattern>
+    <TargetPattern></TargetPattern>
+  </CommentItem>
+</CommentDictionary>

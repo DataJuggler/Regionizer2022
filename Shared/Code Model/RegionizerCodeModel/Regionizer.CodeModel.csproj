@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{95C10060-7266-48CC-B04F-EBCFDDA440EA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataJuggler.Regionizer.CodeModel</RootNamespace>
+    <AssemblyName>DataJuggler.Regionizer.CodeModel</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Regionizer.CodeModel.Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.Interop, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.VisualStudio.Interop.17.0.31902.203\lib\net472\Microsoft.VisualStudio.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enumerations\CodeScopeEnum.cs" />
+    <Compile Include="Enumerations\CodeTypeEnum.cs" />
+    <Compile Include="Enumerations\ComparisonTypeEnum.cs" />
+    <Compile Include="Enumerations\ReplacementTargetEnum.cs" />
+    <Compile Include="Objects\CodeBlock.cs" />
+    <Compile Include="Objects\CodeClass.cs" />
+    <Compile Include="Objects\CodeConstructor.cs" />
+    <Compile Include="Objects\CodeDelegate.cs" />
+    <Compile Include="Objects\CodeEnumeration.cs" />
+    <Compile Include="Objects\CodeEvent.cs" />
+    <Compile Include="Objects\CodeLine.cs" />
+    <Compile Include="Objects\CodeMethod.cs" />
+    <Compile Include="Objects\CodeNamespace.cs" />
+    <Compile Include="Objects\CodeNotes.cs" />
+    <Compile Include="Objects\CodePrivateVariable.cs" />
+    <Compile Include="Objects\CodeProperty.cs" />
+    <Compile Include="Objects\CodeStructure.cs" />
+    <Compile Include="Objects\CodeComment.cs" />
+    <Compile Include="Objects\CommentDictionary.cs" />
+    <Compile Include="Objects\CompoundIfStatement.cs" />
+    <Compile Include="Objects\CSharpCodeFile.cs" />
+    <Compile Include="Objects\DictionaryInfo.cs" />
+    <Compile Include="Objects\IfStatement.cs" />
+    <Compile Include="Objects\Replacement.cs" />
+    <Compile Include="Objects\TextLine.cs" />
+    <Compile Include="Objects\Word.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CSharpCodeParser.cs" />
+    <Compile Include="Util\DescriptionHelper.cs" />
+    <Compile Include="Util\FileCodeModelHelper.cs" />
+    <Compile Include="Util\IfStatementParser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Regionizer.CodeModel.Key.pfx" />
+    <None Include="Regionizer.CodeModel.Key.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
