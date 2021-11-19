@@ -1,3 +1,0 @@
-A visual studio package that formats a C# document into regions for methods, events, constructors, properties and private variables.
-
-Download the code for yourself at github.com/DataJuggler/SharedRepo/Regionizer.
