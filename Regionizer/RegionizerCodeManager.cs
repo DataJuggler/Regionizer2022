@@ -534,7 +534,7 @@ namespace DataJuggler.Regionizer
 
             #region AutoComment(DictionaryInfo dictionaryInfo)
             /// <summary>
-            /// This method  is used to Auto Comment the selected line or line below
+            /// This method is used to Auto Comment the selected line or line below
             /// </summary>
             internal void AutoComment(DictionaryInfo dictionaryInfo)
             {
