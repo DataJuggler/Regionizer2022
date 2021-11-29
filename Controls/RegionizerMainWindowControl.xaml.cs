@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using XmlMirror.Runtime.Util;
+using DataJuggler.Regionizer.Controls.Util;
 
 #endregion
 
@@ -90,15 +91,23 @@ namespace DataJuggler.Regionizer.Controls
                     // if a Method
                     string methodName = this.NameTextBox.Text;
                     
-                    IList<string> args = new List<string>();
-                    args.Add(methodName);
-                    args.Add(returnType);
+                    if (TextHelper.Exists(methodName, returnType))
+                    {
+                        IList<string> args = new List<string>();
+                        args.Add(methodName);
+                        args.Add(returnType);
                     
-                    // if the delegate is set
-                    if (this.HasHostEventHandler)
-                    {   
-                        // notify the host
-                        this.HostEventHandler("InsertMethod", args);
+                        // if the delegate is set
+                        if (this.HasHostEventHandler)
+                        {   
+                            // notify the host
+                            this.HostEventHandler("InsertMethod", args);
+                        }
+                    }
+                    else
+                    {
+                        // Show a message
+                        MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
                     }
                 }
                 else if (codeType == "Event")
@@ -111,11 +120,20 @@ namespace DataJuggler.Regionizer.Controls
                     args.Add(eventName);
                     args.Add(returnType);
                     
-                    // if the delegate is set
-                    if (this.HasHostEventHandler)
-                    {   
-                        // notify the host
-                        this.HostEventHandler("InsertEvent", args);
+                    // If the strings eventName and returnType both exist
+                    if (TextHelper.Exists(eventName, returnType))
+                    {
+                        // if the delegate is set
+                        if (this.HasHostEventHandler)
+                        {   
+                            // notify the host
+                            this.HostEventHandler("InsertEvent", args);
+                        }
+                    }
+                    else
+                    {
+                        // Show a message
+                        MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
                     }
                 }
             }
@@ -491,7 +509,7 @@ namespace DataJuggler.Regionizer.Controls
                 try
                 {
                     // load the dictionaryInfo object from the Registry
-                    DictionaryInfo dictionaryInfo = null; // RegistryHelper.GetDictionaryInfo();
+                    DictionaryInfo dictionaryInfo = RegistryHelper.GetDictionaryInfo();
 
                     // if the dictionaryInfo object exists
                     if (dictionaryInfo != null)
@@ -532,7 +550,7 @@ namespace DataJuggler.Regionizer.Controls
                 try
                 {
                     // load the dictionaryInfo object from the Registry
-                    DictionaryInfo dictionaryInfo = null; // RegistryHelper.GetDictionaryInfo();
+                    DictionaryInfo dictionaryInfo = RegistryHelper.GetDictionaryInfo();
 
                     // if the dictionaryInfo object exists
                     if (dictionaryInfo != null)
