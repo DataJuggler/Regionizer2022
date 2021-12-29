@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DataJuggler.Regionizer.KeyNew.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>DataJuggler.Regionizer2022.Key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -87,10 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RAD Studio Icon.ico" />
+    <Content Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DataJuggler.Core.UltimateHelper.Ex.pfx" />
     <None Include="DataJuggler.Regionizer.KeyNew.pfx" />
+    <None Include="DataJuggler.Regionizer2022.Key.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

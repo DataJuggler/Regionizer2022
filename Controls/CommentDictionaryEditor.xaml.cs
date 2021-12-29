@@ -206,6 +206,10 @@ namespace DataJuggler.Regionizer.Controls
                     // update the registry
                     this.UpdateRegistryMethod(dictionaryInfo);
                 }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("The UpdateRegistryMethod does not exist.", "Regionizer Internal Error"); 
+                }
             }
             #endregion
             
@@ -279,7 +283,7 @@ namespace DataJuggler.Regionizer.Controls
                 try
                 {
                     // get the url for the Xml info
-                    url = "http://www.datajuggler.com/Regionizer/CommentDictionaryInfo.xml";
+                    url = "http://www.datajuggler.com/Downloads/Regionizer/CommentDictionaryInfo.xml";
 
                     // create an xml reader
                     XmlTextReader reader = new XmlTextReader(url);

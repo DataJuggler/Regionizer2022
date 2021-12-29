@@ -2,19 +2,8 @@
 
 #region using statements
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using XmlMirror.Runtime.Util;
 using DataJuggler.Regionizer.Controls;
-using DataJuggler.Regionizer.UI.Controls;
-using DataJuggler.Regionizer.Controls.Util;
 using DataJuggler.Regionizer.CodeModel.Objects;
 
 #endregion
@@ -70,7 +59,7 @@ namespace DataJuggler.Regionizer.UI.Forms
             public void UpdateRegistry(DictionaryInfo dictionaryInfo)
             {
                 // Set the DictionaryPath
-                RegistryHelper.StoreDictionaryInfo(dictionaryInfo);
+                // RegistryHelper.StoreDictionaryInfo(dictionaryInfo);
             }
             #endregion
 
