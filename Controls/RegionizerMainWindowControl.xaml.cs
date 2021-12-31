@@ -376,7 +376,7 @@ namespace DataJuggler.Regionizer.Controls
             private void HelpLink_Click(object sender, RoutedEventArgs e)
             {
                 // set the web url
-                string webUsersGuideUrl = @"http://regionizer.codeplex.com/documentation";
+                string webUsersGuideUrl = @"http://github.com/DataJuggler/Regionizer2022";
 
                 // launch the web browser
                 System.Diagnostics.Process.Start(webUsersGuideUrl);

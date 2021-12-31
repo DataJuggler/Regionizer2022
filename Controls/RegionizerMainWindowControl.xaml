@@ -38,9 +38,9 @@
                 Background="{x:Null}"
                 Margin="0,0,0,0" Width="372">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.0.6"
-               FontFamily="Utsaah"
-               FontSize="24"
+               Content="Regionizer 2022 Version 3.1.0"
+               FontFamily="Verdana"
+               FontSize="20"
                FontWeight="Bold" />
         <Button x:Name="FormatDocumentButton"
                 Click="FormatDocumentButton_Click"
