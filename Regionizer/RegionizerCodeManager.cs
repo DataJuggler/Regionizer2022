@@ -2851,7 +2851,7 @@ namespace DataJuggler.Regionizer
                 string initialValueText = returnType + " " + variableName + " = null;";
                 
                 // if the returnType is a string
-                if(returnType == "string")
+                if (returnType == "string")
                 {
                     // set the initial valueText
                     initialValueText = returnType + " " + variableName + " = ";
@@ -2875,6 +2875,11 @@ namespace DataJuggler.Regionizer
                 {
                     // set the initial valueText
                     initialValueText = returnType + " " + variableName + " = 0;";
+                }
+                else if (returnType == "bool")
+                {
+                    // set the initial valueText
+                    initialValueText = returnType + " " + variableName + " = false;";
                 }
                 
                 // Create the InitialValueLine

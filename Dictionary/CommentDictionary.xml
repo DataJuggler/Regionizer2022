@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CommentDictionary>
-  <Version>1.24</Version>
+  <Version>1.28</Version>
   <CommentItem>
     <ID>1</ID>
     <Comment>If the * object exists</Comment>
@@ -203,9 +203,17 @@
   </CommentItem>
   <CommentItem>
     <ID>28</ID>
-    <Comment></Comment>
-    <Name></Name>
-    <Pattern></Pattern>
-    <TargetPattern></TargetPattern>
+    <Comment>If the '*' object and the '%' objects both exist.</Comment>
+    <Name>If two objects exist using NullHelper</Name>
+    <Pattern>if\s\(NullHelper.Exists\(\w*,\s\w*\)\)</Pattern>
+    <TargetPattern>\w*,</TargetPattern>
+	<TargetPattern2>\s\w*\)</TargetPattern2>
+  </CommentItem>
+ <CommentItem>
+   <ID>29</ID>
+   <Comment></Comment>
+   <Name></Name>
+   <Pattern></Pattern>
+   <TargetPattern></TargetPattern>
   </CommentItem>
 </CommentDictionary>

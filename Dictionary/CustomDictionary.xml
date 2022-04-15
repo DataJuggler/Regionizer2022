@@ -52,6 +52,13 @@
       </Replacement>
     </Replacements>-->
   </CommentItem>
+  <CommentItem>
+	<ID>7</ID>
+	<Comment>If the * Exists On Disk</Comment>
+	<Name>If File Exists</Name>
+	<Pattern>if\s\(FileHelper.Exists\(\w*\)\)</Pattern>
+	<TargetPattern>\(\w*\)</TargetPattern>
+   </CommentItem>
    <CommentItem>
     <Comment></Comment>
     <Name></Name>

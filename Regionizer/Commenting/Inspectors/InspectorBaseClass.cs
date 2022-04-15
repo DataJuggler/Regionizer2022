@@ -352,6 +352,9 @@ namespace DataJuggler.Regionizer.Commenting.Inspectors
                         // replace out the opening or closing < >
                         target = target.Replace("<", "").Replace(">", "");
 
+                        // replace out any ,'s                        
+                        target = target.Replace(",", "");
+
                         // trim the target
                         target = target.Trim();
                     }
