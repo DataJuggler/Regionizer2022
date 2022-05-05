@@ -136,6 +136,32 @@ namespace DataJuggler.Regionizer.Controls
                         MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
                     }
                 }
+                else if (codeType == "Read Only Property")
+                {
+                    // if an Event
+                    string propertyName = this.NameTextBox.Text;
+                    
+                    // create the args
+                    IList<string> args = new List<string>();
+                    args.Add(propertyName);
+                    args.Add(returnType);
+                    
+                    // If the strings eventName and returnType both exist
+                    if (TextHelper.Exists(propertyName, returnType))
+                    {
+                        // if the delegate is set
+                        if (this.HasHostEventHandler)
+                        {   
+                            // notify the host
+                            this.HostEventHandler("InsertReadOnlyProperty", args);
+                        }
+                    }
+                    else
+                    {
+                        // Show a message
+                        MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
+                    }
+                }
             }
             #endregion
             
@@ -603,6 +629,7 @@ namespace DataJuggler.Regionizer.Controls
                 codeTypes.Add("Event");
                 codeTypes.Add("Method");
                 codeTypes.Add("Private Variable");
+                codeTypes.Add("Read Only Property");
                 
                 // add each codeType
                 foreach (string codeType in codeTypes)

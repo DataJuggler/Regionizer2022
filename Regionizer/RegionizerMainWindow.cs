@@ -241,6 +241,43 @@ namespace DataJuggler.Regionizer
                         
                             //// required
                             break;
+
+                        case "InsertReadOnlyProperty":
+
+                             // if the dte object exists
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                // Create the code manager object
+                                codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                            
+                                // Get the code file
+                                codeFile = codeManager.GetCodeFile();
+                            
+                                // get the args
+                                string propertyName = "";
+                                string returnType = "";
+                            
+                                // if the args exist
+                                if (args != null)
+                                {
+                                    // cast the args as a string
+                                    IList<string> stringArgs = (List<string>)args;
+                                
+                                    // if there are two args
+                                    if ((stringArgs != null) && (stringArgs.Count == 2))
+                                    {
+                                        // set the values
+                                        propertyName = stringArgs[0];
+                                        returnType = stringArgs[1];
+                                    }
+                                }
+                            
+                                // insert the private variable text
+                                codeManager.InsertReadOnlyProperty(propertyName, returnType, codeFile);
+                            }
+
+                            // required
+                            break;                        
                         
                         case "Format Selection":
 

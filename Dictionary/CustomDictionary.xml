@@ -57,12 +57,20 @@
 	<Comment>If the * Exists On Disk</Comment>
 	<Name>If File Exists</Name>
 	<Pattern>if\s\(FileHelper.Exists\(\w*\)\)</Pattern>
-	<TargetPattern>\(\w*\)</TargetPattern>
+	<TargetPattern>\(\w*\)</TargetPattern>	
    </CommentItem>
-   <CommentItem>
-    <Comment></Comment>
-    <Name></Name>
-    <Pattern></Pattern>
-    <TargetPattern></TargetPattern>
-  </CommentItem>
+	<CommentItem>
+		<ID>8</ID>
+		<Comment>If the * collection and the % collection both exist and each have one or more items</Comment>
+		<Name>If Two Items In List Have One Or More Items</Name>
+		<Pattern>if\s?\(ListHelper.HasOneOrMoreItems\(\w*,\s?\w*\)\)</Pattern>
+		<TargetPattern>\(\w*,</TargetPattern>
+		<TargetPattern2>,\s?\w*</TargetPattern2>
+	</CommentItem>
+	<CommentItem>
+		<Comment></Comment>
+		<Name></Name>
+		<Pattern></Pattern>
+		<TargetPattern></TargetPattern>
+	</CommentItem>
 </CommentDictionary>

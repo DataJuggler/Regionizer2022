@@ -38,7 +38,7 @@
                 Background="{x:Null}"
                 Margin="0,0,0,0" Width="372">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.1.1"
+               Content="Regionizer 2022 Version 3.2.0"
                FontFamily="Verdana"
                FontSize="20"
                FontWeight="Bold" />
@@ -82,7 +82,7 @@
                Foreground="Black" />
         <TextBox x:Name="ReturnTypeTextBox"
                  TabIndex="4"
-                 Text="string" />
+                 Text="string" />        
         <Button x:Name="AddButton"
                 Click="AddButton_Click"
                 Content="Add"
@@ -109,7 +109,7 @@
             <Button.Background>
                 <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />
             </Button.Background>
-        </Button>
+        </Button>        
         <Controls:LabelCheckBoxControl x:Name="AutoCommentCheckBox" Width="140" FontFamily="Verdana" FontSize="12" 
                LabelText="Auto Comment" LabelWidth="140" LabelFontSize="14" LabelFontFamily="Verdana" 
                IsChecked="False" Height="16" />
@@ -134,7 +134,7 @@
             <Button.Background>
                 <ImageBrush ImageSource="Images/HelpIcon.png" />
             </Button.Background>
-        </Button>
+        </Button>       
         <Button x:Name="YouTubeButton" Width="148" Height="76" BorderBrush="Black"
             Click="YouTubeButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" ToolTip="Watch the Regionizer Videos" Margin="112,20,112,0">
             <Button.Content>

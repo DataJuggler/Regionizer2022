@@ -13,6 +13,8 @@ using EnvDTE;
 using CM = DataJuggler.Regionizer.CodeModel.Objects;
 using DataJuggler.Regionizer.Commenting.Inspectors;
 using DataJuggler.Regionizer.CodeModel.Objects;
+using DataJuggler.Core.UltimateHelper;
+using DataJuggler.Core.UltimateHelper.Objects;
 
 #endregion
 
@@ -249,6 +251,179 @@ namespace DataJuggler.Regionizer
                 WriteEvent(codeEvent, true);
             }
             #endregion
+
+            #region InsertReadOnlyProperty(string propertyFullName, string returnType, CM.CSharpCodeFile codeFile)
+            /// <summary>
+            /// This method inserts a Read Only Property.
+            /// Example: in Regionizer Select Add Read Only Property
+            /// </summary>
+            internal void InsertReadOnlyProperty(string propertyFullName, string returnType, CM.CSharpCodeFile codeFile)
+            {
+                // Set the Indent to 3
+                this.Indent = 3;
+                
+                // create the event
+                CM.CodeProperty codeProperty = new CM.CodeProperty();
+
+                // if the property full name exists
+                if (TextHelper.Exists(propertyFullName, returnType))
+                {
+                    // get the words
+                    List<DataJuggler.Core.UltimateHelper.Objects.Word> words = WordParser.GetWords(propertyFullName);
+
+                    // if the words were found
+                    if (ListHelper.HasXOrMoreItems(words, 2))
+                    {
+                        // get the propertyName
+                        string propertyName = words[1].Text;
+                        string objectName = words[0].Text;
+
+                        // set the name
+                        codeProperty.Name = propertyName;
+                
+                        // get the propertyDeclarationLineText
+                        string propertyDeclarationLineText = "public " + returnType + " " + propertyName;
+                
+                        // create the codeLines that make up this event
+                        CM.CodeLine propertyDeclarationLine = new CM.CodeLine(propertyDeclarationLineText);
+                        CM.CodeLine openBracket = new CM.CodeLine("{");
+                
+                        // create a new line
+                        CM.CodeLine blankLine = new CM.CodeLine(Environment.NewLine);
+                
+                        // create the CloseBracket
+                        CM.CodeLine closeBracket = new CM.CodeLine("}");
+
+                        // create the region line
+                        string regionText = "#region " + propertyName;
+                        CodeLine regionLine = new CodeLine(regionText);
+
+                        // Add the region line
+                        codeProperty.CodeLines.Add(regionLine);
+
+                        // create a summary
+                        string summary1Text = "/// <summary>";
+                        string summary2Text = "/// This read only property returns the value of " + propertyName + " from the object " + objectName + ".";
+                        string summary3Text = "/// </summary>";
+                
+                        // create the codeLine
+                        CM.CodeLine summary1 = new CM.CodeLine(summary1Text);
+                        CM.CodeLine summary2 = new CM.CodeLine(summary2Text);
+                        CM.CodeLine summary3 = new CM.CodeLine(summary3Text);
+                
+                        // Add the summary
+                        codeProperty.CodeLines.Add(summary1);
+                        codeProperty.CodeLines.Add(summary2);
+                        codeProperty.CodeLines.Add(summary3);
+                
+                        // Now it is time to insert the codeLines
+                        codeProperty.CodeLines.Add(propertyDeclarationLine);
+                        codeProperty.CodeLines.Add(openBracket);
+
+                        // get a lowercase variable name
+                        string variableName = CapitalizeFirstChar(propertyName, true);
+
+                        // get the defaultValue
+                        string defaultvalue = GetDefaultValue(returnType);
+
+                        // add a blank line
+                        codeProperty.CodeLines.Add(blankLine);
+
+                        // write get lines
+                        string getText = TextHelper.Indent(4) + "get";
+                        string getText2 = TextHelper.Indent(4) + openBracket;
+                        string getText3 = TextHelper.Indent(8) + "// initial value";
+                        string getText4 = TextHelper.Indent(8) + "string " + variableName + " = " + defaultvalue + ";";
+                        string getText5 = TextHelper.Indent(8);
+
+                        string getText6 = TextHelper.Indent(8) + "// if " + objectName + " exists";
+                        string getText7 = TextHelper.Indent(8) + "if (" + objectName + " != null)";
+                        string getText8 = TextHelper.Indent(8) + openBracket;
+                        string getText9 = TextHelper.Indent(12) + "// set the return value";
+                        string getText10 = TextHelper.Indent(12) + variableName + " = " + objectName + "." + propertyName + ";";
+                        string getText11 = TextHelper.Indent(8) + closeBracket;
+
+                        // write return value
+                        string getText12 = TextHelper.Indent(8);
+                        string getText13 = TextHelper.Indent(8) + "// return value";
+                        string getText14 = TextHelper.Indent(8) + "return " + variableName + ";";
+                        string getText15 = TextHelper.Indent(4) + closeBracket;
+
+                        // create the codeLines from the strings
+                        CodeLine line1 = new CodeLine(getText);
+                        CodeLine line2 = new CodeLine(getText2);
+                        CodeLine line3 = new CodeLine(getText3);
+                        CodeLine line4 = new CodeLine(getText4);
+                        CodeLine line5 = new CodeLine(getText5);
+                        CodeLine line6 = new CodeLine(getText6);
+                        CodeLine line7 = new CodeLine(getText7);
+                        CodeLine line8 = new CodeLine(getText8);
+                        CodeLine line9 = new CodeLine(getText9);
+                        CodeLine line10 = new CodeLine(getText10);
+                        CodeLine line11 = new CodeLine(getText11);
+                        CodeLine line12 = new CodeLine(getText12);
+                        CodeLine line13 = new CodeLine(getText13);
+                        CodeLine line14 = new CodeLine(getText14);
+                        CodeLine line15 = new CodeLine(getText15);
+
+                        // add
+                        codeProperty.CodeLines.Add(line1);
+                        codeProperty.CodeLines.Add(line2);
+                        codeProperty.CodeLines.Add(line3);
+                        codeProperty.CodeLines.Add(line4);
+                        codeProperty.CodeLines.Add(line5);
+                        codeProperty.CodeLines.Add(line6);
+                        codeProperty.CodeLines.Add(line7);
+                        codeProperty.CodeLines.Add(line8);
+                        codeProperty.CodeLines.Add(line9);
+                        codeProperty.CodeLines.Add(line10);
+                        codeProperty.CodeLines.Add(line11);
+                        codeProperty.CodeLines.Add(line12);
+                        codeProperty.CodeLines.Add(line13);
+                        codeProperty.CodeLines.Add(line14);
+                        codeProperty.CodeLines.Add(line15);
+
+                        // add the close bracket
+                        codeProperty.CodeLines.Add(closeBracket);
+
+                        // create the region line
+                        string endRegionText = "#endregion";
+                        CodeLine endRegionLine = new CodeLine(endRegionText);
+
+                        // Add the region line
+                        codeProperty.CodeLines.Add(endRegionLine);
+
+                        // Add the region line
+                        codeProperty.CodeLines.Add(blankLine);
+                
+                        // before writing this event we need to find the insert index
+                        int lineNumber = GetPropertyInsertLineNumber(propertyName, codeFile);
+
+                        // if the lineNumber exists
+                        if (lineNumber > 0)
+                        {
+                            // get the textDoc
+                            TextDocument textDoc = GetActiveTextDocument();
+                
+                            // if the textDoc was found
+                            if (textDoc != null)
+                            {
+                                // go to this line
+                                textDoc.Selection.GotoLine(lineNumber, false);
+                            }
+                        }
+                        else
+                        {   
+                            // Show the user a message
+                            MessageBox.Show("The 'Properties' region does not exist in the current document." + Environment.NewLine + "Create the 'Events' region and try again.", "Events Region Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                
+                        // now write the property
+                        WriteCodeLines(codeProperty.CodeLines);
+                    }
+                }
+            }
+            #endregion
             
             #region WriteEvent(CM.CodeEvent codeEvent, bool surroundWithRegion)
             /// <summary>
@@ -352,7 +527,7 @@ namespace DataJuggler.Regionizer
                     this.Indent--;
                 }
             }
-        #endregion
+            #endregion
 
             #region AddConstructors(IList<CM.CodeConstructor> constructors, string className)
             /// <summary>
@@ -1194,34 +1369,34 @@ namespace DataJuggler.Regionizer
                         if (!abort)
                         {
                             // before writing we need to clear the text of the active document
-                            this.Clear(textDoc);
+                            Clear(textDoc);
                         
                             // Add a blank live
-                            this.AddBlankLine();
+                            AddBlankLine();
                         
                             // Add a blank live
-                            this.AddBlankLine();
+                            AddBlankLine();
                         
                             // Write out the using statements
-                            this.BeginRegion("using statements");
+                            BeginRegion("using statements");
                         
                             // Add a blank live
-                            this.AddBlankLine();
+                            AddBlankLine();
                         
                             // Write the code lines
-                            this.WriteCodeLines(codeFile.UsingStatements);
+                            WriteCodeLines(codeFile.UsingStatements);
                         
                             // Add a blank live
-                            this.AddBlankLine();
+                            AddBlankLine();
                         
                             // Write End region Line
-                            this.EndRegion();
+                            EndRegion();
                         
                             // Add a blank live
-                            this.AddBlankLine();
+                            AddBlankLine();
                         
-                            // Write the Namespace
-                            this.WriteNamespace(codeFile.Namespace);
+                            // Write the Namespace (and all the child objects)
+                            WriteNamespace(codeFile.Namespace);
 
                             // now move up to the top
                             textDoc.Selection.GotoLine(1);
@@ -1631,6 +1806,65 @@ namespace DataJuggler.Regionizer
 
                 // return value
                 return textPoint;
+            }
+            #endregion
+            
+            #region GetDefaultValue(string returnType)
+            /// <summary>
+            /// returns the Default Value
+            /// </summary>
+            public string GetDefaultValue(string returnType)
+            {
+                // initial value
+                string defaultValue = "";
+
+                if (TextHelper.Exists(returnType))
+                {
+                    // certain return types have different default values
+                    switch(returnType)
+                    {
+                        case "string":
+
+                            StringBuilder sb = new StringBuilder('"');
+                            sb.Append('"');
+                            sb.Append('"');
+                            string doubleQuotes = sb.ToString();
+
+                            // Set to an empty string
+                            defaultValue = sb.ToString();
+
+                            // required
+                            break;
+
+                        case "bool":
+                        
+                            // use false forf default value     
+                            defaultValue = "false";
+
+                            // required
+                            break;
+
+                        case "int":
+                        case "double":
+                        
+                            // use false forf default value     
+                            defaultValue = "0";
+
+                            // required
+                            break;
+
+                        case "DateTime":
+
+                            // add a date time
+                            defaultValue = " new DateTime(1900, 1, 1);";
+
+                            // required
+                            break;
+                    }
+                }
+                
+                // return value
+                return defaultValue;
             }
             #endregion
             
@@ -2680,51 +2914,11 @@ namespace DataJuggler.Regionizer
                         // make sure the first character is lower case for the variable name
                         variableName = CapitalizeFirstChar(variableName, true);
                     }
+
+                    // get the default value in a method now
+                    string defaultValue = GetDefaultValue(returnType);
                     
-                    // Default to null
-                    string defaultValue = "null";
-
-                    // certain return types have different default values
-                    switch(returnType)
-                    {
-                        case "string":
-
-                            StringBuilder sb = new StringBuilder('"');
-                            sb.Append('"');
-                            sb.Append('"');
-                            string doubleQuotes = sb.ToString();
-
-                            // Set to an empty string
-                            defaultValue = sb.ToString();
-
-                            // required
-                            break;
-
-                        case "bool":
-                        
-                            // use false forf default value     
-                            defaultValue = "false";
-
-                            // required
-                            break;
-
-                        case "int":
-                        case "double":
-                        
-                            // use false forf default value     
-                            defaultValue = "0";
-
-                            // required
-                            break;
-
-                        case "DateTime":
-
-                            // add a date time
-                            defaultValue = " new DateTime(1900, 1, 1);";
-
-                            // required
-                            break;
-                    }
+                    
 
                     // initial value
                     this.Insert("// initial value");
