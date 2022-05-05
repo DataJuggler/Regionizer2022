@@ -333,7 +333,7 @@ namespace DataJuggler.Regionizer
                         string getText = TextHelper.Indent(4) + "get";
                         string getText2 = TextHelper.Indent(4) + openBracket;
                         string getText3 = TextHelper.Indent(8) + "// initial value";
-                        string getText4 = TextHelper.Indent(8) + "string " + variableName + " = " + defaultvalue + ";";
+                        string getText4 = TextHelper.Indent(8) + returnType + " " + variableName + " = " + defaultvalue + ";";
                         string getText5 = TextHelper.Indent(8);
 
                         string getText6 = TextHelper.Indent(8) + "// if " + objectName + " exists";
