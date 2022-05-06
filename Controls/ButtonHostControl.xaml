@@ -15,6 +15,19 @@
                    Canvas.Left="0" Canvas.Top="8" FontSize="14" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
             <TextBox Name="TargetTextBox" Height="27" Width="282" 
                     Canvas.Left="60" Canvas.Top="11" FontFamily="Verdana" FontSize="14" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" />
+            <Button Name="StoreArgsButton"
+                Click="StoreArgsButton_Click"
+                Content=""
+                TabIndex="0"
+                Width="80px"
+                Height="32px"
+                MaxHeight="32px"
+                Canvas.Left="20" Canvas.Top="48"
+                ToolTip="Store the args" FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/StoreArgsButton.png" />
+                </Button.Background>
+            </Button>
             <Button Name="InitialValueButton"
                 Click="InitialValueButton_Click"
                 Content=""
@@ -22,7 +35,7 @@
                 Width="96px"
                 Height="32px"
                 MaxHeight="32px"
-                Canvas.Left="58" Canvas.Top="48"
+                Canvas.Left="108    " Canvas.Top="48"
                 ToolTip="Write out an initial value / return value comment" FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
                 <Button.Background>
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/InitialValue.png" />
@@ -35,7 +48,7 @@
                 Width="64px"
                 Height="32px"
                 MaxHeight="32px"
-                Canvas.Left="164" Canvas.Top="48"
+                Canvas.Left="212" Canvas.Top="48"
                 ToolTip="Write out an if (exists) statement with comment." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
                 <Button.Background>
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/IfExists.png" />
@@ -45,10 +58,10 @@
                 Click="ForEachButton_Click"
                 Content=""
                 TabIndex="1"
-                Width="64px"
+                Width="60px"
                 Height="32px"
                 MaxHeight="32px"
-                Canvas.Left="241" Canvas.Top="48"
+                Canvas.Left="284" Canvas.Top="48"
                 ToolTip="Write out an if (exists) statement with comment." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
                 <Button.Background>
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/4each.png" />

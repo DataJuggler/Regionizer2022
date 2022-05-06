@@ -5,6 +5,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using DataJuggler.Regionizer.CodeModel.Enumerations;
@@ -1441,7 +1442,7 @@ namespace DataJuggler.Regionizer
                     selectedText = this.GetSelectedText(false);
 
                     // parse the lines out of the selected text
-                    List<CM.TextLine> textLines = CSharpCodeParser.ParseLines(selectedText);
+                    List<TextLine> textLines = CSharpCodeParser.ParseLines(selectedText);
                     
                     // now create the codeLines from the textLines
                     List<CM.CodeLine> tempCodeLines = CSharpCodeParser.CreateCodeLines(textLines);
@@ -1624,7 +1625,7 @@ namespace DataJuggler.Regionizer
                                     if (isProperty)
                                     {
                                         // find the insert index for a property
-                                        IList<CM.Word> words = CSharpCodeParser.ParseWords(codeLine.Text);
+                                        IList<Word> words = CSharpCodeParser.ParseWords(codeLine.Text);
 
                                         // if there are two or more words
                                         if ((words != null) && (words.Count > 1))
@@ -2085,13 +2086,13 @@ namespace DataJuggler.Regionizer
                 if (!String.IsNullOrEmpty(privateVariableText))
                 {
                     // get the words
-                    IList<CM.Word> words = CSharpCodeParser.ParseWords(privateVariableText);
+                    IList<Word> words = CSharpCodeParser.ParseWords(privateVariableText);
                     
                     // if there are one or more Words
                     if ((words != null) && (words.Count > 0))
                     {
                         // iterate the words
-                        foreach (CM.Word word in words)
+                        foreach (Word word in words)
                         {
                             // if this is the Last Word
                             if (word.Text.Contains(";"))
@@ -2248,13 +2249,13 @@ namespace DataJuggler.Regionizer
                 if (!String.IsNullOrEmpty(privateVariableText))
                 {
                     // get the words
-                    IList<CM.Word> words = CSharpCodeParser.ParseWords(privateVariableText);
+                    IList<Word> words = CSharpCodeParser.ParseWords(privateVariableText);
                     
                     // if there are one or more Words
                     if ((words != null) && (words.Count > 0))
                     {
                         // iterate the words
-                        foreach (CM.Word word in words)
+                        foreach (Word word in words)
                         {
                             // if this is the Last Word
                             if (word.Text.Contains(";"))
@@ -2305,7 +2306,7 @@ namespace DataJuggler.Regionizer
                 string returnType = "";
 
                 // get the words
-                List<CM.Word> words = CSharpCodeParser.ParseWords(methodOrEventDeclarationLine);
+                List<Word> words = CSharpCodeParser.ParseWords(methodOrEventDeclarationLine);
 
                 // Get the return type from this line
                 if ((words != null) && (words.Count > 2))
@@ -2334,7 +2335,7 @@ namespace DataJuggler.Regionizer
                 if (!String.IsNullOrEmpty(privateVariableText))
                 {
                     // get the words
-                    IList<CM.Word> words = CSharpCodeParser.ParseWords(privateVariableText);
+                    IList<Word> words = CSharpCodeParser.ParseWords(privateVariableText);
                     
                     // if the words exist
                     if ((words != null) && (words.Count > 0))
@@ -2380,7 +2381,7 @@ namespace DataJuggler.Regionizer
                         string lineText = textDoc.Selection.Text;
                         
                         // Get the Words
-                        IList<CM.Word> words = CSharpCodeParser.ParseWords(lineText);
+                        IList<Word> words = CSharpCodeParser.ParseWords(lineText);
                         
                         // if there are one or more wods
                         if ((words != null) && (words.Count >= 2))
@@ -3006,7 +3007,7 @@ namespace DataJuggler.Regionizer
                 }
 
                 // get the list of words
-                List<CM.Word> words = CSharpCodeParser.ParseWordsByCapitalLetters(copyMethodName);
+                List<Word> words = CSharpCodeParser.ParseWordsByCapitalLetters(copyMethodName);
 
                 // set the firstWord
                 string firstWord = "";
@@ -3199,7 +3200,7 @@ namespace DataJuggler.Regionizer
                 // verify the codeManager exists and the text exists
                 if ((codeManager != null) && (!String.IsNullOrEmpty(privateVariableText)))
                 {
-                    List<CM.TextLine> textLines = CSharpCodeParser.ParseLines(privateVariableText);
+                    List<TextLine> textLines = CSharpCodeParser.ParseLines(privateVariableText);
                     
                     // get the codeLines
                     List<CM.CodeLine> codeLines = CSharpCodeParser.CreateCodeLines(textLines);
@@ -3305,6 +3306,68 @@ namespace DataJuggler.Regionizer
             }
             #endregion
 
+            #region StoreArgs(List<CodeLine> codeLines)
+            /// <summary>
+            /// Store Args
+            /// </summary>
+            public void StoreArgs(List<CodeLine> codeLines)
+            {
+                // If the codeLines collection exists and has one or more items
+                if(ListHelper.HasOneOrMoreItems(codeLines))
+                {
+                    // get the textDoc
+                    TextDocument textDoc = GetActiveTextDocument();
+                                
+                    // if the textDoc was found
+                    if (textDoc != null)
+                    {
+                         // get the document text
+                        string documentText = GetDocumentText(textDoc);
+
+                        // if the documentText exists
+                        if (TextHelper.Exists(documentText))
+                        {
+                            // get the lineNumber
+                            int lineNumber = 0;
+
+                            // get the documentText
+                            List<TextLine> textLines = TextHelper.GetTextLines(documentText);
+
+                            // get the codeLines so the lineNumber to insert at is found
+                            List<CodeLine> document = CSharpCodeParser.CreateCodeLines(textLines);
+
+                            // If the document collection exists and has one or more items
+                            if (ListHelper.HasOneOrMoreItems(document))
+                            {
+                                // get the codeLine
+                                CodeLine codeLine = document.FirstOrDefault(x => x.IsComment && x.Text.ToLower().Contains("store arg"));
+
+                                // If the codeLine object exists
+                                if (NullHelper.Exists(codeLine))
+                                {
+                                    // get the lineNumber
+                                    lineNumber = codeLine.LineNumber;
+
+                                    // Get the indent
+                                    codeLine.Indent = TextHelper.GetSpacesCount(codeLine.Text);
+
+                                    // if the lineNumber is set
+                                    if (lineNumber > 0)
+                                    {
+                                        // go to this line
+                                        textDoc.Selection.GotoLine(lineNumber + 1, false);
+
+                                        // write the code lines
+                                        WriteCodeLines(codeLines, codeLine.Indent / 4);
+                                    }
+                                }
+                            }                            
+                        }
+                    }
+                }
+            }
+            #endregion
+            
             #region WriteClass(CodeModel.Objects.CodeClass codeClass)
             /// <summary>
             /// This method writes the class object passed in.
@@ -3372,12 +3435,12 @@ namespace DataJuggler.Regionizer
             }
             #endregion
             
-            #region WriteCodeLines(IList<CM.CodeLine> codeLines)
+            #region WriteCodeLines(IList<CM.CodeLine> codeLines, int indentAmount = 0)
             /// <summary>
             /// This method writes the code lines
             /// </summary>
             /// <param name="codeLines"></param>
-            private void WriteCodeLines(IList<CM.CodeLine> codeLines)
+            private void WriteCodeLines(IList<CM.CodeLine> codeLines, int indentAmount = 0)
             {
                 // if the codeLines exist
                 if (codeLines != null)
@@ -3390,6 +3453,13 @@ namespace DataJuggler.Regionizer
                         {
                             // increase the indent
                             this.Indent--;
+                        }
+
+                        // if the indentAount is set
+                        if (indentAmount > 0)
+                        {
+                            // set the indent amount
+                            codeLine.Indent = indentAmount;
                         }
                         
                         // Insert this line

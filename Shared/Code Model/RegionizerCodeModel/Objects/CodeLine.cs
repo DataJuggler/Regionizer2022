@@ -2,6 +2,7 @@
 
 #region using statements
 
+using DataJuggler.Core.UltimateHelper.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
         private TextLine textLine;
         private List<TextLine> textLines;
         private int indent;
+        private int lineNumber;
         #endregion
         
         #region Constructors
@@ -184,7 +186,7 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
             /// </summary>
             public int Indent
             {
-                get { return indent; }
+                get { return indent;}
                 set { indent = value; }
             } 
             #endregion
@@ -634,25 +636,12 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
             
             #region LineNumber
             /// <summary>
-            /// Return the LineNumber from the TexLine
+            /// This property gets or sets the value for 'LineNumber'.
             /// </summary>
             public int LineNumber
             {
-                get
-                {
-                    // initial value
-                    int lineNumber = 0;
-                    
-                    // if this object has a TextLine
-                    if (this.HasTextLine)
-                    {   
-                        // set the return value
-                        lineNumber = this.TextLine.LineNumber;
-                    }
-                    
-                    // return value
-                    return lineNumber;
-                } 
+                get { return lineNumber; }
+                set { lineNumber = value; }
             }
             #endregion
             

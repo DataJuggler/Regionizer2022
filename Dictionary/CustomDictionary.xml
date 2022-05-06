@@ -59,13 +59,21 @@
 	<Pattern>if\s\(FileHelper.Exists\(\w*\)\)</Pattern>
 	<TargetPattern>\(\w*\)</TargetPattern>	
    </CommentItem>
-	<CommentItem>
+   <CommentItem>
 		<ID>8</ID>
 		<Comment>If the * collection and the % collection both exist and each have one or more items</Comment>
 		<Name>If Two Items In List Have One Or More Items</Name>
 		<Pattern>if\s?\(ListHelper.HasOneOrMoreItems\(\w*,\s?\w*\)\)</Pattern>
 		<TargetPattern>\(\w*,</TargetPattern>
 		<TargetPattern2>,\s?\w*</TargetPattern2>
+	</CommentItem>
+	<CommentItem>
+		<ID>9</ID>
+		<Comment>If the * collection exists and has at least one item and % is greater than zero</Comment>
+		<Name>If Two Items In List Have One Or More Items</Name>
+		<Pattern>if\s?\(\(ListHelper.HasOneOrMoreItems\(\w*\)\)\s?&amp;&amp;\s\(\w*\s?&amp;gt;\s?0\)\)</Pattern>		
+		<TargetPattern>\(\w*\)</TargetPattern>
+		<TargetPattern2>\(\w*\s</TargetPattern2>
 	</CommentItem>
 	<CommentItem>
 		<Comment></Comment>

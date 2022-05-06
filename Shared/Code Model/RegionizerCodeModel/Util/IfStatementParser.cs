@@ -2,6 +2,7 @@
 
 #region using statements
 
+using DataJuggler.Core.UltimateHelper.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

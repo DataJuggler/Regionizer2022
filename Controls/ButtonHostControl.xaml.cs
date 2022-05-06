@@ -209,6 +209,23 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
+            #region StoreArgsButton_Click(object sender, RoutedEventArgs e)
+            /// <summary>
+            /// event is fired when the 'StoreArgsButton' is clicked.
+            /// </summary>
+            private void StoreArgsButton_Click(object sender, RoutedEventArgs e)
+            {
+                string eventName = "StoreArgs";
+                
+                // if the ParentMainWindowControl exists
+                if (this.HasParentMainWindowControl)
+                {
+                    // Call the ButtonClicked method on the ParentMainWindowControl
+                    this.ParentMainWindowControl.ButtonClicked(eventName, "");
+                }
+            }
+            #endregion
+            
         #endregion
 
         #region Properties
@@ -255,10 +272,9 @@ namespace DataJuggler.Regionizer.Controls
                     return parentMainWindowControl;
                 }
             }
-            #endregion
-            
         #endregion
-        
+
+        #endregion
     }
     #endregion
 

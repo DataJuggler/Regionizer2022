@@ -38,10 +38,13 @@ namespace DataJuggler.Core.UltimateHelper.Objects
             /// <summary>
             /// Create a new instance of a TextLine object and set the Text property
             /// </summary>
-            public TextLine(string text)
+            public TextLine(string text, int lineNumber = 0)
             {
                 // Set the Text property
                 this.Text = text;
+
+                // store the arg
+                LineNumber = lineNumber;
             }
             #endregion
 

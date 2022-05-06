@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using CM = DataJuggler.Regionizer.CodeModel.Objects;
+using DataJuggler.Core.UltimateHelper.Objects;
 using EnvDTE;
 using System.Text.RegularExpressions;
 
@@ -268,25 +269,34 @@ namespace DataJuggler.Regionizer.CodeModel.Util
             }
             #endregion
             
-            #region CreateCodeLines(List<CM.TextLine> textLines)
+            #region CreateCodeLines(List<TextLine> textLines)
             /// <summary>
             /// This method creates the CodeLines from the TextLines
             /// </summary>
             /// <param name="iList"></param>
             /// <returns></returns>
-            public static List<CM.CodeLine> CreateCodeLines(List<CM.TextLine> textLines)
+            public static List<CM.CodeLine> CreateCodeLines(List<TextLine> textLines)
             {
                 // initial value
                 List<CM.CodeLine> codeLines = new List<CM.CodeLine>();
+
+                // local
+                int lineNumber = 0;
                 
                 // if the textLines exist
                 if (textLines != null)
                 {
                     // iterate the list
-                    foreach (CM.TextLine textLine in textLines)
+                    foreach (TextLine textLine in textLines)
                     {
+                        // Increment the value for lineNumber
+                        lineNumber++;
+
                         // create a code line object
                         CM.CodeLine codeLine = new CM.CodeLine(textLine);
+
+                        // set the LineNumber
+                        codeLine.LineNumber = lineNumber;
                         
                         // add this line
                         codeLines.Add(codeLine);
@@ -564,10 +574,10 @@ namespace DataJuggler.Regionizer.CodeModel.Util
                 string delegateName = "Delegate";
                 
                 // set the words
-                List<CM.Word> words = CSharpCodeParser.ParseWords(codeDelegate.DelegateDeclarationLine.Text);
+                List<Word> words = CSharpCodeParser.ParseWords(codeDelegate.DelegateDeclarationLine.Text);
                 
                 // if the words exist
-                foreach(CM.Word word in words)
+                foreach(Word word in words)
                 {
                     // if this is the delegate
                     if (word.Text.Contains("("))
@@ -1197,9 +1207,9 @@ namespace DataJuggler.Regionizer.CodeModel.Util
             /// </summary>
             /// <param name="sourceText"></param>
             /// <returns></returns>
-            public static List<CM.TextLine> ParseLines(string sourceText)
+            public static List<TextLine> ParseLines(string sourceText)
             {
-                List<CM.TextLine> textLines = new List<CM.TextLine>();
+                List<TextLine> textLines = new List<TextLine>();
                     
                 try
                 {
@@ -1221,7 +1231,7 @@ namespace DataJuggler.Regionizer.CodeModel.Util
                             line = line.TrimEnd();
                                 
                             // Create a text line
-                            CM.TextLine textLine = new CM.TextLine(line, lineNumber);    
+                            TextLine textLine = new TextLine(line, lineNumber);    
                                 
                             // add this line
                             textLines.Add(textLine);
@@ -1255,13 +1265,13 @@ namespace DataJuggler.Regionizer.CodeModel.Util
                     string temp = codeLine.Text.Trim();
 
                     // parse out the words
-                    List<CM.Word> words = ParseWords(temp);
+                    List<Word> words = ParseWords(temp);
 
                     // if the words exist
                     if  (words != null)
                     {
                         // iterate the words
-                        foreach (CM.Word word in words)
+                        foreach (Word word in words)
                         {
                             // if this word contains a 
                             if (word.Text.Contains("("))
@@ -1291,10 +1301,10 @@ namespace DataJuggler.Regionizer.CodeModel.Util
             /// </summary>
             /// <param name="lineText"></param>
             /// <returns></returns>
-            public static List<CM.Word> ParseWords(string lineText)
+            public static List<Word> ParseWords(string lineText)
             {
                 // initial value
-                List<CM.Word> words = new List<CM.Word>();
+                List<Word> words = new List<Word>();
                     
                 try
                 {
@@ -1308,7 +1318,7 @@ namespace DataJuggler.Regionizer.CodeModel.Util
                         if (!String.IsNullOrEmpty(tempWord))
                         {
                             // Create a word
-                            CM.Word word = new CM.Word(tempWord);
+                            Word word = new Word(tempWord);
                                 
                             // add a word
                             words.Add(word);
@@ -1332,10 +1342,10 @@ namespace DataJuggler.Regionizer.CodeModel.Util
             /// </summary>
             /// <param name="sourceWord"></param>
             /// <returns></returns>
-            public static List<CM.Word> ParseWordsByCapitalLetters(string sourceWord)
+            public static List<Word> ParseWordsByCapitalLetters(string sourceWord)
             {
                 // initial value
-                List<CM.Word> words = new List<CM.Word>();
+                List<Word> words = new List<Word>();
 
                 try
                 {

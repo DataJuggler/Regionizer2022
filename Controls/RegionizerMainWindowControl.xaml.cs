@@ -737,7 +737,7 @@ namespace DataJuggler.Regionizer.Controls
                 get { return hostEventHandler; }
                 set { hostEventHandler = value; }
             }
-        #endregion
+            #endregion
 
         #endregion
         

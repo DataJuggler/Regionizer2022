@@ -15,6 +15,7 @@ using System.Windows;
 using DataJuggler.Regionizer.UI.Forms;
 using Microsoft.Win32;
 using DataJuggler.Regionizer.Controls.Util;
+using objects = DataJuggler.Core.UltimateHelper.Objects;
 
 
 #endregion
@@ -428,8 +429,68 @@ namespace DataJuggler.Regionizer
                                 }
                             }
 
-                        // required
-                        break;
+                            // required
+                            break;
+
+                        case "StoreArgs":
+
+                            // if the dte object exists
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                // Create the code manager object
+                                codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+
+                                // get the selected text
+                                string selectedText = codeManager.GetSelectedText(true);
+
+                                // create  delimitiers
+                                char[] delimiter = new char[] { ',' };
+                                char[] delimiter2 = new char[] { '=' };
+
+                                // now format the args into pairs
+                                List<objects.Word> parameters = WordParser.GetWords(selectedText, delimiter);
+
+                                // Get the code lines to insert
+                                List<CodeLine> codeLines = new List<CodeLine>();
+
+                                // If the parameters collection exists and has one or more items
+                                if (ListHelper.HasOneOrMoreItems(parameters))
+                                {
+                                    // Iterate the collection of string objects
+                                    foreach (objects.Word parameter in parameters)
+                                    {
+                                        // get the words. Should be like: Company = company
+                                        List<objects.Word> words = WordParser.GetWords(parameter.Text);
+
+                                        // if there are two words (should be exactly two)
+                                        if (ListHelper.HasXOrMoreItems(words, 2))
+                                        {
+                                            // get the propertyName
+                                            string propertyName = TextHelper.CapitalizeFirstChar(words[0].Text);
+                                            string value = TextHelper.CapitalizeFirstChar(words[0].Text, true);
+
+                                            // Get the lineText
+                                            string lineText = propertyName + " = " + value + ";";
+
+                                            // create the codeLine
+                                            CodeLine codeLine = new CodeLine(lineText);
+
+                                            // codeLine
+                                            codeLines.Add(codeLine);
+                                        }
+                                    }
+
+                                    // If the codeLines collection exists and has one or more items
+                                    if (ListHelper.HasOneOrMoreItems(codeLines))
+                                    {
+                                        // store the args
+                                        codeManager.StoreArgs(codeLines);
+                                    }
+                                }
+                            }
+
+                            // required
+                            break;
 
                         case "EditCommentDictionary":
 
@@ -476,6 +537,39 @@ namespace DataJuggler.Regionizer
         #endregion
 
         #region Methods
+            
+            #region GetSelectedText(bool keepSelection)
+            /// <summary>
+            /// returns the Selected Text
+            /// </summary>
+            public string GetSelectedText(bool keepSelection)
+            {
+                // initial value
+                string selectedText = "";
+
+                try
+                {
+                    // get dte
+                    EnvDTE.DTE dte = (EnvDTE.DTE)GetService(typeof(EnvDTE.DTE));
+
+                    // if the dte object exists
+                    if ((dte != null) && (dte.ActiveDocument != null))
+                    {
+                        // Create the code manager object
+                        RegionizerCodeManager codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                        selectedText = codeManager.GetSelectedText(keepSelection);
+                    }
+                }
+                catch (Exception error)
+                {
+                    // for debugging only
+                    DebugHelper.WriteDebugError("GetSelectedText", "RegionizerMainWindow", error);
+                }
+
+                // return value
+                return selectedText;
+            }
+            #endregion
             
             #region LoadCommentDictionary()
             /// <summary>
