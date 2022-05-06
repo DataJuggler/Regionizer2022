@@ -466,8 +466,8 @@ namespace DataJuggler.Regionizer
                                         if (ListHelper.HasXOrMoreItems(words, 2))
                                         {
                                             // get the propertyName
-                                            string propertyName = TextHelper.CapitalizeFirstChar(words[0].Text);
-                                            string value = TextHelper.CapitalizeFirstChar(words[0].Text, true);
+                                            string propertyName = TextHelper.CapitalizeFirstChar(words[1].Text);
+                                            string value = TextHelper.CapitalizeFirstChar(words[1].Text, true);
 
                                             // Get the lineText
                                             string lineText = propertyName + " = " + value + ";";

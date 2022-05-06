@@ -38,7 +38,7 @@
                 Background="{x:Null}"
                 Margin="0,0,0,0" Width="372">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.2.2"
+               Content="Regionizer 2022 Version 3.2.3"
                FontFamily="Verdana"
                FontSize="20"
                FontWeight="Bold" />
