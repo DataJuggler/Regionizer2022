@@ -549,21 +549,14 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
                 {
                     // initial value
                     bool isRegion = false;
-                    
-                    // if this is not a commentText
-                    if (!this.IsComment)
+                        
+                    // if this is a Region line
+                    if (Text.Trim().StartsWith("#region"))
                     {
-                        // if the FirstWord exists
-                        if (this.HasFirstWord)
-                        {
-                            // if this is a Region line
-                            if (this.FirstWord.Text == "#region")
-                            {
-                                // this is a Region
-                                isRegion = true;
-                            }
-                        }
-                    }
+                        // this is a Region
+                        isRegion = true;
+                    }  
+                    
                     
                     // return value
                     return isRegion;
