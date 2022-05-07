@@ -2,6 +2,7 @@
 
 #region using statements
 
+using DataJuggler.Core.UltimateHelper;
 using DataJuggler.Core.UltimateHelper.Objects;
 using System;
 using System.Collections.Generic;
@@ -206,19 +207,30 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
                     if ((!this.IsComment) && (!this.IsRegion))
                     {
                         // if the TextLine.Words exists
-                        if ((this.TextLine != null) && (this.TextLine.Words != null))
+                        if (TextLine != null)
                         {
-                            // itereate the words
-                            foreach (Word word in textLine.Words)
+                            // if the words have not been parsed yet
+                            if (!TextLine.HasWords)
                             {
-                                // if this word contains the word class
-                                if (word.Text == "class")
+                                // get the words
+                                TextLine.Words = TextHelper.GetWords(TextLine.Text);
+                            }
+
+                            // now test again
+                            if (ListHelper.HasOneOrMoreItems(TextLine.Words))
+                            {
+                                // itereate the words
+                                foreach (Word word in TextLine.Words)
                                 {
-                                    // this is a class (for now)
-                                    isClass = true;
+                                    // if this word contains the word class
+                                    if (word.Text == "class")
+                                    {
+                                        // this is a class
+                                        isClass = true;
                                     
-                                    // break out of the loop
-                                    break;
+                                        // break out of the loop
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -555,9 +567,8 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
                     {
                         // this is a Region
                         isRegion = true;
-                    }  
-                    
-                    
+                    }
+
                     // return value
                     return isRegion;
                 }

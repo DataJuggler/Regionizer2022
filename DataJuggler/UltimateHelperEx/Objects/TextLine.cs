@@ -67,6 +67,23 @@ namespace DataJuggler.Core.UltimateHelper.Objects
       
         #region Properties
             
+            #region HasWords
+            /// <summary>
+            /// This property returns true if this object has a 'Words'.
+            /// </summary>
+            public bool HasWords
+            {
+                get
+                {
+                    // initial value
+                    bool hasWords = (this.Words != null);
+                    
+                    // return value
+                    return hasWords;
+                }
+            }
+            #endregion
+            
             #region LineNumber
             /// <summary>
             /// This property gets or sets the value for 'LineNumber'.
