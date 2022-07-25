@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using CM = DataJuggler.Regionizer.CodeModel.Objects;
 using DataJuggler.Core.UltimateHelper.Objects;
+using DataJuggler.Core.UltimateHelper;
 using EnvDTE;
 using System.Text.RegularExpressions;
 
@@ -913,6 +914,19 @@ namespace DataJuggler.Regionizer.CodeModel.Util
                                 
                                 // get the summary
                                 codeProperty.Summary = GetSummaryAboveLine(codeFile, startLine);
+
+                                // Fixing bug where Properties have the wrong summaries
+                                
+                                if (ListHelper.HasXOrMoreItems(codeProperty.Summary.CodeLines, 2))
+                                {
+                                    // if the second line has the default Method Description, from a previous format of Regionizer,
+                                    // This should fix it
+                                    if (codeProperty.Summary.CodeLines[1].Text.Contains("/// method [Enter Method Description]"))
+                                    {
+                                        // Erase the summary so it can be fixed in WriteProperty method
+                                        codeProperty.Summary = new CM.CodeNotes();
+                                    }
+                                }
                                 
                                 // get the Tags
                                 codeProperty.Tags = GetTagsAboveLine(codeFile, startLine);

@@ -1139,7 +1139,7 @@ namespace DataJuggler.Regionizer
                                 // set to true
                                 hasGet = true;
                             }
-                            else if (codeLine.Text.Contains("set"))
+                            if (codeLine.Text.Contains("set"))
                             {
                                 // set to true
                                 hasSet = true;
