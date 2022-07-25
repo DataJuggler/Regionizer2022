@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="91a3b3a1-be96-4b39-8b07-a99832fb4d2e" Version="3.2.5" Language="en-US" Publisher="Data Juggler" />
+        <Identity Id="91a3b3a1-be96-4b39-8b07-a99832fb4d2e" Version="3.3.0" Language="en-US" Publisher="Data Juggler" />
         <DisplayName>Regionizer2022</DisplayName>
         <Description xml:space="preserve">An advanced C# document formatter, auto commenting system and code generator.</Description>
         <License>Regionizer License Terms.rtf</License>

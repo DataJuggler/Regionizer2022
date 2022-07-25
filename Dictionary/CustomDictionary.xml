@@ -76,6 +76,12 @@
 		<TargetPattern2>\(\w*\s</TargetPattern2>
 	</CommentItem>
 	<CommentItem>
+		<ID>10</ID>
+		<Comment>Determine which controls are enabled and visible</Comment>
+		<Name>UIControl</Name>
+		<Pattern>UIControl\(\)</Pattern>		
+	</CommentItem>
+	<CommentItem>
 		<Comment></Comment>
 		<Name></Name>
 		<Pattern></Pattern>

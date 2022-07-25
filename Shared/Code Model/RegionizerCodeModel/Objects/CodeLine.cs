@@ -146,6 +146,23 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
             } 
             #endregion
             
+            #region HasText
+            /// <summary>
+            /// This property returns true if the 'Text' exists.
+            /// </summary>
+            public bool HasText
+            {
+                get
+                {
+                    // initial value
+                    bool hasText = (!String.IsNullOrEmpty(this.Text));
+                    
+                    // return value
+                    return hasText;
+                }
+            }
+            #endregion
+            
             #region HasTextLine
             /// <summary>
             /// If this object has a TextLine
@@ -614,20 +631,31 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
                     bool isUsingStatement = false;
                     
                     // if the Text exists
-                    if ((!String.IsNullOrEmpty(this.Text)) && (this.HasTextLine) && (this.TextLine.Words != null) && (this.TextLine.Words.Count > 0))
+                    if ((HasText) && (HasTextLine))
                     {
-                        // get the first word (yes it is possible for a using statement to not be the first word, but that is 
-                        // for version 1.1, Keep It Simple For Now
-                        Word word = this.TextLine.Words[0];
-                        
-                        // if the first word.Text = "using"
-                        if (word.Text == "using")
+                        // if the words do not exist
+                        if (!TextLine.HasWords)
                         {
-                            // this is a using statement if this line Ends with a Semicolon (for now)
-                            if (this.EndsWithSemiColon)
+                            // Parse the words
+                            TextLine.Words = TextHelper.GetWords(this.Text);
+                        }
+
+                        // If the Words collection exists and has one or more items
+                        if (ListHelper.HasOneOrMoreItems(Words))
+                        {
+                            // get the first word (yes it is possible for a using statement to not be the first word, but that is 
+                            // for version 1.1, Keep It Simple For Now
+                            Word word = Words[0];
+                        
+                            // if the first word.Text = "using"
+                            if (word.Text == "using")
                             {
-                                // set the return value to true (exceptions will be fixed later)
-                                isUsingStatement = true;
+                                // this is a using statement if this line Ends with a Semicolon (for now)
+                                if (this.EndsWithSemiColon)
+                                {
+                                    // set the return value to true (exceptions will be fixed later)
+                                    isUsingStatement = true;
+                                }
                             }
                         }
                     }

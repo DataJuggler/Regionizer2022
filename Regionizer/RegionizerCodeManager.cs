@@ -977,7 +977,7 @@ namespace DataJuggler.Regionizer
             /// </summary>
             /// <param name="codeType"></param>
             /// <returns></returns>
-            private CM.CodeNotes CreateSummary(CodeTypeEnum codeType, string eventOrMethodName, string returnType = "", bool isReadOnly = false, string className = "")
+            private CM.CodeNotes CreateSummary(CodeTypeEnum codeType, string codeName, string returnType = "", bool isReadOnly = false, string className = "")
             {
                 // initial value
                 CM.CodeNotes summary = new CM.CodeNotes();
@@ -988,18 +988,18 @@ namespace DataJuggler.Regionizer
                 // set the description
                 string description = "";
 
-                // if the method Name exists
-                if (!String.IsNullOrEmpty(eventOrMethodName))
+                // if the codeName Name exists
+                if (!String.IsNullOrEmpty(codeName))
                 {
                     if (codeType == CodeTypeEnum.Event)
                     {
                         // set the description
-                        description = "event is fired when " + DescriptionHelper.GetEventDescription(eventOrMethodName);
+                        description = "event is fired when " + DescriptionHelper.GetEventDescription(codeName);
                     }
                     else if (codeType == CodeTypeEnum.Method)
                     {
                         // set the description
-                        description = "method " + DescriptionHelper.GetMethodDescription(eventOrMethodName, returnType);
+                        description = "method " + DescriptionHelper.GetMethodDescription(codeName, returnType);
                     }
                     else if (codeType == CodeTypeEnum.Constructor)
                     {
@@ -1010,6 +1010,11 @@ namespace DataJuggler.Regionizer
                     {
                         // set the description
                         description = "This class [Enter Class Description]";
+                    }
+                    else if (codeType == CodeTypeEnum.Property)
+                    {
+                        // Update 7.25.2022 - This now writes out the property name. Should have done this a long time ago.
+                        description = "This property gets or sets the value for " + codeName + ".";
                     }
                     else
                     {
