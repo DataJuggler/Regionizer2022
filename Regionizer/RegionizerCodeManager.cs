@@ -1866,6 +1866,14 @@ namespace DataJuggler.Regionizer
 
                             // required
                             break;
+
+                        default: 
+
+                            // set to null
+                            defaultValue = null;
+
+                              // required
+                            break;
                     }
                 }
                 

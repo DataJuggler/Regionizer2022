@@ -215,5 +215,12 @@
 	<Name></Name>
 	<Pattern></Pattern>
 	<TargetPattern></TargetPattern>
+	</CommentItem>	
+	<CommentItem>
+		<ID>30</ID>
+		<Comment>If the * object does not exist</Comment>
+		<Name>If Object Is Null</Name>
+		<Pattern>if\s?\(NullHelper.IsNull\s?\(\w*\)\)</Pattern>
+		<TargetPattern>\(\w*\)</TargetPattern>
 	</CommentItem>
 </CommentDictionary>
