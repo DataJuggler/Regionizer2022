@@ -335,8 +335,14 @@ namespace DataJuggler.Regionizer
                         string getText2 = TextHelper.Indent(4) + openBracket;
                         string getText3 = TextHelper.Indent(8) + "// initial value";
                         string getText4 = TextHelper.Indent(8) + returnType + " " + variableName + " = " + defaultvalue + ";";
-                        string getText5 = TextHelper.Indent(8);
 
+                        // if this is null, we have to remove the quotes
+                        if (defaultvalue == "null")
+                        {
+                            getText4 = TextHelper.Indent(8) + returnType + " " + variableName + " = null;";
+                        }
+                        
+                        string getText5 = TextHelper.Indent(8);
                         string getText6 = TextHelper.Indent(8) + "// if " + objectName + " exists";
                         string getText7 = TextHelper.Indent(8) + "if (" + objectName + " != null)";
                         string getText8 = TextHelper.Indent(8) + openBracket;
@@ -1870,7 +1876,7 @@ namespace DataJuggler.Regionizer
                         default: 
 
                             // set to null
-                            defaultValue = null;
+                            defaultValue = "null";
 
                               // required
                             break;
