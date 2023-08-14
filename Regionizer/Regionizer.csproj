@@ -167,6 +167,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="ReadME.md" />
     <None Include="Regionizer.key.pfx" />
     <None Include="Regionizer.Key.snk" />
     <None Include="source.extension.vsixmanifest" />
