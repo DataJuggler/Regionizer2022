@@ -1,12 +1,13 @@
 # Regionizer2022
 Regionizer is a C# document formatter, code generation tool and auto commenting system.
 
-I have an old video my YouTube channel from 2014, but a new one is my list for 2022.
-https://youtu.be/lB86fBS0fZg
-
-
 This project is for Visual Studio 2022 only. For 2017 or 2019, please see:
 https://github.com/DataJuggler/Regionizer
+
+# Update 5.18.2024 - New Video:
+
+First Ever Opensource Saturday - Sunday Edition
+https://youtu.be/uxa1xR6xpzk
 
 All new development will be on Visual Studio 2022 (most likely).
 
