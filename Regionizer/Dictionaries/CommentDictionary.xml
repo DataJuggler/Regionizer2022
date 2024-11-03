@@ -77,7 +77,7 @@
 		<Comment>if the value for * is true</Comment>
 		<Name>If Statement Is True</Name>
 		<Pattern>if\s?\(\w*\)</Pattern>
-		<TargetPattern>\(\w*</TargetPattern>		
+		<TargetPattern>\(\w*</TargetPattern>
 	</CommentItem>
 	<CommentItem>
 		<ID>11</ID>
@@ -230,4 +230,4 @@
 		<Pattern>if\s?\(NullHelper.IsNull\s?\(\w*\)\)</Pattern>
 		<TargetPattern>\(\w*\)</TargetPattern>
 	</CommentItem>
-</CommentDictionary>
+</CommentDictionary><?xml version="1.0" encoding="utf-8" ?> 

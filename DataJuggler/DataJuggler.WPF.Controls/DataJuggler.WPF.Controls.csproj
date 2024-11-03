@@ -132,6 +132,7 @@
     <None Include="DataJuggler.WPF.Controls.key.pfx" />
     <None Include="DataJuggler.WPF.Controls.Key2.pfx" />
     <None Include="DataJuggler.WPF.Controls.Key3.pfx" />
+    <None Include="DataJuggler.WPF.Controls.pfk.pfx" />
     <None Include="DataJuggler.WPF.Controls.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

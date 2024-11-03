@@ -16,6 +16,10 @@ using DataJuggler.Regionizer.Commenting.Inspectors;
 using DataJuggler.Regionizer.CodeModel.Objects;
 using DataJuggler.Core.UltimateHelper;
 using DataJuggler.Core.UltimateHelper.Objects;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxButtons = System.Windows.MessageBoxButton;
+using MessageBoxOptions = System.Windows.MessageBoxOptions;
 
 #endregion
 
@@ -57,7 +61,7 @@ namespace DataJuggler.Regionizer
             private void AddEvents(IList<CM.CodeEvent> events)
             {
                 // if there are one or more events
-                if ((events != null) && (events.Count > 0))
+                if (events != null)
                 {
                     // Begin a region
                     BeginRegion("Events");
@@ -68,11 +72,14 @@ namespace DataJuggler.Regionizer
                     // Add a Blank Line
                     AddBlankLine();
                     
-                    // iterate the events
-                    foreach (CM.CodeEvent codeEvent in events)
+                    if (ListHelper.HasOneOrMoreItems(events.ToList()))
                     {
-                        // write out this Event
-                        WriteEvent(codeEvent, true);
+                        // iterate the events
+                        foreach (CM.CodeEvent codeEvent in events)
+                        {
+                            // write out this Event
+                            WriteEvent(codeEvent, true);
+                        }
                     }
                     
                     // decrease indent
@@ -260,6 +267,9 @@ namespace DataJuggler.Regionizer
             /// </summary>
             internal void InsertReadOnlyProperty(string propertyFullName, string returnType, CM.CSharpCodeFile codeFile)
             {
+
+                
+
                 // Set the Indent to 3
                 this.Indent = 3;
                 
@@ -418,15 +428,10 @@ namespace DataJuggler.Regionizer
                                 // go to this line
                                 textDoc.Selection.GotoLine(lineNumber, false);
                             }
+
+                            // now write the property
+                            WriteCodeLines(codeProperty.CodeLines);
                         }
-                        else
-                        {   
-                            // Show the user a message
-                            MessageBox.Show("The 'Properties' region does not exist in the current document." + Environment.NewLine + "Create the 'Events' region and try again.", "Events Region Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-                
-                        // now write the property
-                        WriteCodeLines(codeProperty.CodeLines);
                     }
                 }
             }
@@ -596,7 +601,7 @@ namespace DataJuggler.Regionizer
             private void AddMethods(IList<CM.CodeMethod> methods)
             {
                 // if there are one or more properties
-                if ((methods != null) && (methods.Count > 0))
+                if (methods != null)
                 {
                     // Begin a region
                     BeginRegion("Methods");
@@ -607,11 +612,14 @@ namespace DataJuggler.Regionizer
                     // Add a Blank Line
                     AddBlankLine();
                     
-                    // iterate the properties
-                    foreach (CM.CodeMethod codeMethod in methods)
+                    if (ListHelper.HasOneOrMoreItems(methods.ToList()))
                     {
-                        // write out this Method
-                        WriteMethod(codeMethod, true);
+                        // iterate the properties
+                        foreach (CM.CodeMethod codeMethod in methods)
+                        {
+                            // write out this Method
+                            WriteMethod(codeMethod, true);
+                        }
                     }
                     
                     // decrease indent
@@ -657,6 +665,9 @@ namespace DataJuggler.Regionizer
                 // if the privateVariables exist
                 if ((privateVariables != null) && (privateVariables.Count > 0))
                 {
+                    // Update 8.25.2023: Sorting the private variables in alphabetical order
+                    privateVariables = privateVariables.OrderBy(x => x.PrivateVariableName).ToList();
+
                     // iterate the privateVariables
                     foreach (CM.CodePrivateVariable privateVariable in privateVariables)
                     {
@@ -684,7 +695,7 @@ namespace DataJuggler.Regionizer
             private void AddProperties(IList<CM.CodeProperty> properties)
             {
                 // if there are one or more properties
-                if ((properties != null) && (properties.Count > 0))
+                if (properties != null)
                 {
                     // Begin a region
                     BeginRegion("Properties");
@@ -694,12 +705,16 @@ namespace DataJuggler.Regionizer
                     
                     // Add a Blank Line
                     AddBlankLine();
-                    
-                    // iterate the properties
-                    foreach (CM.CodeProperty codeProperty in properties)
+
+                    // If the properties collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(properties.ToList()))
                     {
-                        // write out this Property
-                        WriteProperty(codeProperty, true);
+                        // iterate the properties
+                        foreach (CM.CodeProperty codeProperty in properties)
+                        {
+                            // write out this Property
+                            WriteProperty(codeProperty, true);
+                        }
                     }
                     
                     // decrease indent
@@ -3493,7 +3508,7 @@ namespace DataJuggler.Regionizer
                     }
                 }
             }
-        #endregion
+            #endregion
 
             #region WriteConstructor(CM.CodeConstructor constructor, bool surroundWithRegion, string className
             /// <summary>

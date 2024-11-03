@@ -22,13 +22,13 @@
     <Pattern>if\s?\(NullHelper.Exists\(\w+\)\)</Pattern>
     <TargetPattern>\(\w+\)</TargetPattern>
   </CommentItem>
-  <CommentItem>
-    <ID>4</ID>
-    <Comment>If the * collection exists and has one or more items</Comment>
-    <Name>If List Has One Or More Items</Name>
-    <Pattern>if\s?\(ListHelper.HasOneOrMoreItems\(\w*\)\)</Pattern>
-    <TargetPattern>(?&amp;lt;=Items).*</TargetPattern>
-  </CommentItem>
+	<CommentItem>
+		<ID>4</ID>
+		<Comment>If the * collection exists and has one or more items</Comment>
+		<Name>If List Has One Or More Items</Name>
+		<Pattern>if\s?\(ListHelper.HasOneOrMoreItems\(\w+(\.\w+)*\)\)</Pattern>
+		<TargetPattern>(?&amp;lt;=Items).*</TargetPattern>
+	</CommentItem>
   <CommentItem>
     <ID>5</ID>
     <Comment>Enable or disable controls</Comment>

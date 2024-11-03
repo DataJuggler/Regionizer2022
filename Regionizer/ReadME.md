@@ -1,6 +1,16 @@
 ﻿Regionizer 2022 is a Visual Studio package that serves as a Document Formatter, Code Generation tool and 
 Auto Commenting System.
 
+# Update 5.19.2024 - New Video
+
+New Video:
+
+First Ever Opensource Saturday - Sunday Edition
+https://youtu.be/uxa1xR6xpzk
+
+
+# Installation Instructions
+
 To install Regionizer, browse for the Install folder in this project, and double the file Regionizer2022.vsix.
 
 After install, in Visual Studio select the Tools menu item, and you should see Regionizer.

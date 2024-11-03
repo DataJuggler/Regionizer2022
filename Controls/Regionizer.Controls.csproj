@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Regionizer.Controls.Key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Regionizer.Controls.Key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Tools.ico</ApplicationIcon>

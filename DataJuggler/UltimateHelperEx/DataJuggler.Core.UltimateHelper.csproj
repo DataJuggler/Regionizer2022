@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DataJuggler.Regionizer2022.Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>DataJuggler.Core.UltimateHelper.Ex.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -38,7 +38,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>XMLMirror.Runtime.Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>XMLMirror.Runtime.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="XMLMirror.Runtime.Key.pfx" />
+    <None Include="XMLMirror.Runtime.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Read Me.txt" />
