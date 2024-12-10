@@ -18,7 +18,6 @@ using DataJuggler.Regionizer.Controls.Util;
 using objects = DataJuggler.Core.UltimateHelper.Objects;
 using EnvDTE;
 
-
 #endregion
 
 namespace DataJuggler.Regionizer
@@ -233,20 +232,17 @@ namespace DataJuggler.Regionizer
                         case "CollapseAllRegions":
 
                             if ((dte != null) && (dte.ActiveDocument != null))
-                            {
+                            {  
                                 TextDocument textDocument = (TextDocument)dte.ActiveDocument.Object("TextDocument");
                                 EditPoint editPoint = textDocument.StartPoint.CreateEditPoint();
-        
+
                                 const string regionStart = "#region";
-        
-                                // Ensure everything is collapsed to a known state
-                                dte.ExecuteCommand("Edit.CollapseToDefinitions");
 
                                 while (!editPoint.AtEndOfDocument)
                                 {
                                     if (editPoint.FindPattern(regionStart, (int)vsFindOptions.vsFindOptionsNone))
                                     {
-                                        textDocument.DTE.ExecuteCommand("Edit.CollapseCurrentRegion");
+                                        textDocument.DTE.ExecuteCommand("Edit.ToggleOutliningExpansion");
                                         editPoint = textDocument.StartPoint.CreateEditPoint();
                                     }
                                     else
@@ -268,14 +264,11 @@ namespace DataJuggler.Regionizer
         
                                 const string regionStart = "#region";
         
-                                // Ensure everything is expanded to a known state
-                                dte.ExecuteCommand("Edit.ExpandAllOutlining");
-
                                 while (!editPoint.AtEndOfDocument)
                                 {
                                     if (editPoint.FindPattern(regionStart, (int)vsFindOptions.vsFindOptionsNone))
                                     {
-                                        textDocument.DTE.ExecuteCommand("Edit.ExpandCurrentRegion");
+                                        textDocument.DTE.ExecuteCommand("Edit.ToggleOutliningExpansion");
                                         editPoint = textDocument.StartPoint.CreateEditPoint();
                                     }
                                     else

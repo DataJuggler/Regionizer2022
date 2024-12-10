@@ -28,19 +28,22 @@
             <Setter Property="Margin"
                     Value="8,1,8,8" />
         </Style>
+        <Style x:Key="HandCursorButtonStyle" TargetType="Button" BasedOn="{StaticResource ContentStyle}">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
     </UserControl.Resources>
     <UserControl.Background>
         <SolidColorBrush Color="White" />
     </UserControl.Background>
     <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.5.1"
+               Content="Regionizer 2022 Version 3.5.6"
                FontFamily="Calibri"
                FontSize="24"
                FontWeight="Bold" />
         <WrapPanel>
             <Button x:Name="FormatDocumentButton"
-                Click="FormatDocumentButton_Click" 
+                Click="FormatDocumentButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
                 ToolTip="Format the Current C# Document." >
@@ -52,7 +55,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="FormatSelectionButton"
-                Click="FormatSelectionButton_Click" 
+                Click="FormatSelectionButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
                 ToolTip="Format the selected property, method or event." >
@@ -64,7 +67,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="CreatePropertiesButton"
-                Click="CreateProperties_Click"
+                Click="CreateProperties_Click" Style="{StaticResource HandCursorButtonStyle}"
                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
                     FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
                     ToolTip="Create Properties For The Selected Private Variables">
@@ -76,7 +79,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="CreateHasPropertiesButton"
-                Click="HasPropertyCreator_Click"
+                Click="HasPropertyCreator_Click" Style="{StaticResource HandCursorButtonStyle}"
                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
                 ToolTip="Create a test for null for the selected object name. Example object name Person - HasPerson">
@@ -86,31 +89,7 @@
                 <Button.Background>
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/HasPropertyButton.png" />
                 </Button.Background>
-            </Button>
-            <Button x:Name="ExpandButton"
-                 Click="ExpandButton_Click"
-                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
-                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
-                 ToolTip="Expand All Regions">
-                <Button.Content>
-                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/DownCircleButton.png" />
-                </Button.Content>
-                <Button.Background>
-                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DownCircleButton.png" />
-                </Button.Background>
-            </Button>
-            <Button x:Name="CollapseButton"
-                 Click="CollapseAllRegionsButton_Click"
-                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
-                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
-                 ToolTip="Expand All Regions">
-                <Button.Content>
-                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/UpCircleButton.png" />
-                </Button.Content>
-                <Button.Background>
-                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/UpCircleButton.png" />
-                </Button.Background>
-            </Button>
+            </Button>            
         </WrapPanel>
         <Label x:Name="Add"
                HorizontalAlignment="Left"
@@ -146,7 +125,7 @@
                  Text="string" />
         <WrapPanel>
         <Button x:Name="AddButton"
-                Click="AddButton_Click" 
+                Click="AddButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                 Width="64" Height="64"
                 TabIndex="5"
                 ToolTip="Insert Code Elements." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
@@ -156,8 +135,8 @@
                 <Button.Background>
                 <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/AddButton.png" />
             </Button.Background>
-        </Button>
-            <Label x:Name="InfoLabel"
+         </Button>
+         <Label x:Name="InfoLabel"
                 Content="" VerticalAlignment="Center"
                 FontFamily="Calibri"
                 FontSize="20" />
@@ -168,7 +147,7 @@
        IsChecked="False" Height="16" />
         <WrapPanel Margin="0,8,0,12">
             <Button x:Name="EditCommentDictionaryuButton"
-            Click="EditCommentDictionaryButton_Click" 
+            Click="EditCommentDictionaryButton_Click" Style="{StaticResource HandCursorButtonStyle}"
             Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
             FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
             ToolTip="Edit the Comment Dictionary using regular expressions.">
@@ -180,7 +159,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="EditCustomDictionaryuButton"
-                 Click="EditCustomDictionaryButton_Click"
+                 Click="EditCustomDictionaryButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                  Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
                  FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
                  ToolTip="Edit your own custom comment dictionary using regular expressions">
@@ -192,7 +171,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="XMLReserveWordHelperButton"
-             Click="XMLReserveWordHelperButton_Click"
+             Click="XMLReserveWordHelperButton_Click" Style="{StaticResource HandCursorButtonStyle}"
              Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
              FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
              ToolTip="Launch the XML Reserved Word Helper to replace XML reserved words with special characters.">
@@ -204,7 +183,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="SetupCommentDictionaryButton"
-                 Click="SetupCommentDictionaryButton_Click"
+                 Click="SetupCommentDictionaryButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                  Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
                  FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
                  ToolTip="Setup the path to the comment dictionary and store the path in the registry.">
