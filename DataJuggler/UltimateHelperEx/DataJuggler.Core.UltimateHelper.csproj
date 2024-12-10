@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DataJuggler.Core.UltimateHelper.Ex.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>DataJuggler.Core.UltimateHelper.key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DataJuggler.Core.UltimateHelper.Ex.pfx" />
+    <None Include="DataJuggler.Core.UltimateHelper.key.pfx" />
     <None Include="DataJuggler.Regionizer.KeyNew.pfx" />
     <None Include="DataJuggler.Regionizer2022.Key.pfx" />
   </ItemGroup>

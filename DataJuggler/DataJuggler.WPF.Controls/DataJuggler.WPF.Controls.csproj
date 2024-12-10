@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DataJuggler.WPF.Controls.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>DataJuggler.WPF.Controls2025.key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -134,6 +134,7 @@
     <None Include="DataJuggler.WPF.Controls.Key3.pfx" />
     <None Include="DataJuggler.WPF.Controls.pfk.pfx" />
     <None Include="DataJuggler.WPF.Controls.pfx" />
+    <None Include="DataJuggler.WPF.Controls2025.key.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

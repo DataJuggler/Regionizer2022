@@ -9,7 +9,7 @@
         <Button Name="LinkButton" Margin="5" Content="Test" Cursor="Hand" Click="LinkButton_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <TextBlock TextDecorations="Underline" VerticalAlignment="Center" FontFamily="Verdana" FontSize="12"> 
+                    <TextBlock TextDecorations="Underline" VerticalAlignment="Center" FontFamily="Calibri" FontSize="12"> 
                 <ContentPresenter />
                     </TextBlock>
                 </ControlTemplate>

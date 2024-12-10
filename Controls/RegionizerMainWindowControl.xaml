@@ -6,14 +6,13 @@
              xmlns:Controls="clr-namespace:DataJuggler.WPF.Controls;assembly=DataJuggler.WPF.Controls"  
              x:Class="DataJuggler.Regionizer.Controls.RegionizerMainWindowControl"
              VerticalAlignment="Top"
-             BorderBrush="{x:Null}"
-             Loaded="UserControl_Loaded"
+             BorderBrush="{x:Null}"             
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="760">
     <UserControl.Resources>
         <Style x:Key="ContentStyle"
-           TargetType="{x:Type FrameworkElement}">
+               TargetType="{x:Type FrameworkElement}">
             <Setter Property="Margin"
-                Value="8,4,8,6"  />
+                    Value="8,4,8,6" />
         </Style>
         <Style TargetType="{x:Type Button}"
                BasedOn="{StaticResource ContentStyle}" />
@@ -31,118 +30,213 @@
         </Style>
     </UserControl.Resources>
     <UserControl.Background>
-        <ImageBrush>White</ImageBrush>
+        <SolidColorBrush Color="White" />
     </UserControl.Background>
-    <StackPanel x:Name="MainGrid"
-                Height="Auto"
-                Background="{x:Null}"
-                Margin="0,0,0,0" Width="372">
+    <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.4.0"
-               FontFamily="Verdana"
-               FontSize="20"
+               Content="Regionizer 2022 Version 3.5.1"
+               FontFamily="Calibri"
+               FontSize="24"
                FontWeight="Bold" />
-        <Button x:Name="FormatDocumentButton"
-                Click="FormatDocumentButton_Click"
-                Content="Format Document"
-                TabIndex="0"
-                ToolTip="Format the Current C# Document." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
-            <Button.Background>
-                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />
-            </Button.Background>
-        </Button>
-        <Button x:Name="FormatSelectionButton"
-                Click="FormatSelectionButton_Click"
-                Content="Format Selection"
-                TabIndex="1"
-                ToolTip="Format the Selected Text." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
-            <Button.Background>
-                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />
-            </Button.Background>
-        </Button>
+        <WrapPanel>
+            <Button x:Name="FormatDocumentButton"
+                Click="FormatDocumentButton_Click" 
+                Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                ToolTip="Format the Current C# Document." >
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/FormatDocument.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/FormatDocument.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="FormatSelectionButton"
+                Click="FormatSelectionButton_Click" 
+                Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                ToolTip="Format the selected property, method or event." >
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/FormatSelection.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/FormatSelection.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="CreatePropertiesButton"
+                Click="CreateProperties_Click"
+                Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                    FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                    ToolTip="Create Properties For The Selected Private Variables">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/CreateProperties.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/CreateProperties.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="CreateHasPropertiesButton"
+                Click="HasPropertyCreator_Click"
+                Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                ToolTip="Create a test for null for the selected object name. Example object name Person - HasPerson">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/HasPropertyButton.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/HasPropertyButton.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="ExpandButton"
+                 Click="ExpandButton_Click"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Expand All Regions">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/DownCircleButton.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DownCircleButton.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="CollapseButton"
+                 Click="CollapseAllRegionsButton_Click"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Expand All Regions">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/UpCircleButton.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/UpCircleButton.png" />
+                </Button.Background>
+            </Button>
+        </WrapPanel>
         <Label x:Name="Add"
                HorizontalAlignment="Left"
-               VerticalAlignment="Top"
+               VerticalAlignment="Center"
                Content="Add"
-               FontWeight="Bold"
+               FontWeight="Bold" FontSize="14" Height="32"
                Foreground="Black" Margin="8,0,0,0" />
         <ComboBox x:Name="CodeTypeComboBox"
-                  ItemsSource="{Binding}"
+                  ItemsSource="{Binding}" FontSize="14" Height="24"
                   SelectionChanged="CodeTypeComboBox_SelectionChanged"
-                  TabIndex="2" />
+                  TabIndex="2" RenderTransformOrigin="0.5,0.5" >
+            <ComboBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="2.203"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.462"/>
+                </TransformGroup>
+            </ComboBox.RenderTransform>
+        </ComboBox>
         <Label x:Name="NameLabel"
-               Content="Name:"
+               Content="Name:" FontSize="14"
                FontWeight="Bold"
                Foreground="Black" />
-        <TextBox x:Name="NameTextBox"
-                 TabIndex="3" />
-        <Label x:Name="ReturnTypeLabel"
+        <TextBox x:Name="NameTextBox" FontSize="14"
+                 TabIndex="3" Height="24" />
+        <Label x:Name="ReturnTypeLabel" FontSize="14"
                Content="Return Type:"
                FontWeight="Bold"
                Foreground="Black" />
         <TextBox x:Name="ReturnTypeTextBox"
-                 TabIndex="4"
-                 Text="string" />        
+                 TabIndex="4" FontSize="14"
+                 Text="string" />
+        <WrapPanel>
         <Button x:Name="AddButton"
-                Click="AddButton_Click"
-                Content="Add"
+                Click="AddButton_Click" 
+                Width="64" Height="64"
                 TabIndex="5"
                 ToolTip="Insert Code Elements." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
-            <Button.Background>
-                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/AddButton.png" />
+                </Button.Content>
+                <Button.Background>
+                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/AddButton.png" />
             </Button.Background>
         </Button>
-        <Button x:Name="CreateProperties"
-                Click="CreateProperties_Click"
-                Content="Create Properties"
-                TabIndex="6"
-                ToolTip="Create Properties From The Selected Text." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
-            <Button.Background>
-                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />
-            </Button.Background>
-        </Button>
-        <Button x:Name="HasPropertyCreator"
-                Click="HasPropertyCreator_Click"
-                Content="Create Has Property"
-                TabIndex="7"
-                ToolTip="Create A Has Property From The Selected Text." FontSize="16" FontFamily="Trebuchet MS" FontWeight="Bold">
-            <Button.Background>
-                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />
-            </Button.Background>
-        </Button>        
-        <Controls:LabelCheckBoxControl x:Name="AutoCommentCheckBox" Width="140" FontFamily="Verdana" FontSize="12" 
-               LabelText="Auto Comment" LabelWidth="140" LabelFontSize="14" LabelFontFamily="Verdana" 
-               IsChecked="False" Height="16" />
-        <Controls:LinkButtonControl Name="EditCommentDictionaryButton" ButtonNumber="1" 
-               ButtonText="Edit Comment Dictionary" Width="168" Height="24" Margin="0,8,0,0"
-               TextColor="DarkSlateBlue" TextAlign="Center"  />
-        <Controls:LinkButtonControl Name="EditCustomDictionaryButton" ButtonNumber="2" 
-               ButtonText="Edit Custom Dictionary" Width="168" Height="24" Margin="0,0,0,0"
-               TextColor="DarkSlateBlue" TextAlign="Center" />
-        <Controls:LinkButtonControl Name="XmlReservedCharacterHelperButton" ButtonNumber="3" 
-               ButtonText="Xml Reserved Word Helper" Width="180" Height="24" Margin="0,0,0,0"
-               TextColor="DarkSlateBlue" TextAlign="Center" />
-        <Controls:LinkButtonControl Name="SetupCommentDictionaryButton" ButtonNumber="4" 
-               ButtonText="Setup Comment Dictionary" Width="188" Height="24" Margin="0,0,0,0"
-               TextColor="DarkSlateBlue" TextAlign="Center"  />
-        <my:ButtonHostControl Width="360" Height="88" Margin="6,0" />
-        <Button x:Name="HelpButton" Width="32" Height="32" BorderBrush="{x:Null}"
-        	Click="HelpLink_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" ToolTip="View The Regionizer User's Guide" Margin="170,0,170,0">
-            <Button.Content>
-                <Image Source="Images/HelpIcon.png" />
-            </Button.Content>
-            <Button.Background>
-                <ImageBrush ImageSource="Images/HelpIcon.png" />
-            </Button.Background>
-        </Button>       
-        <Button x:Name="YouTubeButton" Width="148" Height="76" BorderBrush="Black"
-            Click="YouTubeButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" ToolTip="Watch the Regionizer Videos" Margin="112,20,112,0">
-            <Button.Content>
-                <Image Source="Images/YouTube.png" />
-            </Button.Content>
-            <Button.Background>
-                <ImageBrush ImageSource="Images/YouTube.png" />
-            </Button.Background>
-        </Button>
-    </StackPanel>
+            <Label x:Name="InfoLabel"
+                Content="" VerticalAlignment="Center"
+                FontFamily="Calibri"
+                FontSize="20" />
+        </WrapPanel>
+        <Controls:LabelCheckBoxControl x:Name="AutoCommentCheckBox" Width="140" 
+          FontFamily="Calibri" FontSize="14"  VerticalAlignment="Center" Margin="0,12,0,8"
+       LabelText="Auto Comment" LabelWidth="140" LabelFontSize="14" LabelFontFamily="Calibri" 
+       IsChecked="False" Height="16" />
+        <WrapPanel Margin="0,8,0,12">
+            <Button x:Name="EditCommentDictionaryuButton"
+            Click="EditCommentDictionaryButton_Click" 
+            Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+            FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+            ToolTip="Edit the Comment Dictionary using regular expressions.">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/EditCommentDictionary.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/EditCommentDictionary.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="EditCustomDictionaryuButton"
+                 Click="EditCustomDictionaryButton_Click"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Edit your own custom comment dictionary using regular expressions">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/EditCustomDictonary.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/EditCustomDictonary.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="XMLReserveWordHelperButton"
+             Click="XMLReserveWordHelperButton_Click"
+             Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+             FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+             ToolTip="Launch the XML Reserved Word Helper to replace XML reserved words with special characters.">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/XMLReservedWordHelper.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/XMLReservedWordHelper.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="SetupCommentDictionaryButton"
+                 Click="SetupCommentDictionaryButton_Click"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Setup the path to the comment dictionary and store the path in the registry.">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/SetupCommentDictionary.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/SetupCommentDictionary.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="HelpButton" Width="64" Height="64" BorderBrush="{x:Null}"
+                Margin="8,8,8,8"
+                Click="HelpLink_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" ToolTip="View The Regionizer User's Guide"                     >
+                <Button.Content>
+                    <Image Source="Images/HelpIcon.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/HelpIcon.png" />
+                </Button.Background>
+            </Button>
+        </WrapPanel>
+        <DockPanel Height="272">
+            <Button x:Name="YouTubeButton" Width="148" Height="76" BorderBrush="Black" DockPanel.Dock="Bottom"
+                Click="YouTubeButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" 
+                    ToolTip="Watch the Regionizer Videos" Margin="112,20,112,0">
+                <Button.Content>
+                    <Image Source="Images/YouTube.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/YouTube.png" />
+                </Button.Background>
+            </Button>            
+        </DockPanel>
+    </StackPanel>    
 </UserControl>

@@ -46,7 +46,7 @@
             this.DoneButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.DoneButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.DoneButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DoneButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DoneButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DoneButton.ForeColor = System.Drawing.Color.White;
             this.DoneButton.Location = new System.Drawing.Point(814, 133);
             this.DoneButton.MaximumSize = new System.Drawing.Size(220, 42);
@@ -68,7 +68,7 @@
             this.CopyButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.CopyButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.CopyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CopyButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CopyButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CopyButton.ForeColor = System.Drawing.Color.White;
             this.CopyButton.Location = new System.Drawing.Point(693, 133);
             this.CopyButton.MaximumSize = new System.Drawing.Size(220, 42);
@@ -83,7 +83,7 @@
             // 
             // EncodedTextBox
             // 
-            this.EncodedTextBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncodedTextBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EncodedTextBox.Location = new System.Drawing.Point(126, 75);
             this.EncodedTextBox.Name = "EncodedTextBox";
             this.EncodedTextBox.Size = new System.Drawing.Size(789, 31);
@@ -92,7 +92,7 @@
             // EncodedLabel
             // 
             this.EncodedLabel.BackColor = System.Drawing.Color.Transparent;
-            this.EncodedLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncodedLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EncodedLabel.Location = new System.Drawing.Point(27, 82);
             this.EncodedLabel.Name = "EncodedLabel";
             this.EncodedLabel.Size = new System.Drawing.Size(100, 23);
@@ -102,7 +102,7 @@
             // 
             // PatternTextBox
             // 
-            this.PatternTextBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PatternTextBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PatternTextBox.Location = new System.Drawing.Point(126, 25);
             this.PatternTextBox.Name = "PatternTextBox";
             this.PatternTextBox.Size = new System.Drawing.Size(789, 31);
@@ -112,7 +112,7 @@
             // PatternLabel
             // 
             this.PatternLabel.BackColor = System.Drawing.Color.Transparent;
-            this.PatternLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PatternLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PatternLabel.Location = new System.Drawing.Point(27, 32);
             this.PatternLabel.Name = "PatternLabel";
             this.PatternLabel.Size = new System.Drawing.Size(100, 23);
@@ -131,7 +131,7 @@
             this.Controls.Add(this.EncodedLabel);
             this.Controls.Add(this.PatternTextBox);
             this.Controls.Add(this.PatternLabel);
-            this.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "XmlReservedWordHelperForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

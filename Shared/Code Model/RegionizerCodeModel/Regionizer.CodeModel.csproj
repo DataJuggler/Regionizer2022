@@ -37,7 +37,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Regionizer.CodeModel.Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Regionizer2022.CodeModel2025.key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.Interop, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -99,6 +99,7 @@
     <None Include="packages.config" />
     <None Include="Regionizer.CodeModel.Key.pfx" />
     <None Include="Regionizer.CodeModel.Key.snk" />
+    <None Include="Regionizer2022.CodeModel2025.key.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DataJuggler\UltimateHelperEx\DataJuggler.Core.UltimateHelper.csproj">

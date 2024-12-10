@@ -16,6 +16,7 @@ using DataJuggler.Regionizer.UI.Forms;
 using Microsoft.Win32;
 using DataJuggler.Regionizer.Controls.Util;
 using objects = DataJuggler.Core.UltimateHelper.Objects;
+using EnvDTE;
 
 
 #endregion
@@ -231,21 +232,65 @@ namespace DataJuggler.Regionizer
                         
                         case "CollapseAllRegions":
 
-                            //// Create the code manager object
-                            //codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                TextDocument textDocument = (TextDocument)dte.ActiveDocument.Object("TextDocument");
+                                EditPoint editPoint = textDocument.StartPoint.CreateEditPoint();
+        
+                                const string regionStart = "#region";
+        
+                                // Ensure everything is collapsed to a known state
+                                dte.ExecuteCommand("Edit.CollapseToDefinitions");
 
-                            //// Get the code file
-                            //codeFile = codeManager.GetCodeFile();
+                                while (!editPoint.AtEndOfDocument)
+                                {
+                                    if (editPoint.FindPattern(regionStart, (int)vsFindOptions.vsFindOptionsNone))
+                                    {
+                                        textDocument.DTE.ExecuteCommand("Edit.CollapseCurrentRegion");
+                                        editPoint = textDocument.StartPoint.CreateEditPoint();
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        
+                            //// required
+                            break;
 
-                            //// collapse all regions
-                            //codeManager.CollapseAllRegions(codeFile, dte);
+                        case "ExpandAllRegions":
+
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                TextDocument textDocument = (TextDocument)dte.ActiveDocument.Object("TextDocument");
+                                EditPoint editPoint = textDocument.StartPoint.CreateEditPoint();
+        
+                                const string regionStart = "#region";
+        
+                                // Ensure everything is expanded to a known state
+                                dte.ExecuteCommand("Edit.ExpandAllOutlining");
+
+                                while (!editPoint.AtEndOfDocument)
+                                {
+                                    if (editPoint.FindPattern(regionStart, (int)vsFindOptions.vsFindOptionsNone))
+                                    {
+                                        textDocument.DTE.ExecuteCommand("Edit.ExpandCurrentRegion");
+                                        editPoint = textDocument.StartPoint.CreateEditPoint();
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
                         
                             //// required
                             break;
 
                         case "InsertReadOnlyProperty":
 
-                             // if the dte object exists
+                            // if the dte object exists
                             if ((dte != null) && (dte.ActiveDocument != null))
                             {
                                 // Create the code manager object

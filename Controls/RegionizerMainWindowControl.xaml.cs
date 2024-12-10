@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using XmlMirror.Runtime.Util;
 using DataJuggler.Regionizer.Controls.Util;
+using System.IO.Packaging;
 
 #endregion
 
@@ -219,7 +220,7 @@ namespace DataJuggler.Regionizer.Controls
                 }
                 
                 // Set the text
-                this.AddButton.Content = "Add " + text;
+                InfoLabel.Content = "Add " + text;
             }
             #endregion
             
@@ -235,7 +236,7 @@ namespace DataJuggler.Regionizer.Controls
             
             #region CollapseAllRegionsButton_Click(object sender, RoutedEventArgs e)
             /// <summary>
-            /// This event is not implemented at this tiem.
+            /// This event will collapse all regions
             /// </summary>
             private void CollapseAllRegionsButton_Click(object sender, RoutedEventArgs e)
             {
@@ -298,6 +299,28 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
+            #region EditCommentDictionaryButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// This event is fired when the 'EditCommentDictionaryButton' is clicked.
+            /// </summary>
+            public void EditCommentDictionaryButton_Click(object sender, EventArgs e)
+            {
+                // Call the code that the click handler used to call
+                ClickHandler(1, "Edit Comment Dictionary");
+            }
+            #endregion
+
+            #region EditCustomDictionaryButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// This event is fired when the 'EditCustomtDictionaryButton_Click' is clicked.
+            /// </summary>
+            public void EditCustomDictionaryButton_Click(object sender, EventArgs e)
+            {
+                // Call the code that the click handler used to call
+                ClickHandler(2, "Edit Custom Dictionary");
+            }
+            #endregion
+            
             #region ExpandAllRegionsButton_Click(object sender, RoutedEventArgs e)
             /// <summary>
             /// This event is not implemented at this time.
@@ -313,6 +336,21 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
+            #region ExpandButton_Click(object sender, RoutedEventArgs e)
+            /// <summary>
+            /// event is fired when the 'ExpandCollapseButton' is clicked.
+            /// </summary>
+            private void ExpandButton_Click(object sender, RoutedEventArgs e)
+            {
+                // if the delegate is set
+                if (HasHostEventHandler)
+                {  
+                    // Format the Active Document
+                    HostEventHandler("ExpandAllRegions", null);
+                }
+            }
+            #endregion
+            
             #region FormatDocumentButton_Click(object sender, RoutedEventArgs e)
             /// <summary>
             /// The FormatDocument button was clicked.
@@ -322,10 +360,10 @@ namespace DataJuggler.Regionizer.Controls
             private void FormatDocumentButton_Click(object sender, RoutedEventArgs e)
             {
                 // if the delegate is set
-                if (this.HasHostEventHandler)
+                if (HasHostEventHandler)
                 {  
                     // Format the Active Document
-                    this.HostEventHandler("Format Document", null);
+                    HostEventHandler("Format Document", null);
                 }
             }
             #endregion
@@ -427,29 +465,25 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
-            #region UserControl_Loaded(object sender, RoutedEventArgs e)
+            #region SetupCommentDictionaryButton_Click(object sender, EventArgs e)
             /// <summary>
-            /// This event [enter description here].
+            /// This event is fired when the 'SetupCommentDictionaryButton' is clicked.
             /// </summary>
-            private void UserControl_Loaded(object sender, RoutedEventArgs e)
+            public void SetupCommentDictionaryButton_Click(object sender, EventArgs e)
             {
-                try
-                {
-                    // Create the interop host control.
-                    System.Windows.Forms.Integration.WindowsFormsHost host = new System.Windows.Forms.Integration.WindowsFormsHost();
-                    host.Height = 140;
-                    host.Width = 160;
-                    
-                    host.Background = Brushes.White;
-                    
-                    // add this item
-                    this.MainGrid.Children.Add(host);
-                    Grid.SetRow(host, 5);                    
-                }
-                catch (Exception error)
-                {
-                    string err = error.ToString();
-                }
+                // Call the old ClickHandler for now
+                ClickHandler(4, "Setup Comment Dictionary");
+            }
+            #endregion
+            
+            #region XMLReserveWordHelperButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// This event is fired when the 'XMLReserveWordHelperButton' is clicked.
+            /// </summary>
+            public void XMLReserveWordHelperButton_Click(object sender, EventArgs e)
+            {
+                // Launch the ReservedWordHelper
+                ClickHandler(3, "XML Reserved Word Helper");
             }
             #endregion
             
@@ -566,7 +600,7 @@ namespace DataJuggler.Regionizer.Controls
 
             #region EditCustomDictionary()
             /// <summary>
-            /// This method Edit Comment Dictionary
+            /// This method Edit Custom Dictionary
             /// </summary>
             private void EditCustomDictionary()
             {
@@ -640,12 +674,6 @@ namespace DataJuggler.Regionizer.Controls
 
                 // Set the CheckChangedHandler
                 this.AutoCommentCheckBox.CheckChangedHandler = OnCheckChangedHandler;
-
-                // Setup the LinkButton ClickHandlers
-                this.EditCommentDictionaryButton.ClickHandler = this.ClickHandler;
-                this.EditCustomDictionaryButton.ClickHandler = this.ClickHandler;
-                this.XmlReservedCharacterHelperButton.ClickHandler = this.ClickHandler;
-                this.SetupCommentDictionaryButton.ClickHandler = this.ClickHandler;
             }
             #endregion
             
@@ -737,10 +765,9 @@ namespace DataJuggler.Regionizer.Controls
                 get { return hostEventHandler; }
                 set { hostEventHandler = value; }
             }
-            #endregion
+        #endregion
 
         #endregion
-        
     }
     #endregion
 

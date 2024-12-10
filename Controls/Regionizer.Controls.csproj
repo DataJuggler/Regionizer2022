@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Regionizer.Controls.Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Regionizer.Controls.Key2025.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Tools.ico</ApplicationIcon>
@@ -63,9 +63,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonHostControl.xaml.cs">
-      <DependentUpon>ButtonHostControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CommentDictionaryEditor.xaml.cs">
       <DependentUpon>CommentDictionaryEditor.xaml</DependentUpon>
     </Compile>
@@ -101,12 +98,9 @@
     <AppDesigner Include="Properties\" />
     <None Include="Regionizer.Controls.Key.pfx" />
     <None Include="Regionizer.Controls.Key.snk" />
+    <None Include="Regionizer.Controls.Key2025.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ButtonHostControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CommentDictionaryEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,15 +151,6 @@
     <Resource Include="Images\HelpIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\InitialValue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\IfExists.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\4each.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\DataJuggler.png" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +164,42 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\StoreArgsButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DarkBlueButton3D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FormatDocument.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FormatSelection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CreateProperties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HasPropertyButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\EditCommentDictionary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\EditCustomDictonary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\XMLReservedWordHelper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SetupCommentDictionary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DownCircleButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UpCircleButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

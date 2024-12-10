@@ -12,7 +12,7 @@
     <RootNamespace>Regionizer</RootNamespace>
     <AssemblyName>Regionizer2022</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Regionizer2024.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Regionizer2022.2025.key.pfx</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <FileUpgradeFlags>
@@ -172,6 +172,7 @@
     <None Include="ReadME.md" />
     <None Include="Regionizer.key.pfx" />
     <None Include="Regionizer.Key.snk" />
+    <None Include="Regionizer2022.2025.key.pfx" />
     <None Include="Regionizer2022.Key.pfx" />
     <None Include="Regionizer2024.pfx" />
     <None Include="source.extension.vsixmanifest" />

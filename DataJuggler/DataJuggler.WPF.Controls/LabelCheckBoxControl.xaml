@@ -9,6 +9,7 @@
         <CheckBox Name="CheckBox" VerticalAlignment="Bottom" Margin="0,0,0,0" Checked="CheckBox_Checked"
                     VerticalContentAlignment="Bottom" Height="17" Width="20" FontSize="20" Canvas.Left="4" Canvas.Top="8"></CheckBox>
         <Label Name="Label" Width="Auto" Content="[LabelText]" HorizontalContentAlignment="Left" VerticalAlignment="Center" 
-               VerticalContentAlignment="Center" Height="32" Margin="24,0,0,2"></Label>
+               FontSize="14" FontFamily="Calibri"
+               VerticalContentAlignment="Center" Height="32" Margin="24,0,0,4"></Label>
     </Canvas>
 </UserControl>

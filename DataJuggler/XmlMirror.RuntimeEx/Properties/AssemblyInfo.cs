@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Data Juggler")]
 [assembly: AssemblyProduct("XmlMirror.Runtime")]
-[assembly: AssemblyCopyright("Copyright ©  2012 - 2017")]
+[assembly: AssemblyCopyright("Copyright ©  2012 - 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

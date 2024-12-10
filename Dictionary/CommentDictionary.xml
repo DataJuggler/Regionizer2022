@@ -69,7 +69,7 @@
 		<ID>9</ID>
 		<Comment>Create a new instance of a(n) '*' object.</Comment>
 		<Name>Create New Object</Name>
-		<Pattern>=\snew\s(\w*)?\(</Pattern>
+		<Pattern>=\snew\s(\w+)?\(</Pattern>
 		<TargetPattern>\w+</TargetPattern>
 	</CommentItem>
 	<CommentItem>
@@ -229,5 +229,12 @@
 		<Name>If Object Is Null</Name>
 		<Pattern>if\s?\(NullHelper.IsNull\s?\(\w*\)\)</Pattern>
 		<TargetPattern>\(\w*\)</TargetPattern>
+	</CommentItem>
+	<CommentItem>
+		<ID>31</ID>
+		<Comment>Iterate the collection of * objects</Comment>
+		<Name>Iterate Collection</Name>
+		<Pattern>foreach\s?\(\w+\s\w+\sin\s(\w+(\.\w+)+|\w+)\)</Pattern>
+		<TargetPattern>\(\w+</TargetPattern>
 	</CommentItem>
 </CommentDictionary>

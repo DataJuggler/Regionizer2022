@@ -7,25 +7,25 @@
              mc:Ignorable="d" Background="White" d:DesignHeight="280" d:DesignWidth="960">
     <Canvas Height="279" VerticalAlignment="Top">
         <Label Name="InfoLabel" Content="Warning: You may need to run Visual Studio as an Administrator to update the registry."
-               Foreground="Red" FontFamily="Verdana" FontSize="14" Canvas.Left="88" Canvas.Top="4"></Label>
-        <Controls:LabelTextBoxControl Name="DictionaryPathControl" FontFamily="Verdana" FontSize="14" Width="895" 
+               Foreground="Red" FontFamily="Calibri" FontSize="14" Canvas.Left="88" Canvas.Top="4"></Label>
+        <Controls:LabelTextBoxControl Name="DictionaryPathControl" FontFamily="Calibri" FontSize="14" Width="895" 
             LabelText="Dictionary Path:" LabelWidth="160" Canvas.Left="36" Canvas.Top="36">
         </Controls:LabelTextBoxControl>
-        <Controls:LabelTextBoxControl Name="InstalledVersionTextBox" FontFamily="Verdana" FontSize="14" Width="220" 
+        <Controls:LabelTextBoxControl Name="InstalledVersionTextBox" FontFamily="Calibri" FontSize="14" Width="220" 
             LabelText="Installed Version:" LabelWidth="160" Canvas.Left="36" Canvas.Top="78"/>
-        <Label Name="AvailableVersionLabel" Content="Available Version:" FontFamily="Verdana" FontSize="14"
+        <Label Name="AvailableVersionLabel" Content="Available Version:" FontFamily="Calibri" FontSize="14"
                Canvas.Left="36" Canvas.Top="118" Width="160" HorizontalContentAlignment="Right"></Label>
-        <Label x:Name="AvailableVersionValueLabel" Content="0.0" FontFamily="Verdana" FontSize="14"
+        <Label x:Name="AvailableVersionValueLabel" Content="0.0" FontFamily="Calibri" FontSize="14"
         	Canvas.Left="192" Canvas.Top="118" Width="60" Visibility="Hidden" HorizontalContentAlignment="Left" />
         <Controls:LinkButtonControl Name="CheckForUpdateButton" ButtonNumber="1" ButtonText="Check For Update" ToolTip="Retrieve the latest version info from www.datajuggler.com"
-            Canvas.Left="192" Canvas.Top="114" Width="128" TextColor="DarkBlue" TextAlign="Left" FontFamily="Verdana" FontSize="14" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            Canvas.Left="192" Canvas.Top="114" Width="128" TextColor="DarkBlue" TextAlign="Left" FontFamily="Calibri" FontSize="14" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
         </Controls:LinkButtonControl>
-        <Label Name="UseCustomDictionaryLabel" Canvas.Left="20" Canvas.Top="152" Content="Use Custom Dictionary:" FontFamily="Verdana" FontSize="14"></Label>
+        <Label Name="UseCustomDictionaryLabel" Canvas.Left="20" Canvas.Top="152" Content="Use Custom Dictionary:" FontFamily="Calibri" FontSize="14"></Label>
         <CheckBox Name="UseCustomDictionaryCheckBox" Canvas.Left="195" Canvas.Top="159" FontSize="24"
                 Checked="UseCustomDictionaryCheckBox_CheckedChange" Unchecked="UseCustomDictionaryCheckBox_CheckedChange" ></CheckBox>
-        <Controls:LabelTextBoxControl Name="CustomDictionaryPathControl" FontFamily="Verdana" FontSize="14" Width="895" 
+        <Controls:LabelTextBoxControl Name="CustomDictionaryPathControl" FontFamily="Calibri" FontSize="14" Width="895" 
             LabelText="Custom Path:" LabelWidth="160" Canvas.Left="36" Canvas.Top="188"></Controls:LabelTextBoxControl>
-        <Label Name="TryCustomFirstLabel" Canvas.Left="64" Canvas.Top="226" Content="Try Custom First:" FontFamily="Verdana" FontSize="14"></Label>
+        <Label Name="TryCustomFirstLabel" Canvas.Left="64" Canvas.Top="226" Content="Try Custom First:" FontFamily="Calibri" FontSize="14"></Label>
         <CheckBox Name="TryCustomFirstCheckBox" Canvas.Left="195" Canvas.Top="232" FontSize="24"
                   Checked="TryCustomFirstCheckBox_CheckedChange" Unchecked="TryCustomFirstCheckBox_CheckedChange"></CheckBox>
         <Button x:Name="BrowseForFolderButton"
@@ -45,7 +45,7 @@
         </Button>
         <Button x:Name="DownloadDictionaryButton"
                 Click="DownloadDictionaryButton_Click" Content="Download Comment Dictionary" TabIndex="0"
-                ToolTip="Download the latest Comment Dictionary" FontSize="16" FontFamily="Verdana"
+                ToolTip="Download the latest Comment Dictionary" FontSize="16" FontFamily="Calibri"
                 Width="296" Height="32" Canvas.Left="309" Canvas.Top="230" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Button.Background>
                 <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepGray.png" />
@@ -53,7 +53,7 @@
         </Button>
         <Button x:Name="UpdateRegistryButton"
         	Click="UpdateRegistryButton_Click" Content="Update Registry" TabIndex="0"
-        	ToolTip="Download the latest Comment Dictionary" FontSize="16" FontFamily="Verdana"
+        	ToolTip="Download the latest Comment Dictionary" FontSize="16" FontFamily="Calibri"
         	Width="200" Height="32" Canvas.Left="618" Canvas.Top="230" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Button.Background>
                 <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepGray.png" />
@@ -61,7 +61,7 @@
         </Button>
         <Button x:Name="DoneButton"
         	Click="DoneButton_Click" Content="Done" TabIndex="0"
-        	ToolTip="Download the latest Comment Dictionary" FontSize="16" FontFamily="Verdana"
+        	ToolTip="Download the latest Comment Dictionary" FontSize="16" FontFamily="Calibri"
         	Width="100" Height="32" Canvas.Left="831" Canvas.Top="230" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Button.Background>
                 <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/DeepBlue.png" />

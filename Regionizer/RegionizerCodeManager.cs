@@ -1361,7 +1361,7 @@ namespace DataJuggler.Regionizer
                 TextDocument textDoc = GetActiveTextDocument();
 
                 // Get the fileCodeModel
-                FileCodeModel fileCodeModel = this.GetActiveFileCodeModel();
+                FileCodeModel fileCodeModel = GetActiveFileCodeModel();
                 
                 // if the textDocument exists
                 if  ((textDoc != null) && (fileCodeModel != null))
