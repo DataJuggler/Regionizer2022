@@ -31,13 +31,16 @@
         <Style x:Key="HandCursorButtonStyle" TargetType="Button" BasedOn="{StaticResource ContentStyle}">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
     </UserControl.Resources>
     <UserControl.Background>
         <SolidColorBrush Color="White" />
     </UserControl.Background>
     <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.5.7"
+               Content="Regionizer 2022 Version 3.6.2"
                FontFamily="Calibri"
                FontSize="24"
                FontWeight="Bold" />
@@ -204,18 +207,19 @@
                     <ImageBrush ImageSource="Images/HelpIcon.png" />
                 </Button.Background>
             </Button>
-        </WrapPanel>
-        <DockPanel Height="272">
-            <Button x:Name="YouTubeButton" Width="148" Height="76" BorderBrush="Black" DockPanel.Dock="Bottom"
+            <Button x:Name="YouTubeButton" Width="148" Height="76" BorderBrush="Black" 
                 Click="YouTubeButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" 
-                    ToolTip="Watch the Regionizer Videos" Margin="112,20,112,0">
-                <Button.Content>
-                    <Image Source="Images/YouTube.png" />
-                </Button.Content>
-                <Button.Background>
-                    <ImageBrush ImageSource="Images/YouTube.png" />
-                </Button.Background>
-            </Button>            
-        </DockPanel>
+                    ToolTip="Watch the Regionizer Videos" Margin="8,8,8,8">
+                            <Button.Content>
+                                <Image Source="Images/YouTube.png" />
+                            </Button.Content>
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/YouTube.png" />
+                        </Button.Background>
+            </Button>
+        </WrapPanel>
+        
+            
+       
     </StackPanel>    
 </UserControl>

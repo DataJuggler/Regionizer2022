@@ -296,6 +296,15 @@ namespace DataJuggler.Regionizer.CodeModel.Util
                         // create a code line object
                         CM.CodeLine codeLine = new CM.CodeLine(textLine);
 
+                        int spacesCount = TextHelper.GetSpacesCount(textLine.Text);
+                        
+                        // if spaces were found
+                        if (spacesCount > 0)
+                        {
+                            // Set Indent
+                            codeLine.Indent = spacesCount / 4;
+                        }
+
                         // set the LineNumber
                         codeLine.LineNumber = lineNumber;
                         

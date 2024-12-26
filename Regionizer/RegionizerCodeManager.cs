@@ -1563,6 +1563,12 @@ namespace DataJuggler.Regionizer
                                         // if the insertLine was found
                                         if (insertLine > 0)
                                         {
+                                            // Get the currentLine of the insert index
+                                            var currentLine = codeFile.CodeLines[insertLine -1];
+
+                                            // Reset the indent
+                                            Indent = currentLine.Indent;
+
                                             // move to the line number desired
                                             textDoc.Selection.GotoLine(insertLine);
 
@@ -1610,6 +1616,12 @@ namespace DataJuggler.Regionizer
                                         // if the insertLine
                                         if (insertLine > 0)
                                         {
+                                            // Get the currentLine of the insert index
+                                            var currentLine = codeFile.CodeLines[insertLine -1];
+
+                                            // Reset the indent
+                                            Indent = currentLine.Indent;
+
                                             // move to the line number desired
                                             textDoc.Selection.GotoLine(insertLine);
 
@@ -1665,6 +1677,12 @@ namespace DataJuggler.Regionizer
                                             // if the insertLine
                                             if (insertLine > 0)
                                             {
+                                                // Get the currentLine of the insert index
+                                                var currentLine = codeFile.CodeLines[insertLine -1];
+
+                                                // Reset the indent
+                                                Indent = currentLine.Indent;
+
                                                 // go to the line needed
                                                 textDoc.Selection.GotoLine(insertLine);
 
@@ -3242,6 +3260,8 @@ namespace DataJuggler.Regionizer
                     // if there are one or more codeLines
                     if ((codeLines != null) && (codeLines.Count > 0))
                     {
+                        // Determine the current indent
+
                         // set the indent 3
                         this.Indent = 3;
                         
@@ -3312,6 +3332,15 @@ namespace DataJuggler.Regionizer
                                 // if the lineNumber was found
                                 if (lineNumber > 0)
                                 {
+                                    // Get the currentLine
+                                    var currentLine = codeFile.CodeLines[lineNumber - 1];
+
+                                    if (currentLine.Indent > 0)
+                                    {
+                                        // Set the Indent to the Indent of this line
+                                        Indent = currentLine.Indent;
+                                    }
+                                    
                                     // get the textDoc
                                     TextDocument textDoc = GetActiveTextDocument();
                                 

@@ -66,9 +66,6 @@
     <Compile Include="CommentDictionaryEditor.xaml.cs">
       <DependentUpon>CommentDictionaryEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageButton.xaml.cs">
-      <DependentUpon>ImageButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -104,10 +101,6 @@
     <Page Include="CommentDictionaryEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ImageButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="RegionizerMainWindowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -151,9 +144,6 @@
     <Resource Include="Images\HelpIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\DataJuggler.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\DeepGray.png" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\YouTube.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\StoreArgsButton.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\DarkBlueButton3D.png" />

@@ -73,8 +73,9 @@ namespace DataJuggler.Regionizer
             /// </summary>
             public void HostEventListener(string eventName, object args)
             {
-                // locals
-                EnvDTE.DTE dte = null;
+            ThreadHelper.ThrowIfNotOnUIThread();
+            // locals
+            EnvDTE.DTE dte = null;
                 string dataType = "";
                 RegionizerCodeManager codeManager = null;
                 CSharpCodeFile codeFile = null;
