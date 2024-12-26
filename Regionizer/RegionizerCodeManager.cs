@@ -2734,7 +2734,7 @@ namespace DataJuggler.Regionizer
             internal void InsertHasProperty(string propertyName, string dataType, CM.CSharpCodeFile codeFile)
             {
                 // Set the Indent to 3
-                this.Indent = 3;
+                Indent = 3;
                 
                 // create the property
                 CM.CodeProperty property = new CM.CodeProperty();
@@ -2869,6 +2869,12 @@ namespace DataJuggler.Regionizer
                 // if the textDoc was found
                 if ((textDoc != null) && (lineNumber > 0))
                 {
+                    // Get the currentLine
+                    var currentLine = codeFile.CodeLines[lineNumber - 1];
+
+                    // Reset the Indent
+                    Indent = currentLine.Indent;
+
                     // go to this line
                     textDoc.Selection.GotoLine(lineNumber, false);
                 }

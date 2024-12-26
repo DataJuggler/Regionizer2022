@@ -40,7 +40,7 @@
     </UserControl.Background>
     <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.6.2"
+               Content="Regionizer 2022 Version 3.6.3"
                FontFamily="Calibri"
                FontSize="24"
                FontWeight="Bold" />
