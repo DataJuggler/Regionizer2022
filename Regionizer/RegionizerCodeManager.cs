@@ -998,16 +998,46 @@ namespace DataJuggler.Regionizer
                 // initial value
                 List<CM.CodeLine> lines = new List<CodeLine>();
 
+                // locals
+                /*
+                InvokeAsync(() =>
+                {
+                    // Refresh
+                    StateHasChanged();
+                });
+                */
+
+                CM.CodeLine blankLine = new CodeLine("");
+                CM.CodeLine refresh1 = new CodeLine("InvokeAsync(() =>");
+                CM.CodeLine refresh2 = new CodeLine("{");
+                CM.CodeLine refresh3 = new CodeLine("// Refresh");
+                CM.CodeLine refresh4 = new CodeLine("StateHasChanged();");
+                CM.CodeLine refresh5 = new CodeLine("});");
+
                 // Create each line
                 CM.CodeLine line1 = new CodeLine(scope.ToString().ToLower() + " " + returnType + " " + name + "(" + parameters + ")");
                 CM.CodeLine line2 = new CodeLine("{");
-                CM.CodeLine line3 = new CodeLine("");
                 CM.CodeLine line4 = new CodeLine("}");
 
                 // Add each line
                 lines.Add(line1);
                 lines.Add(line2);
-                lines.Add(line3);
+
+                // if the Refresh method
+                if (name == "Refresh")
+                {
+                    // add a blank line
+                    lines.Add(refresh1);
+                    lines.Add(refresh2);
+                    lines.Add(refresh3);
+                    lines.Add(refresh4);
+                    lines.Add(refresh5);
+                }
+                else
+                {
+                    // add a blank line
+                    lines.Add(blankLine);
+                }
                 lines.Add(line4);
 
                 // return value
@@ -2622,6 +2652,33 @@ namespace DataJuggler.Regionizer
                 return classDeclarationLine;
             }
             #endregion
+
+            #region HandleIBlazorComponentParentClassDeclaration(CM.CodeLine classDeclarationLine)
+            /// <summary>
+            /// returns the I Blazor Component Class Declaration
+            /// </summary>
+            public CM.CodeLine HandleIBlazorComponentParentClassDeclaration(CM.CodeLine classDeclarationLine)
+            {
+                // Check if the text contains "IBlazorComponentParent"
+                if (!classDeclarationLine.Text.Contains("IBlazorComponentParent"))
+                {
+                    // Check if it inherits from any base class or implements any interfaces
+                    if (classDeclarationLine.Text.Contains(":"))
+                    {
+                        // Add ", IBlazorComponentParent" if it already has a base class or interface(s)
+                        classDeclarationLine.Text += ", IBlazorComponentParent";
+                    }
+                    else
+                    {
+                        // Add " : IBlazorComponentParent" if it doesn't have any base class or interface(s)
+                        classDeclarationLine.Text += " : IBlazorComponentParent";
+                    }
+                }
+
+                // return value
+                return classDeclarationLine;
+            }
+            #endregion
             
             #region HandleIBlazorComponentMethods()
             /// <summary>
@@ -2651,6 +2708,78 @@ namespace DataJuggler.Regionizer
                     method.Name = "ReceiveData";
                     method.Summary = CreateSummary("This method is used to receive messages from other components or pages");
                     method.CodeLines = CreateMethodCodeLines(CodeScopeEnum.Public, "ReceiveData", "void", "Message message");
+                    method.CodeType = CodeTypeEnum.Method;
+
+                    // Add this method
+                    methods.Add(method);
+                }
+
+                // Order the methods
+                methods = methods.OrderBy(x => x.Name).ToList();
+
+                // return value
+                return methods;
+            }
+            #endregion
+            
+            #region HandleIBlazorComponentParentMethods(List<CM.CodeMethod> methods)
+            /// <summary>
+            /// returns a list of I Blazor Component Parent Methods
+            /// </summary>
+            public List<CM.CodeMethod> HandleIBlazorComponentParentMethods(List<CM.CodeMethod> methods)
+            {
+                 // locals
+                bool hasReceiveDataMethod = false;
+                bool hasRefreshMethod = false;
+                bool hasRegisterMethod = false;
+
+                // If the methods collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(methods))
+                {
+                    // set the value for hasReceiveDataMethod
+                    hasReceiveDataMethod = (methods.FirstOrDefault(x => x.Name == "ReceiveData") != null);
+                    hasRefreshMethod = (methods.FirstOrDefault(x => x.Name == "Refresh") != null);
+                    hasRegisterMethod = (methods.FirstOrDefault(x => x.Name == "Register") != null);
+                }
+                else
+                {
+                    // Create a new collection of 'CodeMethod' objects.
+                    methods = new List<CodeMethod>();
+                }
+
+                // if the value for hasReceiveDataMethod is false
+                if (!hasReceiveDataMethod)
+                {
+                    CM.CodeMethod method = new CodeMethod();
+                    method.Name = "ReceiveData";
+                    method.Summary = CreateSummary("This method is used to receive messages from other components or pages");
+                    method.CodeLines = CreateMethodCodeLines(CodeScopeEnum.Public, "ReceiveData", "void", "Message message");
+                    method.CodeType = CodeTypeEnum.Method;
+
+                    // Add this method
+                    methods.Add(method);
+                }
+
+                // if the value for hasRefreshMethod is false
+                if (!hasRefreshMethod)
+                {
+                    CM.CodeMethod method = new CodeMethod();
+                    method.Name = "Refresh";
+                    method.Summary = CreateSummary("This method is used to update the UI after changes");
+                    method.CodeLines = CreateMethodCodeLines(CodeScopeEnum.Public, "Refresh", "void", "");
+                    method.CodeType = CodeTypeEnum.Method;
+
+                    // Add this method
+                    methods.Add(method);
+                }
+
+                // if the value for hasRegisterMethod is false
+                if (!hasRegisterMethod)
+                {
+                    CM.CodeMethod method = new CodeMethod();
+                    method.Name = "Register";
+                    method.Summary = CreateSummary("This method is used to store child controls that are on this component or page");
+                    method.CodeLines = CreateMethodCodeLines(CodeScopeEnum.Public, "Register", "void", "IBlazorComponent component");
                     method.CodeType = CodeTypeEnum.Method;
 
                     // Add this method
@@ -2908,6 +3037,112 @@ namespace DataJuggler.Regionizer
 
                             // Add ReceiveData if not present
                             activeClass.Methods = HandleIBlazorComponentMethods(activeClass.Methods);
+
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Write End region Line
+                            EndRegion();
+                        
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Write the Namespace (and all the child objects)
+                            WriteNamespace(codeFile.Namespace);
+
+                            // now move up to the top
+                            textDoc.Selection.GotoLine(1);
+                        }
+                    }
+                }
+            }
+            #endregion
+            
+            #region ImplementIBlazorComponentParentInterface()
+            /// <summary>
+            /// Implement I Blazor Component Parent Interface
+            /// </summary>
+            public void ImplementIBlazorComponentParentInterface()
+            {
+                // locals
+                bool abort = false;
+                
+                // get the TextDocument from the ActiveDocument
+                TextDocument textDoc = GetActiveTextDocument();
+
+                // Get the fileCodeModel
+                FileCodeModel fileCodeModel = GetActiveFileCodeModel();
+                
+                // if the textDocument exists
+                if  ((textDoc != null) && (fileCodeModel != null))
+                {
+                    // get the document text
+                    string documentText = GetDocumentText(textDoc);
+                    
+                    // set the codeFile
+                    CM.CSharpCodeFile codeFile = CSharpCodeParser.ParseCSharpCodeFile(documentText, fileCodeModel);
+
+                    // if the codeFile exists
+                    if ((codeFile != null) && (codeFile.Namespace != null))
+                    {  
+                        // get the current name space
+                        CM.CodeNamespace currentNamespace = codeFile.Namespace;
+
+                        // if there are one or more classes
+                        if ((currentNamespace.HasClasses) && (currentNamespace.Classes.Count > 1))
+                        {
+                            // Get the user's confirmation before proceeding
+                            MessageBoxResult result = MessageBox.Show("The Active Document contains more than one class file. Regionizer works best with a single class per file. Do you wish to continue?", "Proceed At Own Risk", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                            // if 'Yes' was clicked
+                            if (result != MessageBoxResult.Yes)
+                            {
+                                // abort
+                                abort = true;
+                            }
+                        }
+                        else if ((currentNamespace.HasClasses) && (currentNamespace.Classes.Count == 0))
+                        {
+                            // Get the user's confirmation before proceeding
+                            MessageBoxResult result = MessageBox.Show("The Active Document does not contain any classes", "Invalid Document");
+                            
+                            // abort
+                            abort = true;
+                        }
+
+                        // if we did not abort
+                        if (!abort)
+                        {
+                            // Get a reference to the first class
+                            CM.CodeClass activeClass = codeFile.Namespace.Classes[0];
+
+                            // before writing we need to clear the text of the active document
+                            Clear(textDoc);
+                        
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Write out the using statements
+                            BeginRegion("using statements");
+                        
+                            // Add a blank live
+                            AddBlankLine();
+
+                            // Update the UsingStatements
+                            codeFile.UsingStatements = HandleIBlazorComponentUsingStatements(codeFile.UsingStatements);
+                        
+                            // Write the code lines
+                            WriteCodeLines(codeFile.UsingStatements);
+
+                            // Get the ClassDeclarationLine                            
+                            activeClass.ClassDeclarationLine = HandleIBlazorComponentParentClassDeclaration(activeClass.ClassDeclarationLine);
+
+                            // Add ReceiveData, Refresh and Register methods if not present
+                            // Change to IBlazorComponentParentMethods
+                            activeClass.Methods = HandleIBlazorComponentParentMethods(activeClass.Methods);
 
                             // Add a blank live
                             AddBlankLine();

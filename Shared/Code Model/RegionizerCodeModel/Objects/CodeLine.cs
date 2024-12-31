@@ -261,7 +261,7 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
             
             #region IsCloseBracket
             /// <summary>
-            /// Is this line an CloseBracket ?
+            /// Is this line a CloseBracket ?
             /// </summary>
             public bool IsCloseBracket
             {
@@ -272,9 +272,16 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
                     
                     // trim the start of the line
                     string temp = this.Text.Trim();
+
+                    // Create a tempCodeLine
+                    CodeLine codeLine = new CodeLine(temp);
                     
-                    // set the return value
-                    isCloseBracket = (temp == "}");
+                    // if this is not a comment
+                    if (!codeLine.IsComment)
+                    {
+                        // set the return value
+                        isCloseBracket = (temp.Contains("}"));
+                    }
                     
                     // return value
                     return isCloseBracket;

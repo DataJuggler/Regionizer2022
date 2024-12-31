@@ -171,6 +171,21 @@ namespace DataJuggler.Regionizer
 
                             // required
                             break;
+
+                        case "ImplementIBlazorComponentParent":
+
+                             // if the dte object exists
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                // Create the code manager object
+                                codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                            
+                                // implement IBlazorComponentInterface
+                                codeManager.ImplementIBlazorComponentParentInterface();
+                            }
+
+                            // required
+                            break;
                         
                         case "InsertMethod":
                         

@@ -462,6 +462,21 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
+            #region IBlazorComponentParentButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// event is fired when the 'IBlazorComponentParentButton' is clicked.
+            /// </summary>
+            public void IBlazorComponentParentButton_Click(object sender, EventArgs e)
+            {
+                // if the delegate is set
+                if (HasHostEventHandler)
+                {
+                    // Implement IBlazorComponent interface
+                    HostEventHandler("ImplementIBlazorComponentParent", null);
+                }
+            }
+            #endregion
+            
             #region OnCheckChangedHandler(object sender, bool isChecked)
             /// <summary>
             /// This event is used to handle the On Check Changed Handler
