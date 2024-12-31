@@ -36,6 +36,25 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
         } 
         #endregion
 
+        #region Constructor(string text)
+        /// <summary>
+        /// Create a Private Variable object
+        /// </summary>
+        /// <param name="textLine"></param>
+        public CodePrivateVariable(string text)
+        {
+            // Create the TextLine
+            TextLine = new TextLine(text);
+
+            // if the value for HasTextLine is true
+            if (HasTextLine)
+            {
+                // Get the words
+                TextLine.Words = WordParser.GetWords(TextLine.Text);
+            }
+        } 
+        #endregion
+
         #region Properties
 
             #region PrivateVariableName
@@ -43,8 +62,7 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
             /// This read only property returns the value of PrivateVariableName from the object TextLine.
             /// </summary>
             public string PrivateVariableName
-            {
-                
+            {  
                 get
                 {
                     // initial value

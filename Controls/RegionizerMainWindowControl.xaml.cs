@@ -425,10 +425,10 @@ namespace DataJuggler.Regionizer.Controls
             private void HasPropertyCreator_Click(object sender, RoutedEventArgs e)
             {
                 // if the delegate is set
-                if (this.HasHostEventHandler)
+                if (HasHostEventHandler)
                 {
                     // Format the Active Document
-                    this.HostEventHandler("CreateHasPropertyFromSelection", null);
+                    HostEventHandler("CreateHasPropertyFromSelection", null);
                 }
             }
             #endregion
@@ -444,6 +444,21 @@ namespace DataJuggler.Regionizer.Controls
 
                 // launch the web browser
                 System.Diagnostics.Process.Start(webUsersGuideUrl);
+            }
+            #endregion
+            
+            #region IBlazorComponentButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// This event is fired when the 'IBlazorComponentButton' is clicked.
+            /// </summary>
+            public void IBlazorComponentButton_Click(object sender, EventArgs e)
+            {
+                // if the delegate is set
+                if (HasHostEventHandler)
+                {
+                    // Implement IBlazorComponent interface
+                    HostEventHandler("ImplementIBlazorComponent", null);
+                }
             }
             #endregion
             

@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using DataJuggler.Regionizer.Controls.Util;
 using objects = DataJuggler.Core.UltimateHelper.Objects;
 using EnvDTE;
+using System.Reflection;
 
 #endregion
 
@@ -153,6 +154,21 @@ namespace DataJuggler.Regionizer
                                 codeManager.InsertHasProperty(propertyName, dataType, codeFile);
                             }
                         
+                            // required
+                            break;
+
+                        case "ImplementIBlazorComponent":
+
+                             // if the dte object exists
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                // Create the code manager object
+                                codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                            
+                                // implement IBlazorComponentInterface
+                                codeManager.ImplementIBlazorComponentInterface();
+                            }
+
                             // required
                             break;
                         

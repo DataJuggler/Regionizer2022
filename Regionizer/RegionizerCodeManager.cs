@@ -47,7 +47,7 @@ namespace DataJuggler.Regionizer
         public RegionizerCodeManager(EnvDTE.Document document)
         {
             // Set the ActiveDocument
-            this.ActiveDocument = document;
+            ActiveDocument = document;
         } 
         #endregion
         
@@ -89,7 +89,7 @@ namespace DataJuggler.Regionizer
                     EndRegion();
                     
                     // Add a Blank Line
-                    this.AddBlankLine();
+                    AddBlankLine();
                 }
             }
             #endregion
@@ -186,7 +186,7 @@ namespace DataJuggler.Regionizer
             internal void InsertEvent(string eventName, string returnType, CM.CSharpCodeFile codeFile)
             {
                 // Set the Indent to 3
-                this.Indent = 3;
+                Indent = 3;
                 
                 // create the event
                 CM.CodeEvent codeEvent = new CM.CodeEvent();
@@ -267,11 +267,8 @@ namespace DataJuggler.Regionizer
             /// </summary>
             internal void InsertReadOnlyProperty(string propertyFullName, string returnType, CM.CSharpCodeFile codeFile)
             {
-
-                
-
                 // Set the Indent to 3
-                this.Indent = 3;
+                Indent = 3;
                 
                 // create the event
                 CM.CodeProperty codeProperty = new CM.CodeProperty();
@@ -519,7 +516,7 @@ namespace DataJuggler.Regionizer
                 string blankLine = Environment.NewLine;
                 
                 // insert a blank line
-                this.Insert(blankLine);
+                Insert(blankLine);
             } 
             #endregion
             
@@ -530,13 +527,13 @@ namespace DataJuggler.Regionizer
             private void AddCloseBracket(bool decreaseIndentAfterInsertion)
             {
                 // Add the open bracket
-                this.Insert("}");
+                Insert("}");
                 
                 // if decrease indent after the insertion is true
                 if (decreaseIndentAfterInsertion)
                 {
                     // decrease the indention
-                    this.Indent--;
+                    Indent--;
                 }
             }
             #endregion
@@ -587,7 +584,7 @@ namespace DataJuggler.Regionizer
                         EndRegion();
                         
                         // Add a Blank Line
-                        this.AddBlankLine();
+                        AddBlankLine();
                     }
                 }
             }
@@ -629,7 +626,7 @@ namespace DataJuggler.Regionizer
                     EndRegion();
                     
                     // Add a Blank Line
-                    this.AddBlankLine();
+                    AddBlankLine();
                 }
             }
             #endregion
@@ -641,13 +638,13 @@ namespace DataJuggler.Regionizer
             private void AddOpenBracket(bool increaseIndentAfterInsertion)
             {
                 // Add the open bracket
-                this.Insert("{");
+                Insert("{");
                 
                 // if true
                 if (increaseIndentAfterInsertion)
                 {
                     // if the indent should be increased
-                    this.Indent++;
+                    Indent++;
                 }
             }  
             #endregion
@@ -660,7 +657,7 @@ namespace DataJuggler.Regionizer
             private void AddPrivateVariables(IList<CM.CodePrivateVariable> privateVariables)
             {
                 // add the region
-                this.BeginRegion("Private Variables");
+                BeginRegion("Private Variables");
                 
                 // if the privateVariables exist
                 if ((privateVariables != null) && (privateVariables.Count > 0))
@@ -675,15 +672,15 @@ namespace DataJuggler.Regionizer
                         string text = privateVariable.Text.TrimStart();
                         
                         // add this private variable
-                        this.Insert(text);
+                        Insert(text);
                     }
                 }
                 
                 // add the end region
-                this.EndRegion();
+                EndRegion();
                 
                 // Add a blank line
-                this.AddBlankLine();
+                AddBlankLine();
             } 
             #endregion
             
@@ -724,7 +721,7 @@ namespace DataJuggler.Regionizer
                     EndRegion();
                     
                     // Add a Blank Line
-                    this.AddBlankLine();
+                    AddBlankLine();
                 }
             }            
             #endregion
@@ -739,13 +736,13 @@ namespace DataJuggler.Regionizer
                 string sourceCode = "";
 
                 // if the CommentDictionary exists
-                if ((this.HasCommentDictionary) && (dictionaryInfo != null))
+                if ((HasCommentDictionary) && (dictionaryInfo != null))
                 {
                     // get the TextDocument from the ActiveDocument
                     TextDocument textDoc = GetActiveTextDocument();
 
                     // Get the fileCodeModel
-                    FileCodeModel fileCodeModel = this.GetActiveFileCodeModel();
+                    FileCodeModel fileCodeModel = GetActiveFileCodeModel();
 
                     // if the textDocument exists
                     if ((textDoc != null) && (fileCodeModel != null))
@@ -757,13 +754,13 @@ namespace DataJuggler.Regionizer
                         textDoc.Selection.SelectLine();
 
                         // get the text from the line below the cursor
-                        sourceCode = this.GetSelectedText(true);
+                        sourceCode = GetSelectedText(true);
 
                         // create an instance of an InspectorBaseClass object
                         InspectorBaseClass inspector = new InspectorBaseClass();
 
                         // get the autoCommentText
-                        string autoCommentText = inspector.GetAutoCommentText(this.CommentDictionary, sourceCode, dictionaryInfo);
+                        string autoCommentText = inspector.GetAutoCommentText(CommentDictionary, sourceCode, dictionaryInfo);
 
                         // if the autoCommentText exists
                         if (!String.IsNullOrEmpty(autoCommentText))
@@ -772,7 +769,7 @@ namespace DataJuggler.Regionizer
                             int indent = FindIndent(sourceCode);
 
                             // Create an override for this
-                            string indentChars = this.GetIndentText(indent);
+                            string indentChars = GetIndentText(indent);
 
                             // get the commentText text
                             string commentText = indentChars + "// " + autoCommentText;
@@ -781,7 +778,7 @@ namespace DataJuggler.Regionizer
                             textDoc.Selection.LineUp();
 
                             // now write out the
-                            this.Insert(commentText, false);
+                            Insert(commentText, false);
 
                             // move to the end of the line
                             textDoc.Selection.EndOfLine();
@@ -805,7 +802,7 @@ namespace DataJuggler.Regionizer
                 string regionText = "#region " + name;
                 
                 // insert this text
-                this.Insert(regionText);
+                Insert(regionText);
             } 
             #endregion
 
@@ -992,6 +989,115 @@ namespace DataJuggler.Regionizer
             }
         #endregion
 
+            #region CreateMethodCodeLines(CodeScopeEnum scope, string name, string returnType, string parameters)
+            /// <summary>
+            /// returns a list of Method Code Lines
+            /// </summary>
+            public List<CM.CodeLine> CreateMethodCodeLines(CodeScopeEnum scope, string name, string returnType, string parameters)
+            {
+                // initial value
+                List<CM.CodeLine> lines = new List<CodeLine>();
+
+                // Create each line
+                CM.CodeLine line1 = new CodeLine(scope.ToString().ToLower() + " " + returnType + " " + name + "(" + parameters + ")");
+                CM.CodeLine line2 = new CodeLine("{");
+                CM.CodeLine line3 = new CodeLine("");
+                CM.CodeLine line4 = new CodeLine("}");
+
+                // Add each line
+                lines.Add(line1);
+                lines.Add(line2);
+                lines.Add(line3);
+                lines.Add(line4);
+
+                // return value
+                return lines;
+            }
+            #endregion
+            
+            #region CreatePropertyCodeLines(CodeScopeEnum scope, string name, string returnType, bool register = false)
+            /// <summary>
+            /// returns a list of Code Lines that make up a property
+            /// </summary>
+            public static List<CodeLine> CreatePropertyCodeLines(CodeScopeEnum scope, string name, string returnType, bool register = false)
+            {
+                // initial value
+                List<CodeLine> codeLines = new List<CodeLine>();
+
+                // locals
+                CM.CodeLine line9B = new CM.CodeLine("");
+                CM.CodeLine line9C = new CM.CodeLine("// If the parent exists");
+                CM.CodeLine line9D = new CM.CodeLine("if (parent != null)");
+                CM.CodeLine line9E = new CM.CodeLine("{");
+                CM.CodeLine line9F = new CM.CodeLine("// register with the parent");
+                CM.CodeLine line9G = new CM.CodeLine("parent.Register(this);");
+                CM.CodeLine line9H = new CM.CodeLine("}");
+
+                // Lines
+                CM.CodeLine lineParameter = new CodeLine("[Parameter]");
+                CM.CodeLine line1 = new CM.CodeLine(scope.ToString().ToLower() + " " + returnType + " " + TextHelper.CapitalizeFirstChar(name, false));
+                CM.CodeLine line2 = new CM.CodeLine("{");
+                CM.CodeLine line3 = new CM.CodeLine("get");
+                CM.CodeLine line4 = new CM.CodeLine("{");
+                CM.CodeLine line5 = new CodeLine("return " + TextHelper.CapitalizeFirstChar(name, true) + ";");
+                CM.CodeLine line6 = new CM.CodeLine("}");
+                CM.CodeLine line7 = new CM.CodeLine("set");
+                CM.CodeLine line8 = new CM.CodeLine("{");
+                CM.CodeLine line9 = new CodeLine(TextHelper.CapitalizeFirstChar(name, true) + " = value;");
+                CM.CodeLine line10 = new CM.CodeLine("}");
+                CM.CodeLine line11 = new CM.CodeLine("}");
+
+                // Now add these codeLines
+                codeLines.Add(lineParameter);
+                codeLines.Add(line1);                
+                codeLines.Add(line2);
+                codeLines.Add(line3);
+                codeLines.Add(line4);
+                codeLines.Add(line5);
+                codeLines.Add(line6);
+                codeLines.Add(line7);
+                codeLines.Add(line8);
+                codeLines.Add(line9);
+
+                // if this is Parent property
+                if (name == "Parent")
+                {
+                    codeLines.Add(line9B);
+                    codeLines.Add(line9C);
+                    codeLines.Add(line9D);
+                    codeLines.Add(line9E);
+                    codeLines.Add(line9F);
+                    codeLines.Add(line9G);
+                    codeLines.Add(line9H);
+                }
+
+                codeLines.Add(line10);
+                codeLines.Add(line11);
+                
+                // return value
+                return codeLines;
+            }
+            #endregion
+            
+            #region CreateSummary(string description)
+            /// <summary>
+            /// returns the Summary
+            /// </summary>
+            public static CodeNotes CreateSummary(string description)
+            {
+                // initial value
+                CodeNotes summary = new CodeNotes();
+
+                // Add each line
+                summary.CodeLines.Add(new CodeLine(@"/// <summary>"));                
+                summary.CodeLines.Add(new CodeLine(@"/// " + description));
+                summary.CodeLines.Add(new CodeLine(@"/// </summary>"));
+
+                // return value
+                return summary;
+            }
+            #endregion
+            
             #region CreateSummary(CodeTypeEnum codeType, string eventOrMethodName, string returnType = "", bool isReadOnly = false, string className = "")
             /// <summary>
             /// This method creates a Summary for CodeBlocks that do not have a summary
@@ -1108,7 +1214,7 @@ namespace DataJuggler.Regionizer
             {
                 try
                 {
-                    TextSelection objSel = (TextSelection)(this.ActiveDocument.Selection);
+                    TextSelection objSel = (TextSelection)(ActiveDocument.Selection);
                     VirtualPoint objActive = objSel.ActivePoint;
 
                     // Collapse the selection to the beginning of the line.
@@ -1200,7 +1306,7 @@ namespace DataJuggler.Regionizer
                 string regionText = "#endregion";
                 
                 // insert this text
-                this.Insert(regionText);
+                Insert(regionText);
             }
             #endregion
 
@@ -1211,7 +1317,7 @@ namespace DataJuggler.Regionizer
             public void ExpandAllRegions(EnvDTE.DTE dte)
             {
                 // collapse all regions
-                // this.ToggleAllRegions(false, dte);
+                // ToggleAllRegions(false, dte);
             }
             #endregion
             
@@ -1459,13 +1565,13 @@ namespace DataJuggler.Regionizer
                 TextDocument textDoc = GetActiveTextDocument();
                 
                 // Get the fileCodeModel
-                FileCodeModel fileCodeModel = this.GetActiveFileCodeModel();
+                FileCodeModel fileCodeModel = GetActiveFileCodeModel();
 
                 // if the textDocument exists
                 if  ((textDoc != null) && (fileCodeModel != null))
                 {
                     // get the document text
-                    selectedText = this.GetSelectedText(false);
+                    selectedText = GetSelectedText(false);
 
                     // parse the lines out of the selected text
                     List<TextLine> textLines = CSharpCodeParser.ParseLines(selectedText);
@@ -1522,7 +1628,7 @@ namespace DataJuggler.Regionizer
                     if ((codeLines != null) && (codeLines.Count > 0) && (codeFile != null))
                     {
                         // get the top line
-                        CM.CodeLine codeLine = this.GetFirstCodeLine(codeLines, out skippedLines);
+                        CM.CodeLine codeLine = GetFirstCodeLine(codeLines, out skippedLines);
                         
                         // if the codeLine exists
                         if  ((codeLine != null) && (codeLine.IsCodeLine))
@@ -1544,7 +1650,7 @@ namespace DataJuggler.Regionizer
                                 if (codeLine.IsMethod)
                                 {
                                     // Set to 3
-                                    this.Indent = 3;
+                                    Indent = 3;
 
                                     // This is an Event
                                     if (codeLine.IsEvent)
@@ -1589,7 +1695,7 @@ namespace DataJuggler.Regionizer
                                             }
 
                                             // Write the event and surround this event with a region
-                                            this.WriteEvent(codeEvent, true);
+                                            WriteEvent(codeEvent, true);
 
                                             // set formatted to true
                                             formatted = true;
@@ -1642,7 +1748,7 @@ namespace DataJuggler.Regionizer
                                             }
 
                                             // Surround this method with a region
-                                            this.WriteMethod(codeMethod, true);
+                                            WriteMethod(codeMethod, true);
 
                                             // set formatted to true
                                             formatted = true;
@@ -1712,10 +1818,10 @@ namespace DataJuggler.Regionizer
                                                 codeProperty.CodeLines = CSharpCodeParser.CopyLines(codeLines, startCopyLine, endCopyLine);
 
                                                 // Set to 3
-                                                this.Indent = 3;
+                                                Indent = 3;
 
                                                 // now write the property
-                                                this.WriteProperty(codeProperty, true);
+                                                WriteProperty(codeProperty, true);
 
                                                 // set formatted to true
                                                 formatted = true;
@@ -1754,10 +1860,10 @@ namespace DataJuggler.Regionizer
                 FileCodeModel fileCodeModel = null;
                 
                 // if the ActiveDocument exists
-                if ((this.HasActiveDocument) && (this.ActiveDocument.ProjectItem != null))
+                if ((HasActiveDocument) && (ActiveDocument.ProjectItem != null))
                 {
                     // get the fileCodeModel
-                    fileCodeModel = this.ActiveDocument.ProjectItem.FileCodeModel;
+                    fileCodeModel = ActiveDocument.ProjectItem.FileCodeModel;
                 }
                 
                 // return value
@@ -1776,10 +1882,10 @@ namespace DataJuggler.Regionizer
                 TextDocument textDoc = null;
                 
                 // if the ActiveDocumente exists
-                if (this.ActiveDocument != null)
+                if (ActiveDocument != null)
                 {
                     // Set the Selection
-                    object obj = this.ActiveDocument.Object("TextDocument");
+                    object obj = ActiveDocument.Object("TextDocument");
                     textDoc = (TextDocument)obj;
                 }
                 
@@ -1805,7 +1911,7 @@ namespace DataJuggler.Regionizer
                 TextDocument textDoc = GetActiveTextDocument();
                 
                 // Get the fileCodeModel
-                FileCodeModel fileCodeModel = this.GetActiveFileCodeModel();
+                FileCodeModel fileCodeModel = GetActiveFileCodeModel();
                 
                 // if the textDocument exists
                 if  ((textDoc != null) && (fileCodeModel != null))
@@ -1980,26 +2086,19 @@ namespace DataJuggler.Regionizer
             }
             #endregion
 
-            #region GetIndentText(CM.CodeLine codeLine)
+            #region GetIndentText()
             /// <summary>
             /// This method gets the indent text
             /// </summary>
             /// <returns></returns>
-            private string GetIndentText(CM.CodeLine codeLine)
+            private string GetIndentText()
             {
                 // initial value
                 string indentText = "";
 
                 // local
                 string tab = "    ";
-                int indent = this.Indent;
-
-                // if the codeLine exists
-                if (codeLine != null)
-                {
-                    // set the indent
-                    indent += codeLine.Indent;
-                }
+                int indent = Indent;
 
                 // iterate once for each indention
                 for (int x = 0; x < indent; x++)
@@ -2497,6 +2596,339 @@ namespace DataJuggler.Regionizer
             } 
             #endregion
             
+            #region HandleIBlazorComponentClassDeclaration(CM.CodeLine classDeclarationLine)
+            /// <summary>
+            /// returns the I Blazor Component Class Declaration
+            /// </summary>
+            public CM.CodeLine HandleIBlazorComponentClassDeclaration(CM.CodeLine classDeclarationLine)
+            {
+                // Check if the text contains "IBlazorComponent"
+                if (!classDeclarationLine.Text.Contains("IBlazorComponent"))
+                {
+                    // Check if it inherits from any base class or implements any interfaces
+                    if (classDeclarationLine.Text.Contains(":"))
+                    {
+                        // Add ", IBlazorComponent" if it already has a base class or interface(s)
+                        classDeclarationLine.Text += ", IBlazorComponent";
+                    }
+                    else
+                    {
+                        // Add " : IBlazorComponent" if it doesn't have any base class or interface(s)
+                        classDeclarationLine.Text += " : IBlazorComponent";
+                    }
+                }
+
+                // return value
+                return classDeclarationLine;
+            }
+            #endregion
+            
+            #region HandleIBlazorComponentMethods()
+            /// <summary>
+            /// returns a list of I Blazor Component Methods
+            /// </summary>
+            public List<CM.CodeMethod> HandleIBlazorComponentMethods(List<CM.CodeMethod> methods)
+            {
+                // locals
+                bool hasReceiveDataMethod = false;
+
+                // If the methods collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(methods))
+                {
+                    // set the value for hasReceiveDataMethod
+                    hasReceiveDataMethod = (methods.FirstOrDefault(x => x.Name == "ReceiveData") != null);
+                }
+                else
+                {
+                    // Create a new collection of 'CodeMethod' objects.
+                    methods = new List<CodeMethod>();
+                }
+
+                // if the value for hasReceiveDataMethod is false
+                if (!hasReceiveDataMethod)
+                {
+                    CM.CodeMethod method = new CodeMethod();
+                    method.Name = "ReceiveData";
+                    method.Summary = CreateSummary("This method is used to receive messages from other components or pages");
+                    method.CodeLines = CreateMethodCodeLines(CodeScopeEnum.Public, "ReceiveData", "void", "Message message");
+                    method.CodeType = CodeTypeEnum.Method;
+
+                    // Add this method
+                    methods.Add(method);
+                }
+
+                // Order the methods
+                methods = methods.OrderBy(x => x.Name).ToList();
+
+                // return value
+                return methods;
+            }
+            #endregion
+            
+            #region HandleIBlazorComponentPrivateVariables(List<CM.CodePrivateVariable> privateVariables)
+            /// <summary>
+            /// returns a list of I Blazor Component Private Variables
+            /// </summary>
+            public static List<CM.CodePrivateVariable> HandleIBlazorComponentPrivateVariables(List<CM.CodePrivateVariable> privateVariables)
+            {
+                // locals
+                bool hasNameVariable = false;
+                bool hasParentVariable = false;
+
+                // If the privateVariables collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(privateVariables))
+                {
+                    // Check if any variable is "private string name;" or "private IBlazorComponent parent;"
+                    hasNameVariable = privateVariables.Any(v => v.Text == "private string name;");
+                    hasParentVariable = privateVariables.Any(v => v.Text == "private IBlazorComponentParent parent;");
+                }
+                else
+                {
+                    // Recreate the privateVariables list if it is null or empty
+                    privateVariables = new List<CM.CodePrivateVariable>();
+                }
+
+                // Add "private string name;" if it doesn't exist
+                if (!hasNameVariable)
+                {
+                    // Add this private variable
+                    privateVariables.Add(new CM.CodePrivateVariable("private string name;"));
+                }
+
+                // Add "private IBlazorComponent parent;" if it doesn't exist
+                if (!hasParentVariable)
+                {
+                    // Add this private variable
+                    privateVariables.Add(new CM.CodePrivateVariable("private IBlazorComponentParent parent;"));
+                }
+
+                // if the private variables exist
+                if (ListHelper.HasOneOrMoreItems(privateVariables))
+                {
+                    // Sort
+                    privateVariables = privateVariables.OrderBy(x => x.PrivateVariableName).ToList();
+                }
+
+                // return value
+                return privateVariables;
+            }
+            #endregion
+            
+            #region HandleIBlazorComponentProperties(List<CM.CodeProperty> properties)
+            /// <summary>
+            /// returns a list of I Blazor Component Properties that implement IBlazorComponent
+            /// </summary>
+            public static List<CM.CodeProperty> HandleIBlazorComponentProperties(List<CM.CodeProperty> properties)
+            {
+                // locals
+                bool hasNameProperty = false;
+                bool hasParentProperty = false;
+
+                // If the properties collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(properties))
+                {
+                    // Check if any property is "public string Name" or "public IBlazorComponent Parent"
+                    hasNameProperty = properties.Any(p => p.Name == "Name");
+                    hasParentProperty = properties.Any(p => p.Name == "Parent");
+                }
+                else
+                {
+                    // Recreate the properties list if it is null or empty
+                    properties = new List<CM.CodeProperty>();
+                }
+
+                // Add "public string Name" if it doesn't exist
+                if (!hasNameProperty)
+                {
+                    // Create a nameProperty
+                    CM.CodeProperty nameProperty = new CM.CodeProperty();                    
+                    nameProperty.Scope = CodeScopeEnum.Public;
+                    nameProperty.Summary = CreateSummary("This property gets or sets the value for Name");
+                    nameProperty.Name = "Name";
+                    nameProperty.CodeLines = CreatePropertyCodeLines(CodeScopeEnum.Public, "Name", "string");
+
+                    // Add this property
+                    properties.Add(nameProperty);
+                }
+
+                // Add "public IBlazorComponent Parent" if it doesn't exist
+                if (!hasParentProperty)
+                {
+                     // Create a nameProperty
+                    CM.CodeProperty parentProperty = new CM.CodeProperty();                    
+                    parentProperty.Scope = CodeScopeEnum.Public;
+                    parentProperty.Summary = CreateSummary("This property gets or sets the value for Parent");
+                    parentProperty.Name = "Parent";
+                    parentProperty.CodeLines = CreatePropertyCodeLines(CodeScopeEnum.Public, "Parent", "IBlazorComponentParent");
+
+                    // Add this property
+                    properties.Add(parentProperty);
+                }
+
+                // If the properties collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(properties))
+                {
+                    // Sort
+                    properties = properties.OrderBy(x => x.Name).ToList();
+                }
+
+                // return value
+                return properties;
+            }
+            #endregion
+            
+            #region HandleIBlazorComponentUsingStatements(List<CodeLine> usingStatements)
+            /// <summary>
+            /// returns a list of I Blazor Component Using Statements
+            /// </summary>
+            public List<CodeLine> HandleIBlazorComponentUsingStatements(List<CodeLine> usingStatements)
+            {
+                // Text to check or add
+                string reference1 = "using DataJuggler.Blazor.Components;";
+                string reference2 = "using DataJuggler.Blazor.Components.Interfaces;";
+    
+                // Initialize usingStatements if it's null
+                if (usingStatements == null)
+                {
+                    // create
+                    usingStatements = new List<CodeLine>();
+                }
+    
+                // Use LINQ to check for existing references
+                bool hasReference1 = usingStatements.Any(x => x.Text == reference1);
+                bool hasReference2 = usingStatements.Any(x => x.Text == reference2);
+    
+                // Add the references if they don't exist
+                if (!hasReference1)
+                {
+                    // Add Reference 1
+                    usingStatements.Add(new CodeLine(reference1));
+                }
+    
+                // if the value for hasReference2 is false
+                if (!hasReference2)
+                {
+                    // Add Reference 2
+                    usingStatements.Add(new CodeLine(reference2));
+                }
+
+                // return value
+                return usingStatements;
+            }
+            #endregion
+            
+            #region ImplementIBlazorComponentInterface()
+            /// <summary>
+            /// Implement I Blazor Component Interface. This method is similar to FormatDocument,
+            /// but some changes are made to implenent the interface.
+            /// </summary>
+            public void ImplementIBlazorComponentInterface()
+            {
+                // locals
+                bool abort = false;
+                
+                // get the TextDocument from the ActiveDocument
+                TextDocument textDoc = GetActiveTextDocument();
+
+                // Get the fileCodeModel
+                FileCodeModel fileCodeModel = GetActiveFileCodeModel();
+                
+                // if the textDocument exists
+                if  ((textDoc != null) && (fileCodeModel != null))
+                {
+                    // get the document text
+                    string documentText = GetDocumentText(textDoc);
+                    
+                    // set the codeFile
+                    CM.CSharpCodeFile codeFile = CSharpCodeParser.ParseCSharpCodeFile(documentText, fileCodeModel);
+
+                    // if the codeFile exists
+                    if ((codeFile != null) && (codeFile.Namespace != null))
+                    {  
+                        // get the current name space
+                        CM.CodeNamespace currentNamespace = codeFile.Namespace;
+
+                        // if there are one or more classes
+                        if ((currentNamespace.HasClasses) && (currentNamespace.Classes.Count > 1))
+                        {
+                            // Get the user's confirmation before proceeding
+                            MessageBoxResult result = MessageBox.Show("The Active Document contains more than one class file. Regionizer works best with a single class per file. Do you wish to continue?", "Proceed At Own Risk", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                            // if 'Yes' was clicked
+                            if (result != MessageBoxResult.Yes)
+                            {
+                                // abort
+                                abort = true;
+                            }
+                        }
+                        else if ((currentNamespace.HasClasses) && (currentNamespace.Classes.Count == 0))
+                        {
+                            // Get the user's confirmation before proceeding
+                            MessageBoxResult result = MessageBox.Show("The Active Document does not contain any classes", "Invalid Document");
+                            
+                            // abort
+                            abort = true;
+                        }
+
+                        // if we did not abort
+                        if (!abort)
+                        {
+                            // Get a reference to the first class
+                            CM.CodeClass activeClass = codeFile.Namespace.Classes[0];
+
+                            // before writing we need to clear the text of the active document
+                            Clear(textDoc);
+                        
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Write out the using statements
+                            BeginRegion("using statements");
+                        
+                            // Add a blank live
+                            AddBlankLine();
+
+                            // Update the UsingStatements
+                            codeFile.UsingStatements = HandleIBlazorComponentUsingStatements(codeFile.UsingStatements);
+                        
+                            // Write the code lines
+                            WriteCodeLines(codeFile.UsingStatements);
+
+                            // Get the ClassDeclarationLine
+                            activeClass.ClassDeclarationLine = HandleIBlazorComponentClassDeclaration(activeClass.ClassDeclarationLine);
+
+                            // Set the PrivateVariables
+                            activeClass.PrivateVariables = HandleIBlazorComponentPrivateVariables(activeClass.PrivateVariables);
+
+                            // Set the Properties
+                            activeClass.Properties = HandleIBlazorComponentProperties(activeClass.Properties);
+
+                            // Add ReceiveData if not present
+                            activeClass.Methods = HandleIBlazorComponentMethods(activeClass.Methods);
+
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Write End region Line
+                            EndRegion();
+                        
+                            // Add a blank live
+                            AddBlankLine();
+                        
+                            // Write the Namespace (and all the child objects)
+                            WriteNamespace(codeFile.Namespace);
+
+                            // now move up to the top
+                            textDoc.Selection.GotoLine(1);
+                        }
+                    }
+                }
+            }
+            #endregion
+            
             #region Insert(CM.CodeLine codeLine)
             /// <summary>
             /// This method inserts text into the active document.
@@ -2529,7 +2961,7 @@ namespace DataJuggler.Regionizer
             private void Insert(CM.CodeLine codeLine, int lineNumber, bool addBlankLineAbove, bool addBlankLineBelow)
             {
                 // get the active TextDoc
-                TextDocument textDoc = this.GetActiveTextDocument();
+                TextDocument textDoc = GetActiveTextDocument();
                 
                 // if the textDoc exists
                 if (textDoc != null)
@@ -2544,11 +2976,11 @@ namespace DataJuggler.Regionizer
                     // set to the newLine
                     string blankLine = Environment.NewLine;
                     
-                    // ad
+                    // if add blank line above
                     if (addBlankLineAbove)
                     {
                         // insert a blank line
-                        this.Insert(blankLine);
+                        Insert(blankLine);
                     }
                     
                     // if the codeLine.TextLine exists
@@ -2565,18 +2997,16 @@ namespace DataJuggler.Regionizer
                             }
                             
                             // Set the textDoc
-                            string indentText = GetIndentText(codeLine);
-                            string leftTrimmedText = codeLine.TextLine.Text.TrimStart();
+                            string indentText = GetIndentText();
+                            string leftTrimmedText = indentText + codeLine.TextLine.Text.TrimStart();
                             
-                            // test only
-                            int len = indentText.Length;
-                            string textToInsert = indentText + leftTrimmedText;
-                            textDoc.Selection.Insert(textToInsert);
+                            // Insert the text                                                        
+                            textDoc.Selection.Insert(leftTrimmedText);
                         }
                         else
                         {
                             // Add a blank line
-                            string textToInsert = GetIndentText(codeLine) + Environment.NewLine;
+                            string textToInsert = Environment.NewLine;
                             textDoc.Selection.Insert(textToInsert);
                         }
                     }
@@ -2590,7 +3020,7 @@ namespace DataJuggler.Regionizer
                     if (addBlankLineBelow)
                     {
                         // insert a blank line
-                        this.Insert(blankLine);
+                        Insert(blankLine);
                     }
                 }
             }
@@ -2628,7 +3058,7 @@ namespace DataJuggler.Regionizer
             private void Insert(string lineText, int lineNumber, bool addBlankLineAbove, bool addBlankLineBelow, bool endWithNewLine = true)
             {
                 // get the active TextDoc
-                TextDocument textDoc = this.GetActiveTextDocument();
+                TextDocument textDoc = GetActiveTextDocument();
                 
                 // if the textDoc exists
                 if (textDoc != null)
@@ -2647,7 +3077,7 @@ namespace DataJuggler.Regionizer
                     if (addBlankLineAbove)
                     {
                         // insert a blank line
-                        this.Insert(blankLine);
+                        Insert(blankLine);
                     }
                     
                     // if we should end with new line
@@ -2662,21 +3092,7 @@ namespace DataJuggler.Regionizer
                     }
                     
                     // Set the textDoc
-                    string textToInsert = GetIndentText(null) + lineText;
-
-                    //// if new line exists
-                    //if (textToInsert.EndsWith(Environment.NewLine))
-                    //{
-                    //    // get the index of the new line
-                    //    int index = textToInsert.LastIndexOf(Environment.NewLine);
-
-                    //    // if the text exists
-                    //    if (index > 1)
-                    //    {
-                    //        // if there is text other than the new line
-                    //        textToInsert = textToInsert.Substring(0, index);
-                    //    }
-                    //}
+                    string textToInsert = GetIndentText() + lineText;
 
                     // insert the text
                     textDoc.Selection.Insert(textToInsert);
@@ -2685,7 +3101,7 @@ namespace DataJuggler.Regionizer
                     if (addBlankLineBelow)
                     {
                         // insert a blank line
-                        this.Insert(blankLine);
+                        Insert(blankLine);
                     }
                 }
             }
@@ -2698,7 +3114,7 @@ namespace DataJuggler.Regionizer
             internal void InsertForEachLoop(string returnType, string collectionName)
             {
                 // Before running this example, open a text document.
-                TextSelection objSel = (TextSelection) this.ActiveDocument.Selection;
+                TextSelection objSel = (TextSelection) ActiveDocument.Selection;
                 VirtualPoint objActive = objSel.ActivePoint;
 
                 // Set the spaces
@@ -2716,11 +3132,11 @@ namespace DataJuggler.Regionizer
                 string variableName = CapitalizeFirstChar(returnType, true);
 
                 // write out the for each loop
-                this.Insert(spaces + commentLine);
-                this.Insert(spaces + "foreach (" + returnType + " " + variableName + " in " + collectionName + ")");
-                this.Insert(spaces + "{");
-                this.AddBlankLine();
-                this.Insert(spaces + "}", false);
+                Insert(spaces + commentLine);
+                Insert(spaces + "foreach (" + returnType + " " + variableName + " in " + collectionName + ")");
+                Insert(spaces + "{");
+                AddBlankLine();
+                Insert(spaces + "}", false);
             }
             #endregion
             
@@ -2728,8 +3144,8 @@ namespace DataJuggler.Regionizer
             /// <summary>
             /// This Method Creates a property that returns true if the object exists;
             /// Examples:
-            /// String Example: HasTitle = (!String.IsNullOrEmpty(this.Title));
-            /// Object Example: HasManager = (this.Manager != null);
+            /// String Example: HasTitle = (!String.IsNullOrEmpty(Title));
+            /// Object Example: HasManager = (Manager != null);
             /// </summary>
             internal void InsertHasProperty(string propertyName, string dataType, CM.CSharpCodeFile codeFile)
             {
@@ -2764,7 +3180,7 @@ namespace DataJuggler.Regionizer
                 string variableName = "has" + propertyName;
                 
                 // get the equation
-                string equation = "(this." + propertyName + " != null);";
+                string equation = "(" + propertyName + " != null);";
                 
                 // if the dataType is set
                 if (!String.IsNullOrEmpty(dataType))
@@ -2773,12 +3189,12 @@ namespace DataJuggler.Regionizer
                     if (dataType.ToLower() == "string")
                     {
                         // change for a string
-                        equation = "(!String.IsNullOrEmpty(this." + propertyName + "));";
+                        equation = "(!String.IsNullOrEmpty(" + propertyName + "));";
                     }
                     else if ((dataType.ToLower() == "int") || (dataType.ToLower() == "double"))
                     {
                         // change for a string
-                        equation = "(this." + propertyName + " > 0);";
+                        equation = "(" + propertyName + " > 0);";
                     }
                 }
                 
@@ -2903,11 +3319,11 @@ namespace DataJuggler.Regionizer
                     string spaces = "                ";
 
                     // Add the comment
-                    this.Insert(commentLine);
-                    this.Insert(spaces + testLine);
-                    this.Insert(spaces + "{");
-                    this.AddBlankLine();
-                    this.Insert(spaces + "}", false);
+                    Insert(commentLine);
+                    Insert(spaces + testLine);
+                    Insert(spaces + "{");
+                    AddBlankLine();
+                    Insert(spaces + "}", false);
                 }
                 catch (Exception error)
                 {
@@ -2936,11 +3352,11 @@ namespace DataJuggler.Regionizer
                     string spaces = "                ";
 
                     // Add the commentText
-                    this.Insert(commentLine);
-                    this.Insert(spaces + testLine);
-                    this.Insert(spaces + "{");
-                    this.AddBlankLine();
-                    this.Insert(spaces + "}", false);
+                    Insert(commentLine);
+                    Insert(spaces + testLine);
+                    Insert(spaces + "{");
+                    AddBlankLine();
+                    Insert(spaces + "}", false);
                 }
                 catch (Exception error)
                 {
@@ -2980,30 +3396,30 @@ namespace DataJuggler.Regionizer
                     
 
                     // initial value
-                    this.Insert("// initial value");
-                    this.Insert("                " + returnType + " " + variableName + " = " + defaultValue + ";");
+                    Insert("// initial value");
+                    Insert("                " + returnType + " " + variableName + " = " + defaultValue + ";");
 
                     // add a blank line
-                    this.Insert(Environment.NewLine);
+                    Insert(Environment.NewLine);
 
                     // add the return value
-                    this.Insert("                // return value");
-                    this.Insert("                return " + variableName + ";", false);
+                    Insert("                // return value");
+                    Insert("                return " + variableName + ";", false);
                 }
                 else
                 {
                     // here we do not have a returnType
 
                     // initial value
-                    this.Insert("// initial value");
-                    this.Insert(Environment.NewLine);
+                    Insert("// initial value");
+                    Insert(Environment.NewLine);
 
                     // add a blank line
-                    this.Insert(Environment.NewLine);
+                    Insert(Environment.NewLine);
 
                     // add the return value
-                    this.Insert("                // return value");
-                    this.Insert(Environment.NewLine);
+                    Insert("                // return value");
+                    Insert(Environment.NewLine);
                 }
             }
             #endregion
@@ -3015,7 +3431,7 @@ namespace DataJuggler.Regionizer
             internal void InsertMethod(string methodName, string returnType, CM.CSharpCodeFile codeFile)
             {
                 // Set the Indent to 3
-                this.Indent = 3;
+                Indent = 3;
                 
                 // create the method
                 CM.CodeMethod method = new CM.CodeMethod();
@@ -3233,10 +3649,10 @@ namespace DataJuggler.Regionizer
                     if (endRegionLineNumber > 0)
                     {
                         // the indent for Private Variable Insert is 2
-                        this.Indent = 2;
+                        Indent = 2;
                         
                         // Insert the line
-                        this.Insert(privateVariableText, endRegionLineNumber, false, false);
+                        Insert(privateVariableText, endRegionLineNumber, false, false);
                     }
                 }
                 else
@@ -3269,7 +3685,7 @@ namespace DataJuggler.Regionizer
                         // Determine the current indent
 
                         // set the indent 3
-                        this.Indent = 3;
+                        Indent = 3;
                         
                         // if the codeLine exist
                         foreach (CM.CodeLine codeLine in codeLines)
@@ -3448,58 +3864,58 @@ namespace DataJuggler.Regionizer
                 if (codeClass != null)
                 {
                     // increase the indent
-                    this.Indent++;
+                    Indent++;
                     
                     // set the className
                     string className = "class " + codeClass.Name;
                     
                     // begin a region for the ClassName
-                    this.BeginRegion(className);
+                    BeginRegion(className);
                     
                     // Write the Summary
-                    this.WriteSummary(codeClass.Name, codeClass.Summary, CodeTypeEnum.Class);
+                    WriteSummary(codeClass.Name, codeClass.Summary, CodeTypeEnum.Class);
                     
                     // Write the Tags for this class
-                    this.WriteTags(codeClass.Tags);
+                    WriteTags(codeClass.Tags);
                     
                     // Insert the class declaration line
-                    this.Insert(codeClass.ClassDeclarationLine);
+                    Insert(codeClass.ClassDeclarationLine);
                     
                     // insert the open bracket
-                    this.AddOpenBracket(false);
+                    AddOpenBracket(false);
                     
                     // increase the indent
                     indent++;
                     
                     // Add a blank line
-                    this.AddBlankLine();
+                    AddBlankLine();
                     
                     // Write the Private Variables
-                    this.AddPrivateVariables(codeClass.PrivateVariables);
+                    AddPrivateVariables(codeClass.PrivateVariables);
                     
                     // Write the Constructors
-                    this.AddConstructors(codeClass.Constructors, codeClass.Name);
+                    AddConstructors(codeClass.Constructors, codeClass.Name);
                     
                     // Write the Events
-                    this.AddEvents(codeClass.Events);
+                    AddEvents(codeClass.Events);
                     
                     // Write the Methods
-                    this.AddMethods(codeClass.Methods);
+                    AddMethods(codeClass.Methods);
                     
                     // Add the properties
-                    this.AddProperties(codeClass.Properties);
+                    AddProperties(codeClass.Properties);
                     
                     // decrease the indent
                     indent--;
                     
                     // insert the close bracket
-                    this.AddCloseBracket(false);
+                    AddCloseBracket(false);
                     
                     // add the endregion
-                    this.EndRegion();
+                    EndRegion();
                     
                     // decreate the indent
-                    this.Indent--;
+                    Indent--;
                 }  
             }
             #endregion
@@ -3521,7 +3937,7 @@ namespace DataJuggler.Regionizer
                         if (codeLine.IsCloseBracket)
                         {
                             // increase the indent
-                            this.Indent--;
+                            Indent--;
                         }
 
                         // if the indentAount is set
@@ -3532,13 +3948,13 @@ namespace DataJuggler.Regionizer
                         }
                         
                         // Insert this line
-                        this.Insert(codeLine);
+                        Insert(codeLine);
                         
                         // if this is an open bracket
                         if (codeLine.IsOpenBracket)
                         {
                             // increase the indent
-                            this.Indent++;
+                            Indent++;
                         }
                     }
                 }
@@ -3601,7 +4017,7 @@ namespace DataJuggler.Regionizer
                 if ((codeDelegate != null) && (codeDelegate.HasDeclarationLine))
                 {
                     // increase the indent
-                    this.Indent++;
+                    Indent++;
                     
                     // if surroundWithRegion
                     if (surroundWithRegion)
@@ -3610,27 +4026,27 @@ namespace DataJuggler.Regionizer
                         string delegateName = "delegate " + codeDelegate.Name;
                         
                         // begin a region for the DelegateName
-                        this.BeginRegion(delegateName);
+                        BeginRegion(delegateName);
                     }
                     
                     // Write the Summary
-                    this.WriteSummary("delegate", codeDelegate.Summary, CodeTypeEnum.Delegate);
+                    WriteSummary("delegate", codeDelegate.Summary, CodeTypeEnum.Delegate);
                     
                     // Insert the delegate declaration line
-                    this.Insert(codeDelegate.DelegateDeclarationLine);
+                    Insert(codeDelegate.DelegateDeclarationLine);
                     
                     // if surroundWithRegion
                     if (surroundWithRegion)
                     {
                         // add the endregion
-                        this.EndRegion();
+                        EndRegion();
                     }
                     
                     // decreate the indent
-                    this.Indent--;
+                    Indent--;
                     
                     // Add a blank line
-                    this.AddBlankLine();
+                    AddBlankLine();
                 }  
             } 
             #endregion
@@ -3711,13 +4127,13 @@ namespace DataJuggler.Regionizer
                 if (codeNamespace != null)
                 {
                     // Insert this line
-                    this.Insert(codeNamespace.CodeLine);
+                    Insert(codeNamespace.CodeLine);
                     
                     // Add the Open Bracket
-                    this.AddOpenBracket(false);
+                    AddOpenBracket(false);
                     
                     // add a blank line
-                    this.AddBlankLine();
+                    AddBlankLine();
                     
                     // if there are Delegates
                     if ((codeNamespace.Delegates != null) && (codeNamespace.Delegates.Count > 0))
@@ -3741,11 +4157,11 @@ namespace DataJuggler.Regionizer
                         }
                         
                         // add a blank line
-                        this.AddBlankLine();    
+                        AddBlankLine();    
                     }
                     
                     // Add Close Bracket
-                    this.AddCloseBracket(false);
+                    AddCloseBracket(false);
                 }
             }
             #endregion
@@ -3819,7 +4235,7 @@ namespace DataJuggler.Regionizer
                 foreach (CM.CodeLine summaryLine in summary.CodeLines)
                 {
                     // perform an insert
-                    this.Insert(summaryLine);
+                    Insert(summaryLine);
                 }
             }
         #endregion
@@ -3842,7 +4258,7 @@ namespace DataJuggler.Regionizer
                 foreach (CM.CodeLine summaryLine in summary.CodeLines)
                 {
                     // perform an insert
-                    this.Insert(summaryLine);
+                    Insert(summaryLine);
                 }
             }
             #endregion
@@ -3861,7 +4277,7 @@ namespace DataJuggler.Regionizer
                     foreach(CM.CodeLine tag in tags)
                     {
                         // perform an insert
-                        this.Insert(tag);
+                        Insert(tag);
                     }
                 }
             }  
@@ -3902,7 +4318,7 @@ namespace DataJuggler.Regionizer
                 get
                 {
                     // initial value
-                    bool activeDocument = (this.ActiveDocument != null);
+                    bool activeDocument = (ActiveDocument != null);
                     
                     // return value
                     return activeDocument;
@@ -3919,7 +4335,7 @@ namespace DataJuggler.Regionizer
                 get
                 {
                     // initial value
-                    bool hasCommentDictionairy = (this.CommentDictionary != null);
+                    bool hasCommentDictionairy = (CommentDictionary != null);
 
                     // return value
                     return hasCommentDictionairy;

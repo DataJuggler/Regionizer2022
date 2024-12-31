@@ -40,7 +40,7 @@
     </UserControl.Background>
     <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.6.3"
+               Content="Regionizer 2022 Version 3.7.0"
                FontFamily="Calibri"
                FontSize="24"
                FontWeight="Bold" />
@@ -217,9 +217,30 @@
                             <ImageBrush ImageSource="Images/YouTube.png" />
                         </Button.Background>
             </Button>
-        </WrapPanel>
-        
-            
-       
+            <Button x:Name="IBlazorComponentButton"
+                 Click="IBlazorComponentButton_Click" Style="{StaticResource HandCursorButtonStyle}"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Implement the IBlazorComponent interface">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponent.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponent.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="IBlazorComponentParentButton"
+                 Click="EditCustomDictionaryButton_Click" Style="{StaticResource HandCursorButtonStyle}"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Implement the IBlazorComponent interface">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponentParent.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponentParent.png" />
+                </Button.Background>
+            </Button>
+        </WrapPanel>       
     </StackPanel>    
 </UserControl>
