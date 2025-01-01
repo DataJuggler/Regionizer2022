@@ -409,13 +409,19 @@ namespace DataJuggler.Regionizer
 
                         // Add the region line
                         codeProperty.CodeLines.Add(blankLine);
+
+                        // Get the value
+                        int propertyIndent = 0;
                 
                         // before writing this event we need to find the insert index
-                        int lineNumber = GetPropertyInsertLineNumber(propertyName, codeFile);
+                        int lineNumber = GetPropertyInsertLineNumber(propertyName, codeFile, out propertyIndent);
 
                         // if the lineNumber exists
                         if (lineNumber > 0)
                         {
+                            // Set the Indent
+                            Indent = propertyIndent;
+
                             // get the textDoc
                             TextDocument textDoc = GetActiveTextDocument();
                 
@@ -1807,8 +1813,11 @@ namespace DataJuggler.Regionizer
                                             // set the property name
                                             string propertyName = words[words.Count - 1].Text.Replace(";", "");
 
+                                             // Get the value
+                                            int propertyIndent = 3;                
+
                                             // get the insert 
-                                            insertLine = GetPropertyInsertLineNumber(propertyName, codeFile);
+                                            insertLine = GetPropertyInsertLineNumber(propertyName, codeFile, out propertyIndent);
 
                                             // if the insertLine
                                             if (insertLine > 0)
@@ -1847,8 +1856,8 @@ namespace DataJuggler.Regionizer
                                                 // copy the codeLines
                                                 codeProperty.CodeLines = CSharpCodeParser.CopyLines(codeLines, startCopyLine, endCopyLine);
 
-                                                // Set to 3
-                                                Indent = 3;
+                                                // Set to the first property
+                                                Indent = propertyIndent;
 
                                                 // now write the property
                                                 WriteProperty(codeProperty, true);
@@ -2331,13 +2340,13 @@ namespace DataJuggler.Regionizer
             } 
             #endregion
             
-            #region GetPropertyInsertLineNumber(string propertyName, CM.CSharpCodeFile codeFile)
+            #region GetPropertyInsertLineNumber(string propertyName, CM.CSharpCodeFile codeFile, out int propertyRegionIndent)
             /// <summary>
             /// This method returns the LineNumber for the property that you need to inserted.
             /// </summary>
             /// <param name="propertyName"></param>
             /// <returns></returns>
-            private int GetPropertyInsertLineNumber(string propertyName, CM.CSharpCodeFile codeFile)
+            private int GetPropertyInsertLineNumber(string propertyName, CM.CSharpCodeFile codeFile, out int propertyRegionIndent)
             {
                 // initial value
                 int insertLineNumber = 0;
@@ -2345,6 +2354,10 @@ namespace DataJuggler.Regionizer
                 // locals
                 bool propertyRegionStarted = false;
                 int openRegionCount = 0;
+                bool propertyRegionIndentSet = false;
+
+                // Set the Out parameter                
+                propertyRegionIndent = 3;
                 
                 // verify the codeFile exists
                 if ((codeFile != null) && (codeFile.CodeLines != null))
@@ -2358,6 +2371,18 @@ namespace DataJuggler.Regionizer
                             // if the codeLine is a region
                             if (codeLine.IsRegion)
                             {
+                                // Setting indent to the indent of the first property
+
+                                // if not set yet
+                                if (!propertyRegionIndentSet)
+                                {
+                                    // Set the out parameter
+                                    propertyRegionIndent = codeLine.Indent;
+
+                                    // Only set once
+                                    propertyRegionIndentSet = true;
+                                }
+
                                 // increment the count
                                 openRegionCount++;
                                 
@@ -3510,9 +3535,12 @@ namespace DataJuggler.Regionizer
                 property.CodeLines.Add(returnValueLine);
                 property.CodeLines.Add(closeBracket2);
                 property.CodeLines.Add(closeBracket);
+
+                // default to 3
+                int propertyIndent = 3;
                 
                 // before writing this property we need to find the insert index
-                int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile);
+                int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile, out propertyIndent);
                 
                 // get the textDoc
                 TextDocument textDoc = GetActiveTextDocument();
@@ -3524,7 +3552,7 @@ namespace DataJuggler.Regionizer
                     var currentLine = codeFile.CodeLines[lineNumber - 1];
 
                     // Reset the Indent
-                    Indent = currentLine.Indent;
+                    Indent = propertyIndent;
 
                     // go to this line
                     textDoc.Selection.GotoLine(lineNumber, false);
@@ -3971,9 +3999,12 @@ namespace DataJuggler.Regionizer
                                 property.CodeLines.Add(getLine);
                                 property.CodeLines.Add(setLine);
                                 property.CodeLines.Add(closeBracket);
+
+                                // Default to 3
+                                int propertyIndent = 3;
                                 
                                 // before writing this property we need to find the insert index
-                                int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile);
+                                int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile, out propertyIndent);
                                 
                                 // if the lineNumber was found
                                 if (lineNumber > 0)
@@ -3981,12 +4012,8 @@ namespace DataJuggler.Regionizer
                                     // Get the currentLine
                                     var currentLine = codeFile.CodeLines[lineNumber - 1];
 
-                                    // If the Indent is set
-                                    if ((currentLine.Indent > 0) && (!currentLine.IsEndRegion))
-                                    {
-                                        // Set the Indent to the Indent of this line
-                                        Indent = currentLine.Indent;
-                                    }
+                                    // Set the Indent for Properties
+                                    Indent = propertyIndent;
                                     
                                     // get the textDoc
                                     TextDocument textDoc = GetActiveTextDocument();
