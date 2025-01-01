@@ -538,9 +538,15 @@ namespace DataJuggler.Regionizer.CodeModel.Objects
                     
                     // trim the start of the line
                     string temp = this.Text.Trim();
+
+                    // Create a CodeLine
+                    CodeLine tempCodeLine = new CodeLine(temp);
                     
-                    // set the return value
-                    isOpenBracket = (temp == "{");
+                    if (!tempCodeLine.IsComment)
+                    {
+                        // set the return value
+                        isOpenBracket = (temp.Contains("{"));
+                    }
                     
                     // return value
                     return isOpenBracket;

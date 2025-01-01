@@ -3961,20 +3961,9 @@ namespace DataJuggler.Regionizer
                                 
                                 // create the CloseBracket
                                 CM.CodeLine closeBracket = new CM.CodeLine("}");
-                                
-                                // create a summary
-                                string summary1Text = "/// <summary>";
-                                string summary2Text = "/// This property gets or sets the value for '" + property.Name + "'.";
-                                string summary3Text = @"/// </summary>";
-                                
-                                // create the codeLine
-                                CM.CodeLine summary1 = new CM.CodeLine(summary1Text);
-                                CM.CodeLine summary2 = new CM.CodeLine(summary2Text);
-                                CM.CodeLine summary3 = new CM.CodeLine(summary3Text);
-                                
-                                property.Summary.CodeLines.Add(summary1);
-                                property.Summary.CodeLines.Add(summary2);
-                                property.Summary.CodeLines.Add(summary3);
+
+                                // Create the summary
+                                property.Summary = CreateSummary("This property gets or sets the value for '" + property.Name + "'.");
                                 
                                 // Now it is time to insert the codeLines
                                 property.CodeLines.Add(propertyDeclarationLine);
@@ -3992,7 +3981,8 @@ namespace DataJuggler.Regionizer
                                     // Get the currentLine
                                     var currentLine = codeFile.CodeLines[lineNumber - 1];
 
-                                    if (currentLine.Indent > 0)
+                                    // If the Indent is set
+                                    if ((currentLine.Indent > 0) && (!currentLine.IsEndRegion))
                                     {
                                         // Set the Indent to the Indent of this line
                                         Indent = currentLine.Indent;
@@ -4168,11 +4158,15 @@ namespace DataJuggler.Regionizer
                     // iterate the codeLines
                     foreach (CM.CodeLine codeLine in codeLines)
                     {
-                        // if this is an open bracket
+                        // if this is an Close bracket
                         if (codeLine.IsCloseBracket)
                         {
-                            // increase the indent
-                            Indent--;
+                            // if not an OpenBracket
+                            if (!codeLine.IsOpenBracket)
+                            {
+                                // increase the indent
+                                Indent--;
+                            }
                         }
 
                         // if the indentAount is set
@@ -4188,8 +4182,12 @@ namespace DataJuggler.Regionizer
                         // if this is an open bracket
                         if (codeLine.IsOpenBracket)
                         {
-                            // increase the indent
-                            Indent++;
+                            // if not a close bracket
+                            if (!codeLine.IsCloseBracket)
+                            {
+                                // increase the indent
+                                Indent++;
+                            }
                         }
                     }
                 }
