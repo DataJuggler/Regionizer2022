@@ -1596,7 +1596,7 @@ namespace DataJuggler.Regionizer
                 // initial value
                 bool formatted = false;
                 string selectedText = "";
-                
+
                 // get the TextDocument from the ActiveDocument
                 TextDocument textDoc = GetActiveTextDocument();
                 
@@ -1752,17 +1752,17 @@ namespace DataJuggler.Regionizer
                                         // parse out the method name
                                         codeMethod.Name = CSharpCodeParser.ParseMethodNameFromText(codeLine);
 
-                                        // get the insert 
-                                        insertLine = GetMethodInsertLineNumber(codeMethod.Name, codeFile);
+                                        // local
+                                        int methodsRegionIndent = 0;
+                
+                                        // before writing this method we need to find the insert index
+                                        insertLine = GetMethodInsertLineNumber(codeMethod.Name, codeFile, out methodsRegionIndent);
 
                                         // if the insertLine
                                         if (insertLine > 0)
                                         {
-                                            // Get the currentLine of the insert index
-                                            var currentLine = codeFile.CodeLines[insertLine -1];
-
                                             // Reset the indent
-                                            Indent = currentLine.Indent;
+                                            Indent = methodsRegionIndent;
 
                                             // move to the line number desired
                                             textDoc.Selection.GotoLine(insertLine);
@@ -2176,21 +2176,25 @@ namespace DataJuggler.Regionizer
             }
             #endregion
             
-            #region GetMethodInsertLineNumber(string methodName, CM.CSharpCodeFile codeFile)
+            #region GetMethodInsertLineNumber(string methodName, CM.CSharpCodeFile codeFile, out int methodsRegionIndent) 
             /// <summary>
             /// This method gets the Insert LineNumber for a Method
             /// </summary>
             /// <param name="methodName"></param>
             /// <param name="codeFile"></param>
             /// <returns></returns>
-            private int GetMethodInsertLineNumber(string methodName, CM.CSharpCodeFile codeFile)
+            private int GetMethodInsertLineNumber(string methodName, CM.CSharpCodeFile codeFile, out int methodsRegionIndent)
             {
                 // initial value
                 int insertLineNumber = 0;
-                
+
                 // locals
                 bool methodRegionStarted = false;
                 int openRegionCount = 0;
+                bool methodsRegionIndentSet = false;
+
+                // Set the out value
+                methodsRegionIndent = 3;
                 
                 // verify the codeFile exists
                 if ((codeFile != null) && (codeFile.CodeLines != null))
@@ -2206,6 +2210,16 @@ namespace DataJuggler.Regionizer
                             {
                                 // increment the count
                                 openRegionCount++;
+
+                                // if methodsRegionIndentSet is false
+                                if (!methodsRegionIndentSet)
+                                {
+                                    // Set the indent value
+                                    methodsRegionIndent = codeLine.Indent;
+
+                                    // set to true so only gets set once
+                                    methodsRegionIndentSet = true;
+                                }
                                 
                                 // if this object is at the insert index
                                 string regionName = "#region " + methodName.Trim();
@@ -2217,7 +2231,7 @@ namespace DataJuggler.Regionizer
                                 {
                                     // set the return value
                                     insertLineNumber = codeLine.LineNumber;
-                                    
+
                                     // break out of the loop 
                                     break;
                                 }
@@ -3864,13 +3878,22 @@ namespace DataJuggler.Regionizer
                 
                 // add the close bracket
                 method.CodeLines.Add(closeBracket);
+
+                // local
+                int methodsRegionIndent = 0;
                 
                 // before writing this method we need to find the insert index
-                int lineNumber = GetMethodInsertLineNumber(method.Name, codeFile);
+                int lineNumber = GetMethodInsertLineNumber(method.Name, codeFile, out methodsRegionIndent);
                 
                 // If the value for lineNumber is set
                 if (lineNumber > 0)
                 {
+                    // Get the currentLine of the insert index
+                    var currentLine = codeFile.CodeLines[lineNumber -1];
+
+                    // Set the Indent
+                    Indent = methodsRegionIndent;
+
                     // get the textDoc
                     TextDocument textDoc = GetActiveTextDocument();
                 
