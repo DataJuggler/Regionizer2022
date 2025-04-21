@@ -92,7 +92,7 @@
                 <Button.Background>
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/HasPropertyButton.png" />
                 </Button.Background>
-            </Button>            
+            </Button>
         </WrapPanel>
         <Label x:Name="Add"
                HorizontalAlignment="Left"
@@ -127,7 +127,7 @@
                  TabIndex="4" FontSize="14"
                  Text="string" />
         <WrapPanel>
-        <Button x:Name="AddButton"
+            <Button x:Name="AddButton"
                 Click="AddButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                 Width="64" Height="64"
                 TabIndex="5" BorderThickness="0"
@@ -136,10 +136,10 @@
                     <Image Source="/DataJuggler.Regionizer.Controls;component/Images/AddButton.png" />
                 </Button.Content>
                 <Button.Background>
-                <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/AddButton.png" />
-            </Button.Background>
-         </Button>
-         <Label x:Name="InfoLabel"
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/AddButton.png" />
+                </Button.Background>
+            </Button>
+            <Label x:Name="InfoLabel"
                 Content="" VerticalAlignment="Center"
                 FontFamily="Calibri"
                 FontSize="20" />
@@ -210,12 +210,12 @@
             <Button x:Name="YouTubeButton" Width="148" Height="76" BorderBrush="Black" 
                 Click="YouTubeButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" 
                     ToolTip="Watch the Regionizer Videos" Margin="8,8,8,8">
-                            <Button.Content>
-                                <Image Source="Images/YouTube.png" />
-                            </Button.Content>
-                        <Button.Background>
-                            <ImageBrush ImageSource="Images/YouTube.png" />
-                        </Button.Background>
+                <Button.Content>
+                    <Image Source="Images/YouTube.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/YouTube.png" />
+                </Button.Background>
             </Button>
             <Button x:Name="IBlazorComponentButton"
                  Click="IBlazorComponentButton_Click" Style="{StaticResource HandCursorButtonStyle}"
@@ -241,18 +241,6 @@
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponentParent.png" />
                 </Button.Background>
             </Button>
-            <Button x:Name="BlazorUIBuilderButton"
-                 Click="BlazorUIBuilderButton_Click" Style="{StaticResource HandCursorButtonStyle}"
-                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
-                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
-                 ToolTip="Create and edit user interfaces for Blazor using DataJuggler.Blazor.Componets">
-                <Button.Content>
-                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/LaunchBlazorUI.png" />
-                </Button.Content>
-                <Button.Background>
-                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/LaunchBlazorUI.png" />
-                </Button.Background>
-            </Button>
-        </WrapPanel>       
-    </StackPanel>    
+        </WrapPanel>
+    </StackPanel>
 </UserControl>
