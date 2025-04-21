@@ -166,6 +166,21 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
+            #region BlazorUIBuilderButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// This event is fired when the 'BlazorUIBuilderButton' is clicked.
+            /// </summary>
+            public void BlazorUIBuilderButton_Click(object sender, EventArgs e)
+            {
+                // if the delegate is set
+                if (this.HasHostEventHandler)
+                {   
+                    // notify the host
+                    this.HostEventHandler("LaunchBlazorComponentBuilder", null);
+                }
+            }
+            #endregion
+            
             #region Button_MouseLeave(object sender, MouseEventArgs e)
             /// <summary>
             /// event is fired when You Tube Button _ Mouse Leave
@@ -798,6 +813,7 @@ namespace DataJuggler.Regionizer.Controls
         #endregion
 
         #endregion
+        
     }
     #endregion
 

@@ -237,4 +237,25 @@
 		<Pattern>foreach\s?\(\w+\s\w+\sin\s(\w+(\.\w+)+|\w+)\)</Pattern>
 		<TargetPattern>\(\w+</TargetPattern>
 	</CommentItem>
+	<CommentItem>
+		<ID>32</ID>
+		<Comment>If the * object does not have a % property</Comment>
+		<Name>Object.DoesNotHasProperty</Name>
+		<Pattern>if\s*\(\s*!\w+\.\w+\)</Pattern>
+		<TargetPattern>(?&amp;lt;=!\s?)\w+(?=\.)</TargetPattern>
+		<TargetPattern2>(?&amp;lt;=\.\s?)\w+(?=\))</TargetPattern2>
+	</CommentItem>
+	<CommentItem>
+		<ID>33</ID>
+		<Comment>If all 3 strings exist</Comment>
+		<Name>Test if 3 Strings Exist</Name>
+		<Pattern>if\s*\(\s*TextHelper\.Exists\s*\(\s*\w+\s*,\s*\w+\s*,\s*\w+\s*\)\s*\)</Pattern>		
+	</CommentItem>
+	<CommentItem>
+		<ID>34</ID>
+		<Comment>If the Directory exists</Comment>
+		<Name>If Folder Exists</Name>
+		<Pattern>if\s?\(FolderHelper.Exists\(\w*\)\)</Pattern>
+		<TargetPattern></TargetPattern>
+	</CommentItem>
 </CommentDictionary>

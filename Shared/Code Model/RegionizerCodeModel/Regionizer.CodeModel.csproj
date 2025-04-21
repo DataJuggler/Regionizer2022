@@ -54,10 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerations\CodeScopeEnum.cs" />
-    <Compile Include="Enumerations\CodeTypeEnum.cs" />
-    <Compile Include="Enumerations\ComparisonTypeEnum.cs" />
-    <Compile Include="Enumerations\ReplacementTargetEnum.cs" />
+    <Compile Include="Enumerations\Regionizer.Enumerations.cs" />
     <Compile Include="Objects\CodeBlock.cs" />
     <Compile Include="Objects\CodeClass.cs" />
     <Compile Include="Objects\CodeConstructor.cs" />

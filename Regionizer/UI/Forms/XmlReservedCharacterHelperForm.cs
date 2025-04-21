@@ -73,11 +73,21 @@ namespace DataJuggler.Regionizer.UI.Forms
             /// </summary>
             private void CopyButton_Click(object sender, EventArgs e)
             {
+                // Remove focus from this button
+                HiddenButton.Focus();
+
                 // Set the text on the clipboard
                 Clipboard.SetText(this.EncodedTextBox.Text);
 
                 // Show the user a message
-                MessageBox.Show("The encoded pattern has been copied to your clipboard.", "Copy Complete");
+                StatusLabel.Visible = true;
+
+                // Start the Timer
+                FadeTimer.Start();
+
+                // Force Manual Refresh
+                Refresh();
+                Application.DoEvents();
             }
             #endregion
             
@@ -89,6 +99,18 @@ namespace DataJuggler.Regionizer.UI.Forms
             {
                 // close this app
                 this.Close();    
+            }
+            #endregion
+            
+            #region FadeTimer_Tick(object sender, EventArgs e)
+            /// <summary>
+            /// event is fired when Fade Timer _ Tick
+            /// </summary>
+            private void FadeTimer_Tick(object sender, EventArgs e)
+            {
+                // Hide the label
+                FadeTimer.Stop();
+                StatusLabel.Visible = false;
             }
             #endregion
             
@@ -110,10 +132,9 @@ namespace DataJuggler.Regionizer.UI.Forms
                 // display the value
                 this.EncodedTextBox.Text = encoded;
             }
-            #endregion
-            
         #endregion
-        
+
+        #endregion
     }
     #endregion
 

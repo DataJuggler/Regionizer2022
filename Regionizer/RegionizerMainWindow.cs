@@ -18,6 +18,10 @@ using DataJuggler.Regionizer.Controls.Util;
 using objects = DataJuggler.Core.UltimateHelper.Objects;
 using EnvDTE;
 using System.Reflection;
+using Regionizer.UI.Forms;
+using EnvDTE80;
+using DataJuggler.Regionizer.CodeModel.Util;
+using System.Linq;
 
 #endregion
 
@@ -74,9 +78,11 @@ namespace DataJuggler.Regionizer
             /// </summary>
             public void HostEventListener(string eventName, object args)
             {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            // locals
-            EnvDTE.DTE dte = null;
+                ThreadHelper.ThrowIfNotOnUIThread();
+                
+                // locals
+                EnvDTE.DTE dte = null;
+
                 string dataType = "";
                 RegionizerCodeManager codeManager = null;
                 CSharpCodeFile codeFile = null;
@@ -86,7 +92,7 @@ namespace DataJuggler.Regionizer
                 try
                 {
                     // get dte
-                    dte = (EnvDTE.DTE)GetService(typeof(EnvDTE.DTE));
+                    dte = (EnvDTE.DTE) GetService(typeof(EnvDTE.DTE));
                     
                     switch (eventName)
                     {
@@ -95,9 +101,9 @@ namespace DataJuggler.Regionizer
                             // if the dte object exists
                             if ((dte != null) && (dte.ActiveDocument != null))
                             {
-                                //// Create the code manager object
+                                // Create the code manager object
                                 codeManager = new RegionizerCodeManager(dte.ActiveDocument);
-                                codeManager.FormatDocument();
+                                codeManager.FormatDocument();                                
                             }
                         
                             // required
@@ -121,7 +127,15 @@ namespace DataJuggler.Regionizer
                         
                             // required
                             break;
-                        
+                       
+                        case "LaunchBlazorComponentBuilder":
+
+                            BlazorComponentsForm form = new BlazorComponentsForm();
+                            form.ShowDialog();
+
+                            // required
+                            break;
+
                         case "CreatePropertiesFromSelection":
                         
                             // if the dte object exists
@@ -607,6 +621,31 @@ namespace DataJuggler.Regionizer
         #endregion
 
         #region Methods
+            
+            #region AddBlazorComponent(string text)
+            /// <summary>
+            /// Add Blazor Component
+            /// </summary>
+            public void AddBlazorComponent(string text)
+            {
+                // locals
+                EnvDTE.DTE dte = null;
+                RegionizerCodeManager codeManager = null;
+                
+                // get dte
+                dte = (EnvDTE.DTE) GetService(typeof(EnvDTE.DTE));
+                    
+                // if the dte object exists
+                if ((dte != null) && (dte.ActiveDocument != null))
+                {
+                    // Create the code manager object
+                    codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+
+                    // Insert a BlazorComponent (first a test)
+                    codeManager.InsertBlazorComponent(text);
+                }
+            }
+            #endregion
             
             #region GetSelectedText(bool keepSelection)
             /// <summary>

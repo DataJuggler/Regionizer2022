@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using MessageBoxButtons = System.Windows.MessageBoxButton;
 using MessageBoxOptions = System.Windows.MessageBoxOptions;
+using static System.Net.Mime.MediaTypeNames;
 
 #endregion
 
@@ -1915,7 +1916,7 @@ namespace DataJuggler.Regionizer
             /// This method returns the ActiveTextDocument
             /// </summary>
             /// <returns></returns>
-            private TextDocument GetActiveTextDocument()
+            public TextDocument GetActiveTextDocument()
             {
                 // initial value
                 TextDocument textDoc = null;
@@ -1925,7 +1926,7 @@ namespace DataJuggler.Regionizer
                 {
                     // Set the Selection
                     object obj = ActiveDocument.Object("TextDocument");
-                    textDoc = (TextDocument)obj;
+                    textDoc = (TextDocument) obj;
                 }
                 
                 // return the textDoc
@@ -2072,7 +2073,7 @@ namespace DataJuggler.Regionizer
             /// </summary>
             /// <param name="textDoc"></param>
             /// <returns></returns>
-            private string GetDocumentText(TextDocument textDoc)
+            public string GetDocumentText(TextDocument textDoc)
             {
                 // move to the Start of the text doc
                 EditPoint startPoint = textDoc.StartPoint.CreateEditPoint();
@@ -2954,6 +2955,7 @@ namespace DataJuggler.Regionizer
                 // Text to check or add
                 string reference1 = "using DataJuggler.Blazor.Components;";
                 string reference2 = "using DataJuggler.Blazor.Components.Interfaces;";
+                string reference3 = "using Microsoft.AspNetCore.Components;";
     
                 // Initialize usingStatements if it's null
                 if (usingStatements == null)
@@ -2965,6 +2967,7 @@ namespace DataJuggler.Regionizer
                 // Use LINQ to check for existing references
                 bool hasReference1 = usingStatements.Any(x => x.Text == reference1);
                 bool hasReference2 = usingStatements.Any(x => x.Text == reference2);
+                bool hasReference3 = usingStatements.Any(x => x.Text == reference3);
     
                 // Add the references if they don't exist
                 if (!hasReference1)
@@ -2978,6 +2981,13 @@ namespace DataJuggler.Regionizer
                 {
                     // Add Reference 2
                     usingStatements.Add(new CodeLine(reference2));
+                }
+
+                // if the value for hasReference3 is false
+                if (!hasReference3)
+                {
+                    // Add Reference 3
+                    usingStatements.Add(new CodeLine(reference3));
                 }
 
                 // return value
@@ -3378,6 +3388,21 @@ namespace DataJuggler.Regionizer
                         Insert(blankLine);
                     }
                 }
+            }
+            #endregion
+            
+            #region InsertBlazorComponent(string text)
+            /// <summary>
+            /// Insert Blazor Component
+            /// </summary>c
+            public void InsertBlazorComponent(string text)
+            {
+                TextDocument textDocument = GetActiveTextDocument();
+                
+                int lineNumber = textDocument.Selection.CurrentLine;
+
+                // Insert this text
+                Insert(text + Environment.NewLine, lineNumber, false, false);
             }
             #endregion
             

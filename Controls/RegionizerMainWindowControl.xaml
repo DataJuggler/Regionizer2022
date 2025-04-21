@@ -40,7 +40,7 @@
     </UserControl.Background>
     <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.7.6"
+               Content="Regionizer 2022 Version 3.7.7"
                FontFamily="Calibri"
                FontSize="24"
                FontWeight="Bold" />
@@ -239,6 +239,18 @@
                 </Button.Content>
                 <Button.Background>
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponentParent.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="BlazorUIBuilderButton"
+                 Click="BlazorUIBuilderButton_Click" Style="{StaticResource HandCursorButtonStyle}"
+                 Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+                 FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+                 ToolTip="Create and edit user interfaces for Blazor using DataJuggler.Blazor.Componets">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/LaunchBlazorUI.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/LaunchBlazorUI.png" />
                 </Button.Background>
             </Button>
         </WrapPanel>       

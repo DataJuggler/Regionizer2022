@@ -1,0 +1,34 @@
+public partial class DraggableControl : UserControl
+{
+    private bool isDragging = false;
+    private Point startPoint = new Point(0, 0);
+
+    public DraggableControl()
+    {
+        InitializeComponent();
+
+        this.MouseDown += new MouseEventHandler(this.DraggableControl_MouseDown);
+        this.MouseMove += new MouseEventHandler(this.DraggableControl_MouseMove);
+        this.MouseUp += new MouseEventHandler(this.DraggableControl_MouseUp);
+    }
+
+    private void DraggableControl_MouseDown(object sender, MouseEventArgs e)
+    {
+        isDragging = true;
+        startPoint = new Point(e.X, e.Y);
+    }
+
+    private void DraggableControl_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (isDragging)
+        {
+            Point p = PointToScreen(e.Location);
+            this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
+        }
+    }
+
+    private void DraggableControl_MouseUp(object sender, MouseEventArgs e)
+    {
+        isDragging = false;
+    }
+}
