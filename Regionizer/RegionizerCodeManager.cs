@@ -2848,8 +2848,8 @@ namespace DataJuggler.Regionizer
                 if (ListHelper.HasOneOrMoreItems(privateVariables))
                 {
                     // Check if any variable is "private string name;" or "private IBlazorComponent parent;"
-                    hasNameVariable = privateVariables.Any(v => v.Text == "private string name;");
-                    hasParentVariable = privateVariables.Any(v => v.Text == "private IBlazorComponentParent parent;");
+                    hasNameVariable = privateVariables.Any(v => v.Text.Contains("private string name;"));
+                    hasParentVariable = privateVariables.Any(v => v.Text.Contains("private IBlazorComponentParent parent;"));
                 }
                 else
                 {
