@@ -1,0 +1,3 @@
+﻿<TextBoxComponent Name="[Name]" Unit="px" HeightUnit="px" Parent="this"
+    Caption="[Caption]:" LabelColor="lightskyblue">
+</TextBoxComponent>

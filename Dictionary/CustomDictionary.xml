@@ -82,9 +82,17 @@
 		<Pattern>UIControl\(\)</Pattern>		
 	</CommentItem>
 	<CommentItem>
-		<Comment></Comment>
-		<Name></Name>
-		<Pattern></Pattern>
-		<TargetPattern></TargetPattern>
+		<ID>11</ID>
+		<Comment>If The * string does not exist</Comment>
+		<Name>TextHelperNotExists</Name>
+		<Pattern>if\s?\(!TextHelper.Exists\(\w+\)\)</Pattern>
+		<TargetPattern>\(\w+\)</TargetPattern>
+	</CommentItem>
+	<CommentItem>
+		<ID>12</ID>
+		<Comment>If The * string does not exist</Comment>
+		<Name>TextHelperNotExistsObjectProperty</Name>
+		<Pattern>if\s?\(!TextHelper.Exists\(\w+\.\w+\)\)</Pattern>
+		<TargetPattern>\(\w+\.\w+\)</TargetPattern>
 	</CommentItem>
 </CommentDictionary>

@@ -1,0 +1,10 @@
+﻿<CalendarComponent Name="[Name]" Unit="px" HeightUnit="px" Height="146" 
+    AllowYearSelector="false" BottomRowClassName="right12 up4 width220"    
+    ButtonBorderColor="Color.LightSkyBlue" ButtonBorderWidth="1"
+    ButtonHeight="22" ButtonLeft="5" ButtonTop="0" ButtonWidth="24"
+    CalendarLeft="300" CalendarTop="-156" Caption="[Caption]:" Column2Width="128"
+    ControlHeight="32" FontSize="14" LabelClassName="down4 right6" Parent="this"
+    Position="relative" TextBoxHeight="21" TextBoxLeft="-3" TextBoxTop="2"
+    TextBoxWidth="140" Theme="ThemeEnum.BlueGold"  Top="4" LabelColor="Color.LightSkyBlue"
+    YearSelectorAlignment="YearSelectorAlignmentEnum.OnBottom">
+</CalendarComponent>

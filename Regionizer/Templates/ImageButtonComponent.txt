@@ -1,0 +1,4 @@
+﻿<ImageButton TextColor=@Color.Black ButtonNumber="0" Parent="this"
+    Name="[Name]" Unit="px" HeightUnit="px" Height="64" Width="64" Text="[Text]"
+    ImageUrl="@ButtonUrl" FontSize="14" ClickHandler="@ButtonClicked">
+</ImageButton>

@@ -1,0 +1,3 @@
+﻿<Label Name="[Name]" Parent="this" 	FontSize="14" Height="24" Text="[Text]"
+	TextColor="Color.Black" Width="128"">
+</Label>

@@ -1,0 +1,3 @@
+﻿<CheckBoxComponent Name="[Name]" Parent="this" Unit="px" HeightUnit="px"    
+    Caption="[Caption]:" LabelColor="Color.LightSkyBlue">
+</CheckBoxComponent>

@@ -40,7 +40,7 @@
     </UserControl.Background>
     <StackPanel Margin="0,0,23,0">
         <Label x:Name="TitleLabel"
-               Content="Regionizer 2022 Version 3.7.8"
+               Content="Regionizer 2022 Version 3.9.0"
                FontFamily="Calibri"
                FontSize="24"
                FontWeight="Bold" />
@@ -98,10 +98,10 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
                Content="Add"
-               FontWeight="Bold" FontSize="14" Height="32"
+               FontWeight="Bold" FontSize="16" Height="32"
                Foreground="Black" Margin="8,0,0,0" />
         <ComboBox x:Name="CodeTypeComboBox"
-                  ItemsSource="{Binding}" FontSize="14" Height="24"
+                  ItemsSource="{Binding}" FontSize="16" Height="40"
                   SelectionChanged="CodeTypeComboBox_SelectionChanged"
                   TabIndex="2" RenderTransformOrigin="0.5,0.5" >
             <ComboBox.RenderTransform>
@@ -113,18 +113,19 @@
                 </TransformGroup>
             </ComboBox.RenderTransform>
         </ComboBox>
-        <Label x:Name="NameLabel"
-               Content="Name:" FontSize="14"
+        <Label x:Name="NameLabel" Height="32
+               "
+               Content="Name:" FontSize="16"
                FontWeight="Bold"
                Foreground="Black" />
-        <TextBox x:Name="NameTextBox" FontSize="14"
-                 TabIndex="3" Height="24" />
-        <Label x:Name="ReturnTypeLabel" FontSize="14"
+        <TextBox x:Name="NameTextBox" FontSize="16"
+                 TabIndex="3" Height="32" />
+        <Label x:Name="ReturnTypeLabel" FontSize="16"
                Content="Return Type:"
                FontWeight="Bold"
                Foreground="Black" />
-        <TextBox x:Name="ReturnTypeTextBox"
-                 TabIndex="4" FontSize="14"
+        <TextBox x:Name="ReturnTypeTextBox" TextAlignment="Left"
+                 TabIndex="4" FontSize="16" Height="32"
                  Text="string" />
         <WrapPanel>
             <Button x:Name="AddButton"
@@ -145,8 +146,8 @@
                 FontSize="20" />
         </WrapPanel>
         <Controls:LabelCheckBoxControl x:Name="AutoCommentCheckBox" Width="140" 
-          FontFamily="Calibri" FontSize="14"  VerticalAlignment="Center" Margin="0,12,0,8"
-       LabelText="Auto Comment" LabelWidth="140" LabelFontSize="14" LabelFontFamily="Calibri" 
+          FontFamily="Calibri" FontSize="16"  VerticalAlignment="Center" Margin="0,12,0,8"
+       LabelText="Auto Comment" LabelWidth="140" LabelFontSize="16" LabelFontFamily="Calibri" 
        IsChecked="False" Height="16" />
         <WrapPanel Margin="0,8,0,12">
             <Button x:Name="EditCommentDictionaryuButton"
@@ -217,6 +218,16 @@
                     <ImageBrush ImageSource="Images/YouTube.png" />
                 </Button.Background>
             </Button>
+            <Button x:Name="LaunchBlazorButton" Width="64" Height="64" BorderBrush="{x:Null}" BorderThickness="0"
+                Click="BlazorUIBuilderButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" 
+                    ToolTip="Add Blazor Componets" Margin="8,8,8,8">
+                            <Button.Content>
+                                <Image Source="Images/LaunchBlazorUI.png" />
+                            </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/LaunchBlazorUI.png" />
+                </Button.Background>
+            </Button>
             <Button x:Name="IBlazorComponentButton"
                  Click="IBlazorComponentButton_Click" Style="{StaticResource HandCursorButtonStyle}"
                  Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
@@ -241,6 +252,28 @@
                     <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/IBlazorComponentParent.png" />
                 </Button.Background>
             </Button>
+            <Button x:Name="WireUpBlazorComponentsButton"
+             Click="WireUpBlazorComponentsButton_Click" Style="{StaticResource HandCursorButtonStyle}"
+             Width="64" Height="64" TabIndex="0" FontSize="16" FontFamily="Trebuchet MS" 
+             FontWeight="Bold" BorderThickness="0" Margin="8,8,8,8"
+             ToolTip="Wire Up Components - It's Magic.">
+                <Button.Content>
+                    <Image Source="/DataJuggler.Regionizer.Controls;component/Images/WireUpButton2.png" />
+                </Button.Content>
+                <Button.Background>
+                    <ImageBrush ImageSource="/DataJuggler.Regionizer.Controls;component/Images/WireUpButton2.png" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="AddBreakpointsButton" Width="64" Height="64" BorderBrush="{x:Null}" BorderThickness="0"
+                Click="AddBreakpointsButton_Click" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_MouseLeave" 
+                ToolTip="Add Breakpoints To All Methods In Active Document" Margin="8,8,8,8">
+                    <Button.Content>
+                        <Image Source="Images/BreakpointIcon.png" />
+                    </Button.Content>
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/BreakpointIcon.png" />
+                    </Button.Background>
+                </Button>   
         </WrapPanel>
     </StackPanel>
 </UserControl>

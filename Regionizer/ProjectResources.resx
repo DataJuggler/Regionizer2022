@@ -117,20 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ToolWindowTitle" xml:space="preserve">
+    <value>RegionizerToolWindow</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GlassButtonBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\GlassButtonBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CanNotCreateWindow" xml:space="preserve">
     <value>Can not create tool window.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BlackImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\BlackImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlackButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\BlackButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ToolWindowTitle" xml:space="preserve">
-    <value>RegionizerToolWindow</value>
-  </data>
-  <data name="GlassButtonBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\GlassButtonBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BlazorComponentFormBackgrounds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\BlazorComponentFormBackgrounds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

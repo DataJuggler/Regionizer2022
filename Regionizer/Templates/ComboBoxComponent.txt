@@ -1,0 +1,9 @@
+﻿<ComboBox Name="[Name]" Parent="this" Unit="px" HeightUnit="px" Height="24"
+    ButtonBorderColor="Color.LightSkyBlue" ButtonBorderWidth="1" ButtonHeight="24" 
+    ButtonLeft="8" ButtonTop="0" ButtonWidth="24" Column1Width="100" Column2Width="128"
+    ControlHeight="28"  DropdownClassName="combobox-container border1gray textdonotwrap"
+    FontSize="14" LabelClassName="down4 right2" LabelColor="Color.LightSkyBlue" 
+    LabelText="[Caption]:" ListItemLeft="-12" ListItemTop="-2" ListItemWidth="80" 
+    Position="relative" TextBoxHeight="21" TextBoxLeft="0" TextBoxTop="0" TextBoxWidth="140" 
+    Theme="ThemeEnum.BlueGold" Top="2" Width="224" ZIndex="80">
+</ComboBox>

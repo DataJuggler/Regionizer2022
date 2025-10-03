@@ -1,0 +1,8 @@
+﻿<SaveCancelComponent Name="SaveCancel" Parent=this
+    ButtonTheme=@ButtonThemeEnum.BlackButton
+    Position="relative" HeightUnit="px" Unit="px" 
+    SaveButtonText="Sign up" CancelButtonText="Cancel" 
+    Left="0" Top="156" SaveButtonTextColor=@Color.Lime CancelButtonTextColor=@Color.Lime
+    OnSavedCallback="@OnSave" OnCancelledCallback="@OnCancel"
+    SaveButtonleft="-8" FontSize="16">
+</SaveCancelComponent>

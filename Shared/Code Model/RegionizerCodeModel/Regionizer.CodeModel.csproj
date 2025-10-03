@@ -40,8 +40,12 @@
     <AssemblyOriginatorKeyFile>Regionizer2022.CodeModel2025.key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.17.14.40254\lib\net472\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Interop, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.VisualStudio.Interop.17.11.40262\lib\net472\Microsoft.VisualStudio.Interop.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.VisualStudio.Interop.17.14.40260\lib\net472\Microsoft.VisualStudio.Interop.dll</HintPath>
     </Reference>
     <Reference Include="netstandard" />
     <Reference Include="System" />
@@ -55,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\Regionizer.Enumerations.cs" />
+    <Compile Include="Objects\BlazorComponent.cs" />
     <Compile Include="Objects\CodeBlock.cs" />
     <Compile Include="Objects\CodeClass.cs" />
     <Compile Include="Objects\CodeConstructor.cs" />
@@ -97,6 +102,7 @@
     <None Include="Regionizer.CodeModel.Key.pfx" />
     <None Include="Regionizer.CodeModel.Key.snk" />
     <None Include="Regionizer2022.CodeModel2025.key.pfx" />
+    <Compile Include="Util\DataJuggler.Blazor.Components.Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DataJuggler\UltimateHelperEx\DataJuggler.Core.UltimateHelper.csproj">

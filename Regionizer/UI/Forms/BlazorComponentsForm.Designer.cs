@@ -30,6 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BlazorComponentsForm));
             this.ButtonsPanel = new System.Windows.Forms.Panel();
+            this.SlimCheckBox = new System.Windows.Forms.CheckBox();
+            this.FontComboBox = new DataJuggler.Win.Controls.LabelComboBoxControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CheckedListModeCheckBox = new System.Windows.Forms.CheckBox();
+            this.AddCheckedListBox = new System.Windows.Forms.Button();
+            this.HiddenButton = new System.Windows.Forms.Button();
+            this.FileUploadButton = new System.Windows.Forms.Button();
             this.AddTimeComponent = new System.Windows.Forms.Button();
             this.AddCalendarButton = new System.Windows.Forms.Button();
             this.AddToggleButton = new System.Windows.Forms.Button();
@@ -41,15 +48,19 @@
             this.AddImageButton = new System.Windows.Forms.Button();
             this.AddCheckBox = new System.Windows.Forms.Button();
             this.AddComboBoxbutton = new System.Windows.Forms.Button();
-            this.PropertiesPanel = new System.Windows.Forms.Panel();
-            this.ScreenPanel = new System.Windows.Forms.Panel();
-            this.ControlPanel = new System.Windows.Forms.Panel();
             this.ButtonsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonsPanel
             // 
             this.ButtonsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.ButtonsPanel.Controls.Add(this.SlimCheckBox);
+            this.ButtonsPanel.Controls.Add(this.FontComboBox);
+            this.ButtonsPanel.Controls.Add(this.label1);
+            this.ButtonsPanel.Controls.Add(this.CheckedListModeCheckBox);
+            this.ButtonsPanel.Controls.Add(this.AddCheckedListBox);
+            this.ButtonsPanel.Controls.Add(this.HiddenButton);
+            this.ButtonsPanel.Controls.Add(this.FileUploadButton);
             this.ButtonsPanel.Controls.Add(this.AddTimeComponent);
             this.ButtonsPanel.Controls.Add(this.AddCalendarButton);
             this.ButtonsPanel.Controls.Add(this.AddToggleButton);
@@ -61,11 +72,115 @@
             this.ButtonsPanel.Controls.Add(this.AddImageButton);
             this.ButtonsPanel.Controls.Add(this.AddCheckBox);
             this.ButtonsPanel.Controls.Add(this.AddComboBoxbutton);
-            this.ButtonsPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ButtonsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ButtonsPanel.Location = new System.Drawing.Point(0, 0);
             this.ButtonsPanel.Name = "ButtonsPanel";
-            this.ButtonsPanel.Size = new System.Drawing.Size(175, 723);
+            this.ButtonsPanel.Size = new System.Drawing.Size(384, 723);
             this.ButtonsPanel.TabIndex = 11;
+            // 
+            // SlimCheckBox
+            // 
+            this.SlimCheckBox.AutoSize = true;
+            this.SlimCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SlimCheckBox.Location = new System.Drawing.Point(182, 112);
+            this.SlimCheckBox.Name = "SlimCheckBox";
+            this.SlimCheckBox.Size = new System.Drawing.Size(123, 27);
+            this.SlimCheckBox.TabIndex = 27;
+            this.SlimCheckBox.TabStop = false;
+            this.SlimCheckBox.Text = "Slim Version";
+            this.SlimCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // FontComboBox
+            // 
+            this.FontComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.FontComboBox.ComboBoxLeftMargin = 1;
+            this.FontComboBox.ComboBoxText = "";
+            this.FontComboBox.ComoboBoxFont = null;
+            this.FontComboBox.Editable = true;
+            this.FontComboBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FontComboBox.HideLabel = false;
+            this.FontComboBox.LabelBottomMargin = 0;
+            this.FontComboBox.LabelColor = System.Drawing.Color.White;
+            this.FontComboBox.LabelFont = null;
+            this.FontComboBox.LabelText = null;
+            this.FontComboBox.LabelTopMargin = 0;
+            this.FontComboBox.LabelWidth = 0;
+            this.FontComboBox.List = null;
+            this.FontComboBox.Location = new System.Drawing.Point(182, 66);
+            this.FontComboBox.Name = "FontComboBox";
+            this.FontComboBox.SelectedIndex = -1;
+            this.FontComboBox.SelectedIndexListener = null;
+            this.FontComboBox.Size = new System.Drawing.Size(181, 28);
+            this.FontComboBox.Sorted = true;
+            this.FontComboBox.Source = null;
+            this.FontComboBox.TabIndex = 26;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.LemonChiffon;
+            this.label1.Location = new System.Drawing.Point(178, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Label Color:";
+            // 
+            // CheckedListModeCheckBox
+            // 
+            this.CheckedListModeCheckBox.AutoSize = true;
+            this.CheckedListModeCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.CheckedListModeCheckBox.Location = new System.Drawing.Point(29, 208);
+            this.CheckedListModeCheckBox.Name = "CheckedListModeCheckBox";
+            this.CheckedListModeCheckBox.Size = new System.Drawing.Size(123, 27);
+            this.CheckedListModeCheckBox.TabIndex = 12;
+            this.CheckedListModeCheckBox.TabStop = false;
+            this.CheckedListModeCheckBox.Text = "Checked List";
+            this.CheckedListModeCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // AddCheckedListBox
+            // 
+            this.AddCheckedListBox.BackColor = System.Drawing.Color.Transparent;
+            this.AddCheckedListBox.BackgroundImage = global::Regionizer.ProjectResources.GlassButtonBlack;
+            this.AddCheckedListBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddCheckedListBox.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddCheckedListBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddCheckedListBox.Location = new System.Drawing.Point(12, 112);
+            this.AddCheckedListBox.Name = "AddCheckedListBox";
+            this.AddCheckedListBox.Size = new System.Drawing.Size(147, 42);
+            this.AddCheckedListBox.TabIndex = 24;
+            this.AddCheckedListBox.TabStop = false;
+            this.AddCheckedListBox.Text = "Checked List Box";
+            this.AddCheckedListBox.UseVisualStyleBackColor = false;
+            this.AddCheckedListBox.Click += new System.EventHandler(this.AddCheckedListBox_Click);
+            // 
+            // HiddenButton
+            // 
+            this.HiddenButton.BackColor = System.Drawing.Color.Transparent;
+            this.HiddenButton.BackgroundImage = global::Regionizer.ProjectResources.GlassButtonBlack;
+            this.HiddenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.HiddenButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.HiddenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HiddenButton.Location = new System.Drawing.Point(-420, 664);
+            this.HiddenButton.Name = "HiddenButton";
+            this.HiddenButton.Size = new System.Drawing.Size(147, 47);
+            this.HiddenButton.TabIndex = 23;
+            this.HiddenButton.Text = "Calendar";
+            this.HiddenButton.UseVisualStyleBackColor = false;
+            // 
+            // FileUploadButton
+            // 
+            this.FileUploadButton.BackColor = System.Drawing.Color.Transparent;
+            this.FileUploadButton.BackgroundImage = global::Regionizer.ProjectResources.GlassButtonBlack;
+            this.FileUploadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.FileUploadButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.FileUploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FileUploadButton.Location = new System.Drawing.Point(12, 647);
+            this.FileUploadButton.Name = "FileUploadButton";
+            this.FileUploadButton.Size = new System.Drawing.Size(147, 42);
+            this.FileUploadButton.TabIndex = 22;
+            this.FileUploadButton.TabStop = false;
+            this.FileUploadButton.Text = "File Upload";
+            this.FileUploadButton.UseVisualStyleBackColor = false;
             // 
             // AddTimeComponent
             // 
@@ -74,10 +189,11 @@
             this.AddTimeComponent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddTimeComponent.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddTimeComponent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddTimeComponent.Location = new System.Drawing.Point(12, 539);
+            this.AddTimeComponent.Location = new System.Drawing.Point(12, 547);
             this.AddTimeComponent.Name = "AddTimeComponent";
-            this.AddTimeComponent.Size = new System.Drawing.Size(147, 47);
+            this.AddTimeComponent.Size = new System.Drawing.Size(147, 42);
             this.AddTimeComponent.TabIndex = 21;
+            this.AddTimeComponent.TabStop = false;
             this.AddTimeComponent.Text = "Time Picker";
             this.AddTimeComponent.UseVisualStyleBackColor = false;
             // 
@@ -88,10 +204,11 @@
             this.AddCalendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddCalendarButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddCalendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddCalendarButton.Location = new System.Drawing.Point(12, 62);
+            this.AddCalendarButton.Location = new System.Drawing.Point(12, 12);
             this.AddCalendarButton.Name = "AddCalendarButton";
-            this.AddCalendarButton.Size = new System.Drawing.Size(147, 47);
+            this.AddCalendarButton.Size = new System.Drawing.Size(147, 42);
             this.AddCalendarButton.TabIndex = 20;
+            this.AddCalendarButton.TabStop = false;
             this.AddCalendarButton.Text = "Calendar";
             this.AddCalendarButton.UseVisualStyleBackColor = false;
             this.AddCalendarButton.Click += new System.EventHandler(this.AddCalendarButton_Click);
@@ -103,10 +220,11 @@
             this.AddToggleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddToggleButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddToggleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddToggleButton.Location = new System.Drawing.Point(12, 592);
+            this.AddToggleButton.Location = new System.Drawing.Point(12, 597);
             this.AddToggleButton.Name = "AddToggleButton";
-            this.AddToggleButton.Size = new System.Drawing.Size(147, 47);
+            this.AddToggleButton.Size = new System.Drawing.Size(147, 42);
             this.AddToggleButton.TabIndex = 19;
+            this.AddToggleButton.TabStop = false;
             this.AddToggleButton.Text = "Toggle";
             this.AddToggleButton.UseVisualStyleBackColor = false;
             // 
@@ -117,10 +235,11 @@
             this.AddSaveAndCancelButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddSaveAndCancelButtons.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddSaveAndCancelButtons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddSaveAndCancelButtons.Location = new System.Drawing.Point(12, 433);
+            this.AddSaveAndCancelButtons.Location = new System.Drawing.Point(12, 447);
             this.AddSaveAndCancelButtons.Name = "AddSaveAndCancelButtons";
-            this.AddSaveAndCancelButtons.Size = new System.Drawing.Size(147, 47);
+            this.AddSaveAndCancelButtons.Size = new System.Drawing.Size(147, 42);
             this.AddSaveAndCancelButtons.TabIndex = 18;
+            this.AddSaveAndCancelButtons.TabStop = false;
             this.AddSaveAndCancelButtons.Text = "Save && Cancel";
             this.AddSaveAndCancelButtons.UseVisualStyleBackColor = false;
             // 
@@ -131,12 +250,14 @@
             this.AddTextBoxButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddTextBoxButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddTextBoxButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddTextBoxButton.Location = new System.Drawing.Point(12, 486);
+            this.AddTextBoxButton.Location = new System.Drawing.Point(12, 497);
             this.AddTextBoxButton.Name = "AddTextBoxButton";
-            this.AddTextBoxButton.Size = new System.Drawing.Size(147, 47);
+            this.AddTextBoxButton.Size = new System.Drawing.Size(147, 42);
             this.AddTextBoxButton.TabIndex = 17;
+            this.AddTextBoxButton.TabStop = false;
             this.AddTextBoxButton.Text = "Text Box";
             this.AddTextBoxButton.UseVisualStyleBackColor = false;
+            this.AddTextBoxButton.Click += new System.EventHandler(this.AddTextBoxButton_Click);
             // 
             // AddListBoxButton
             // 
@@ -145,10 +266,11 @@
             this.AddListBoxButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddListBoxButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddListBoxButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddListBoxButton.Location = new System.Drawing.Point(12, 380);
+            this.AddListBoxButton.Location = new System.Drawing.Point(12, 397);
             this.AddListBoxButton.Name = "AddListBoxButton";
-            this.AddListBoxButton.Size = new System.Drawing.Size(147, 47);
+            this.AddListBoxButton.Size = new System.Drawing.Size(147, 42);
             this.AddListBoxButton.TabIndex = 16;
+            this.AddListBoxButton.TabStop = false;
             this.AddListBoxButton.Text = "List Box";
             this.AddListBoxButton.UseVisualStyleBackColor = false;
             // 
@@ -159,10 +281,11 @@
             this.AddLabelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddLabelButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddLabelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddLabelButton.Location = new System.Drawing.Point(12, 327);
+            this.AddLabelButton.Location = new System.Drawing.Point(12, 347);
             this.AddLabelButton.Name = "AddLabelButton";
-            this.AddLabelButton.Size = new System.Drawing.Size(147, 47);
+            this.AddLabelButton.Size = new System.Drawing.Size(147, 42);
             this.AddLabelButton.TabIndex = 15;
+            this.AddLabelButton.TabStop = false;
             this.AddLabelButton.Text = "Label";
             this.AddLabelButton.UseVisualStyleBackColor = false;
             // 
@@ -173,10 +296,11 @@
             this.AddGridButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddGridButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddGridButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddGridButton.Location = new System.Drawing.Point(12, 221);
+            this.AddGridButton.Location = new System.Drawing.Point(12, 247);
             this.AddGridButton.Name = "AddGridButton";
-            this.AddGridButton.Size = new System.Drawing.Size(147, 47);
+            this.AddGridButton.Size = new System.Drawing.Size(147, 42);
             this.AddGridButton.TabIndex = 14;
+            this.AddGridButton.TabStop = false;
             this.AddGridButton.Text = "Grid";
             this.AddGridButton.UseVisualStyleBackColor = false;
             // 
@@ -187,12 +311,14 @@
             this.AddImageButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddImageButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddImageButton.Location = new System.Drawing.Point(12, 274);
+            this.AddImageButton.Location = new System.Drawing.Point(12, 297);
             this.AddImageButton.Name = "AddImageButton";
-            this.AddImageButton.Size = new System.Drawing.Size(147, 47);
+            this.AddImageButton.Size = new System.Drawing.Size(147, 42);
             this.AddImageButton.TabIndex = 13;
+            this.AddImageButton.TabStop = false;
             this.AddImageButton.Text = "Image Button";
             this.AddImageButton.UseVisualStyleBackColor = false;
+            this.AddImageButton.Click += new System.EventHandler(this.AddImageButton_Click);
             // 
             // AddCheckBox
             // 
@@ -201,12 +327,14 @@
             this.AddCheckBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddCheckBox.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddCheckBox.Location = new System.Drawing.Point(12, 115);
+            this.AddCheckBox.Location = new System.Drawing.Point(12, 62);
             this.AddCheckBox.Name = "AddCheckBox";
-            this.AddCheckBox.Size = new System.Drawing.Size(147, 47);
+            this.AddCheckBox.Size = new System.Drawing.Size(147, 42);
             this.AddCheckBox.TabIndex = 12;
+            this.AddCheckBox.TabStop = false;
             this.AddCheckBox.Text = "Check Box";
             this.AddCheckBox.UseVisualStyleBackColor = false;
+            this.AddCheckBox.Click += new System.EventHandler(this.AddCheckBox_Click);
             // 
             // AddComboBoxbutton
             // 
@@ -215,56 +343,31 @@
             this.AddComboBoxbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.AddComboBoxbutton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.AddComboBoxbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddComboBoxbutton.Location = new System.Drawing.Point(12, 168);
+            this.AddComboBoxbutton.Location = new System.Drawing.Point(12, 162);
             this.AddComboBoxbutton.Name = "AddComboBoxbutton";
-            this.AddComboBoxbutton.Size = new System.Drawing.Size(147, 47);
+            this.AddComboBoxbutton.Size = new System.Drawing.Size(147, 42);
             this.AddComboBoxbutton.TabIndex = 11;
+            this.AddComboBoxbutton.TabStop = false;
             this.AddComboBoxbutton.Text = "Combo Box";
             this.AddComboBoxbutton.UseVisualStyleBackColor = false;
-            // 
-            // PropertiesPanel
-            // 
-            this.PropertiesPanel.BackColor = System.Drawing.Color.Transparent;
-            this.PropertiesPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.PropertiesPanel.Location = new System.Drawing.Point(175, 0);
-            this.PropertiesPanel.Name = "PropertiesPanel";
-            this.PropertiesPanel.Size = new System.Drawing.Size(200, 723);
-            this.PropertiesPanel.TabIndex = 12;
-            // 
-            // ScreenPanel
-            // 
-            this.ScreenPanel.BackColor = System.Drawing.Color.Transparent;
-            this.ScreenPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ScreenPanel.Location = new System.Drawing.Point(375, 0);
-            this.ScreenPanel.Name = "ScreenPanel";
-            this.ScreenPanel.Size = new System.Drawing.Size(604, 586);
-            this.ScreenPanel.TabIndex = 13;
-            // 
-            // ControlPanel
-            // 
-            this.ControlPanel.BackColor = System.Drawing.Color.Transparent;
-            this.ControlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ControlPanel.Location = new System.Drawing.Point(375, 586);
-            this.ControlPanel.Name = "ControlPanel";
-            this.ControlPanel.Size = new System.Drawing.Size(604, 137);
-            this.ControlPanel.TabIndex = 14;
+            this.AddComboBoxbutton.Click += new System.EventHandler(this.AddComboBoxbutton_Click);
             // 
             // BlazorComponentsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = global::Regionizer.ProjectResources.BlackImage;
-            this.ClientSize = new System.Drawing.Size(979, 723);
-            this.Controls.Add(this.ControlPanel);
-            this.Controls.Add(this.ScreenPanel);
-            this.Controls.Add(this.PropertiesPanel);
+            this.BackgroundImage = global::Regionizer.ProjectResources.BlazorComponentFormBackgrounds;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(384, 723);
             this.Controls.Add(this.ButtonsPanel);
             this.Font = new System.Drawing.Font("Calibri", 14F);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BlazorComponentsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "BlazorComponentsForm";
+            this.TopMost = true;
             this.ButtonsPanel.ResumeLayout(false);
+            this.ButtonsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -282,8 +385,12 @@
         private System.Windows.Forms.Button AddImageButton;
         private System.Windows.Forms.Button AddCheckBox;
         private System.Windows.Forms.Button AddComboBoxbutton;
-        private System.Windows.Forms.Panel PropertiesPanel;
-        private System.Windows.Forms.Panel ScreenPanel;
-        private System.Windows.Forms.Panel ControlPanel;
+        private System.Windows.Forms.Button FileUploadButton;
+        private System.Windows.Forms.Button HiddenButton;
+        private System.Windows.Forms.Button AddCheckedListBox;
+        private System.Windows.Forms.CheckBox CheckedListModeCheckBox;
+        private System.Windows.Forms.Label label1;
+        private DataJuggler.Win.Controls.LabelComboBoxControl FontComboBox;
+        private System.Windows.Forms.CheckBox SlimCheckBox;
     }
 }

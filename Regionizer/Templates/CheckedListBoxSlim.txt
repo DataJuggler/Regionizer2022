@@ -1,0 +1,3 @@
+﻿<CheckedListBox Name="[Name]" Unit="px" HeightUnit="px" Height="96" FontSize="14"
+	Width="244" Left="32" Top="0" LabelColor="Color.Black" Parent="this">
+</CheckedListBox>

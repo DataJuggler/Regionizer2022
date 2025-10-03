@@ -1,0 +1,9 @@
+﻿<ToggleComponent Name="[Name]" Parent="this" Unit="px" HeightUnit="px"
+    OvalTop="0" OvalLeft="35" OvalWidth="16" OvalRadius="50"
+    LabelFontSize="14" LabelColor="Color.LightBlueSky" On="false" LabelTop="0"
+    Position="relative" Left="0" Top="0" NotifyParentOnChange="true"
+    CircleColor="Color.GhostWhite"  CircleColorOff="Color.GhostWhite" 
+    OvalBackgroundColorOn="Color.CornFlowerBlue"  OvalBackgroundColorOff="Color.Gray" 
+    LabelClassName="textalignright down4 right2"
+    CircleWidth="12" CircleHeight="12" Caption="[Caption]: " Column1Width="100">
+</ToggleComponent>

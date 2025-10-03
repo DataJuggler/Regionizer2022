@@ -81,6 +81,16 @@ namespace Regionizer {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BlazorComponentFormBackgrounds {
+            get {
+                object obj = ResourceManager.GetObject("BlazorComponentFormBackgrounds", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can not create tool window..
         /// </summary>
         internal static string CanNotCreateWindow {

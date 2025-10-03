@@ -1,0 +1,6 @@
+﻿<TimeComponent Name="[Name]" Parent="this"
+    Unit="px" HeightUnit="px" FontUnit="px" LabelFontSize="14" LabelFontName="Calibri" 
+    FontSize="14" FontName="Calibri" LabelColor="@Color.LightSkyBlue" Column1Width="100" 
+    Caption="[Time:]" MinutesTextBoxLeft="0" Top="0" HoursTextBoxLeft="0" TextBoxTop="0" 
+    MinutesTextBoxWidth="20" HoursTextBoxWidth="20" Position="relative" Left="0" Top="0">
+</TimeComponent>

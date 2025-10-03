@@ -1,0 +1,4 @@
+﻿<TextBoxComponent Name="[Name]" Unit="px" HeightUnit="px" BorderColor="Gray" 
+    Caption="[Caption]:" FontSize="14" Left="0" Parent="this" TextBoxWidth="140" 
+    Top="0" Width="220" LabelColor="lightskyblue">
+</TextBoxComponent>

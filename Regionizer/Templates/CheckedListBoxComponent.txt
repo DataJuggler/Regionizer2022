@@ -1,0 +1,9 @@
+﻿<CheckedListBox Unit="px" HeightUnit="px" Name="SkillsCheckedListBox"
+    CheckBoxHeight="16" CheckBoxTextX="3.2" CheckBoxTextY="-3.2"
+    CheckBoxX="0" CheckBoxY="0" CheckBoxWidth="16"            
+    ClassName="" FontSize="14" Height="96" Left="32" ListItemBackgroundColor="Color.White"
+    ListItemClassName="textdonotwrap" ListItemHeight="24" ListItemLeft="4" ListItemMarginBottom="0" 
+    ListItemTextColor="Color.Black" ListItemTop="4" ListItemWidth="140" 
+    NotifyParentOnBlur="true" Parent="this"
+    Top="0" Width="244" ZIndex="40">
+</CheckedListBox>

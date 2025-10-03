@@ -1,0 +1,14 @@
+﻿<ComboBox Name="[Name]"  Unit="px" HeightUnit="px" CheckedListUnit="px" CheckedListHeightUnit="px"
+    Theme=ThemeEnum.BlueGold LabelText="Contact Methods:" ListItemBackgroundColor="Color.White"
+    Parent="this" ButtonHeight=24 ButtonWidth=24 Left="0" Top="0" LabelColor="Color.LightSkyBlue"
+    ZIndex=80 ControlHeight=28 ListContainerLeft="36" ListContainerTop="1"
+    CheckedListClassName="container border1gray textdonotwrap" TextBoxLeft="0"
+    ButtonTop=0 ButtonLeft="8" Column2Width="128" Position="relative" LabelLeft="0"
+    LabelFontSize="14" ListItemMarginBottom="0" ListContainerHeight="120"
+    LabelClassName="down4 right2" TextBoxWidth="140" LabelFontName="Calibri"
+    CheckListMode=true CheckedListUnit="px" CheckedListHeightUnit="px" CheckedListheight="72"
+    CheckedListItemLeft="8" CheckedListItemTop=0 CheckBoxHeight="16" CheckBoxWidth="16"
+    CheckBoxX="0" CheckBoxY="2" CheckBoxTextX="16"
+    CheckBoxTextY="0" CheckedListWidth="132" CheckedListTop="24"
+    CheckedListLeft="36" ListItemWidth="80" ListItemHeight="18">
+</ComboBox>

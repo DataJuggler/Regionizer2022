@@ -1,0 +1,3 @@
+﻿<ToggleComponent Name="[Name]" Parent="this" LabelColor="Color.LightBlueSky" 
+    On="false" Caption="[Caption]:">
+</ToggleComponent>

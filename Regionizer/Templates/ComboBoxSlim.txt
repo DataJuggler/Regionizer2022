@@ -1,0 +1,4 @@
+﻿<ComboBox Name="[Name]" Parent="this" Unit="px" HeightUnit="px" ="24" ButtonLeft="8" ButtonTop="0"
+    ButtonBorderColor="Color.LightSkyBlue" ButtonBorderWidth="1" LabelColor="Color.LightSkyBlue" 
+    LabelText="[Caption]:" Theme="ThemeEnum.BlueGold"    
+</ComboBox>

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataJuggler.Core.UltimateHe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlMirror.RunTime", "DataJuggler\XmlMirror.RuntimeEx\XmlMirror.RunTime.csproj", "{FE1CD832-B681-4470-A791-AA5BB37FC09B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataJuggler.Win.Controls", "DataJuggler\DataJuggler.Win.Controls\DataJuggler.Win.Controls\DataJuggler.Win.Controls.csproj", "{70E97B98-9BE2-4747-A3AF-1C274AE401CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{FE1CD832-B681-4470-A791-AA5BB37FC09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE1CD832-B681-4470-A791-AA5BB37FC09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE1CD832-B681-4470-A791-AA5BB37FC09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E97B98-9BE2-4747-A3AF-1C274AE401CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E97B98-9BE2-4747-A3AF-1C274AE401CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E97B98-9BE2-4747-A3AF-1C274AE401CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E97B98-9BE2-4747-A3AF-1C274AE401CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{4FE1FFC2-D8AF-4D07-9B2F-DC19126FC436} = {8EFA0E4A-7611-4777-945D-F3AA8B873907}
 		{B570D96E-C163-480D-8C89-192AC7CEF60A} = {8EFA0E4A-7611-4777-945D-F3AA8B873907}
 		{FE1CD832-B681-4470-A791-AA5BB37FC09B} = {8EFA0E4A-7611-4777-945D-F3AA8B873907}
+		{70E97B98-9BE2-4747-A3AF-1C274AE401CE} = {8EFA0E4A-7611-4777-945D-F3AA8B873907}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7DBA003-22D2-4AC0-8C07-F7FB4DE26411}

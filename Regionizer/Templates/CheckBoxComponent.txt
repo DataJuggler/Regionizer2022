@@ -1,0 +1,7 @@
+﻿<CheckBoxComponent Name="[Name]" Parent="this" Unit="px" HeightUnit="px"
+    Height="16" Width="16" Column2Width="128" CheckBoxValue="false" Caption="[Caption]:"
+    LabelFontSize="14" LabelColor="Color.LightSkyBlue"
+    CheckBoxX="6" CheckBoxY="7" ClassName="" Top="0"
+    CheckBoxTextX="2" CheckBoxTextY="0"
+    Text="" BackgroundColor="transparent">
+</CheckBoxComponent>

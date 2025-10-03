@@ -1,0 +1,4 @@
+﻿<Label Name="[Name]" Parent="this" Unit="px" HeightUnit="px" FadeValue="0" 
+	FontSize="14" Height="24" Position="relative" Left="0" Text="[Text]" Top="0" 
+	TextColor="Color.Black" Width="128" ClassName="textdonotwrap">
+</Label>

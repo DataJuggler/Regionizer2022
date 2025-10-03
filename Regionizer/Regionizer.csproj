@@ -164,9 +164,33 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Templates\ListBoxSlim.txt" />
+    <Resource Include="Templates\ListBoxComponent.txt" />
+    <EmbeddedResource Include="Templates\ToggleSlim.txt" />
+    <EmbeddedResource Include="Templates\ToggleComponent.txt" />
+    <EmbeddedResource Include="Templates\TimeSlim.txt" />
+    <EmbeddedResource Include="Templates\TimeComponet.txt" />
+    <EmbeddedResource Include="Templates\LabelSlim.txt" />
+    <EmbeddedResource Include="Templates\LabelComponent.txt" />
+    <Resource Include="Templates\ImageButtonSlim.txt" />
+    <EmbeddedResource Include="Templates\ImageButtonComponent.txt" />
+    <Resource Include="Templates\ComboBoxCheckListSlim.txt" />
+    <EmbeddedResource Include="Templates\ComboBoxCheckListComponent.txt" />
+    <EmbeddedResource Include="Templates\TextBoxSlim.txt" />
+    <EmbeddedResource Include="Templates\ComboBoxSlim.txt" />
+    <EmbeddedResource Include="Templates\CheckBoxSlim.txt" />
+    <Resource Include="Templates\CalendarSlim.txt" />
+    <EmbeddedResource Include="Templates\CheckedListBoxSlim.txt" />
+    <EmbeddedResource Include="Templates\CheckedListBoxComponent.txt" />
+    <EmbeddedResource Include="Templates\CheckBoxComponent.txt" />
+    <EmbeddedResource Include="Templates\CalendarComponent.txt" />
+    <EmbeddedResource Include="Templates\ComboBoxComponent.txt" />
+    <EmbeddedResource Include="Templates\TextBoxComponent.txt" />
+    <None Include="source.extension.vsixmanifest" />
     <Resource Include="Merge Boxes.ico" />
     <Resource Include="Dictionaries\CommentDictionary.xml" />
     <Resource Include="Dictionaries\CustomCommentDictionary.xml" />
+    <None Include="Images\BlazorComponentFormBackgrounds.png" />
     <Content Include="Regionizer Image Preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -186,7 +210,6 @@
     <None Include="Regionizer2022.2025.key.pfx" />
     <None Include="Regionizer2022.Key.pfx" />
     <None Include="Regionizer2024.pfx" />
-    <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -214,6 +237,10 @@
     <ProjectReference Include="..\Controls\Regionizer.Controls.csproj">
       <Project>{69412EB9-4FB1-4605-A89A-50E4E9C07684}</Project>
       <Name>Regionizer.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataJuggler\DataJuggler.Win.Controls\DataJuggler.Win.Controls\DataJuggler.Win.Controls.csproj">
+      <Project>{70e97b98-9be2-4747-a3af-1c274ae401ce}</Project>
+      <Name>DataJuggler.Win.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataJuggler\UltimateHelperEx\DataJuggler.Core.UltimateHelper.csproj">
       <Project>{b570d96e-c163-480d-8c89-192ac7cef60a}</Project>
@@ -250,15 +277,13 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>17.11.40262</Version>
+      <Version>17.14.40265</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.Framework">
-      <Version>17.11.40262</Version>
+      <Version>17.14.40264</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>

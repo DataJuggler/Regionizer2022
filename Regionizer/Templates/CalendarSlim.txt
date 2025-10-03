@@ -1,0 +1,3 @@
+﻿<CalendarComponent Name="[Name]" Caption="[Caption]" Unit="px" HeightUnit="px" Parent="this"
+    Theme="ThemeEnum.BlueGold" ButtonBorderColor="Color.LightSkyBlue" ButtonBorderWidth="1">
+</CalendarComponent>

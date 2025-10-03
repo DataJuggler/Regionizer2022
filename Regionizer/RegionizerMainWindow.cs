@@ -3,25 +3,25 @@
 
 using DataJuggler.Core.UltimateHelper;
 using DataJuggler.Regionizer.CodeModel.Objects;
+using DataJuggler.Regionizer.CodeModel.Util;
 using DataJuggler.Regionizer.Controls;
+using DataJuggler.Regionizer.Controls.Util;
 using DataJuggler.Regionizer.Parsers;
+using DataJuggler.Regionizer.UI.Forms;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.Win32;
+using Regionizer.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
-using DataJuggler.Regionizer.UI.Forms;
-using Microsoft.Win32;
-using DataJuggler.Regionizer.Controls.Util;
-using objects = DataJuggler.Core.UltimateHelper.Objects;
-using EnvDTE;
-using System.Reflection;
-using Regionizer.UI.Forms;
-using EnvDTE80;
-using DataJuggler.Regionizer.CodeModel.Util;
 using System.Linq;
+using System.Reflection;
+using System.Windows;
+using objects = DataJuggler.Core.UltimateHelper.Objects;
 
 #endregion
 
@@ -96,6 +96,19 @@ namespace DataJuggler.Regionizer
                     
                     switch (eventName)
                     {
+                        case "Add Breakpoints":
+                        
+                            // if the dte object exists
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                // Create the code manager object
+                                codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                                codeManager.AddBreakpointsToMethods();                                
+                            }
+                        
+                            // required
+                            break;
+
                         case "Format Document":
                         
                             // if the dte object exists
@@ -130,8 +143,23 @@ namespace DataJuggler.Regionizer
                        
                         case "LaunchBlazorComponentBuilder":
 
-                            BlazorComponentsForm form = new BlazorComponentsForm();
-                            form.ShowDialog();
+                            // Get screen working area (excluding taskbar)
+                            System.Drawing.Rectangle screenBounds = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
+
+                            // Create and configure form
+                            BlazorComponentsForm form = new BlazorComponentsForm
+                            {  
+                                Width = 308,
+                                Height = 762,
+                                Location = new System.Drawing.Point(
+                                    screenBounds.Right - 388, // align to right edge
+                                    screenBounds.Top + 80
+                                ),
+                                MainWindowCallback = this
+                            };
+
+                            // Show the Form
+                            form.Show();
 
                             // required
                             break;
@@ -196,6 +224,21 @@ namespace DataJuggler.Regionizer
                             
                                 // implement IBlazorComponentInterface
                                 codeManager.ImplementIBlazorComponentParentInterface();
+                            }
+
+                            // required
+                            break;
+
+                         case "WireUpComponents":
+
+                             // if the dte object exists
+                            if ((dte != null) && (dte.ActiveDocument != null))
+                            {
+                                // Create the code manager object
+                                codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                            
+                                // implement WireUpComponents
+                                codeManager.WireUpComponents(dte);
                             }
 
                             // required

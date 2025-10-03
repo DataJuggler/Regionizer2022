@@ -58,6 +58,21 @@ namespace DataJuggler.Regionizer.Controls
         #endregion
         
         #region Events
+
+            #region AddBreakpointsButton_Click()
+            /// <summary>
+            /// Add Breakpoints To Every Method In The Active Document
+            /// </summary>
+            public void AddBreakpointsButton_Click(object sender, RoutedEventArgs e)
+            {
+                // if the delegate is set
+                if (HasHostEventHandler)
+                {  
+                    // Format the Active Document
+                    HostEventHandler("Add Breakpoints", null);
+                }
+            }
+            #endregion
             
             #region AddButton_Click(object sender, RoutedEventArgs e)
             /// <summary>
@@ -65,102 +80,105 @@ namespace DataJuggler.Regionizer.Controls
             /// </summary>
             private void AddButton_Click(object sender, RoutedEventArgs e)
             {
-                // get the codeType
-                string codeType = this.CodeTypeComboBox.SelectedItem.ToString();
-                
-                // local
-                string lineText = "";
-                
-                // set the return Type for the item being inserted
-                string returnType = this.ReturnTypeTextBox.Text;
-                
-                // if Private Variable is selected
-                if (codeType == "Private Variable")
-                {   
-                    // set the lineText
-                    lineText = "private " + returnType + " " + this.NameTextBox.Text + ";";
-                    
-                    // if the delegate is set
-                    if (this.HasHostEventHandler)
-                    {   
-                        // Format the Active Document
-                        this.HostEventHandler("InsertPrivateVariable", lineText);
-                    }
-                }
-                else if (codeType == "Method")
+                if (CodeTypeComboBox.SelectedItem != null)
                 {
-                    // if a Method
-                    string methodName = this.NameTextBox.Text;
+                    // get the codeType
+                    string codeType = CodeTypeComboBox.SelectedItem.ToString();
+                
+                    // local
+                    string lineText = "";
+                
+                    // set the return Type for the item being inserted
+                    string returnType = ReturnTypeTextBox.Text;
+                
+                    // if Private Variable is selected
+                    if (codeType == "Private Variable")
+                    {   
+                        // set the lineText
+                        lineText = "private " + returnType + " " + this.NameTextBox.Text + ";";
                     
-                    if (TextHelper.Exists(methodName, returnType))
+                        // if the delegate is set
+                        if (this.HasHostEventHandler)
+                        {   
+                            // Format the Active Document
+                            this.HostEventHandler("InsertPrivateVariable", lineText);
+                        }
+                    }
+                    else if (codeType == "Method")
                     {
+                        // if a Method
+                        string methodName = this.NameTextBox.Text;
+                    
+                        if (TextHelper.Exists(methodName, returnType))
+                        {
+                            IList<string> args = new List<string>();
+                            args.Add(methodName);
+                            args.Add(returnType);
+                    
+                            // if the delegate is set
+                            if (this.HasHostEventHandler)
+                            {   
+                                // notify the host
+                                this.HostEventHandler("InsertMethod", args);
+                            }
+                        }
+                        else
+                        {
+                            // Show a message
+                            MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
+                        }
+                    }
+                    else if (codeType == "Event")
+                    {
+                        // if an Event
+                        string eventName = this.NameTextBox.Text;
+                    
+                        // create the args
                         IList<string> args = new List<string>();
-                        args.Add(methodName);
+                        args.Add(eventName);
                         args.Add(returnType);
                     
-                        // if the delegate is set
-                        if (this.HasHostEventHandler)
-                        {   
-                            // notify the host
-                            this.HostEventHandler("InsertMethod", args);
+                        // If the strings eventName and returnType both exist
+                        if (TextHelper.Exists(eventName, returnType))
+                        {
+                            // if the delegate is set
+                            if (this.HasHostEventHandler)
+                            {   
+                                // notify the host
+                                this.HostEventHandler("InsertEvent", args);
+                            }
+                        }
+                        else
+                        {
+                            // Show a message
+                            MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
                         }
                     }
-                    else
+                    else if (codeType == "Read Only Property")
                     {
-                        // Show a message
-                        MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
-                    }
-                }
-                else if (codeType == "Event")
-                {
-                    // if an Event
-                    string eventName = this.NameTextBox.Text;
+                        // if an Event
+                        string propertyName = this.NameTextBox.Text;
                     
-                    // create the args
-                    IList<string> args = new List<string>();
-                    args.Add(eventName);
-                    args.Add(returnType);
+                        // create the args
+                        IList<string> args = new List<string>();
+                        args.Add(propertyName);
+                        args.Add(returnType);
                     
-                    // If the strings eventName and returnType both exist
-                    if (TextHelper.Exists(eventName, returnType))
-                    {
-                        // if the delegate is set
-                        if (this.HasHostEventHandler)
-                        {   
-                            // notify the host
-                            this.HostEventHandler("InsertEvent", args);
+                        // If the strings eventName and returnType both exist
+                        if (TextHelper.Exists(propertyName, returnType))
+                        {
+                            // if the delegate is set
+                            if (this.HasHostEventHandler)
+                            {   
+                                // notify the host
+                                this.HostEventHandler("InsertReadOnlyProperty", args);
+                            }
                         }
-                    }
-                    else
-                    {
-                        // Show a message
-                        MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
-                    }
-                }
-                else if (codeType == "Read Only Property")
-                {
-                    // if an Event
-                    string propertyName = this.NameTextBox.Text;
-                    
-                    // create the args
-                    IList<string> args = new List<string>();
-                    args.Add(propertyName);
-                    args.Add(returnType);
-                    
-                    // If the strings eventName and returnType both exist
-                    if (TextHelper.Exists(propertyName, returnType))
-                    {
-                        // if the delegate is set
-                        if (this.HasHostEventHandler)
-                        {   
-                            // notify the host
-                            this.HostEventHandler("InsertReadOnlyProperty", args);
+                        else
+                        {
+                            // Show a message
+                            MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
                         }
-                    }
-                    else
-                    {
-                        // Show a message
-                        MessageBox.Show("You must enter the method name and the return type to continue.", "Missing Information");
                     }
                 }
             }
@@ -521,6 +539,21 @@ namespace DataJuggler.Regionizer.Controls
             }
             #endregion
             
+            #region WireUpBlazorComponentsButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// This event is fired when the 'WireUpBlazorComponentsButton' is clicked.
+            /// </summary>
+            public void WireUpBlazorComponentsButton_Click(object sender, EventArgs e)
+            {
+                // if the delegate is set
+                if (HasHostEventHandler)
+                {
+                    // Implement Wire Up Buttons - Create the private variables, properties,, has properites, Register, Display and Save methods (stubs)
+                    HostEventHandler("WireUpComponents", null);
+                }
+            }
+            #endregion
+            
             #region XMLReserveWordHelperButton_Click(object sender, EventArgs e)
             /// <summary>
             /// This event is fired when the 'XMLReserveWordHelperButton' is clicked.
@@ -546,7 +579,7 @@ namespace DataJuggler.Regionizer.Controls
         #endregion
         
         #region Methods
-
+            
             #region ClickHandler(int buttonNumber, string buttonText)
             /// <summary>
             /// This method handles the click events for the Edit Comment Dictionary button
@@ -813,7 +846,7 @@ namespace DataJuggler.Regionizer.Controls
         #endregion
 
         #endregion
-        
+
     }
     #endregion
 
