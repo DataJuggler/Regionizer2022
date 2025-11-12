@@ -10,18 +10,23 @@ using DataJuggler.Regionizer.Parsers;
 using DataJuggler.Regionizer.UI.Forms;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
-using Regionizer.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
+using IServiceProvider = System.IServiceProvider;
 using objects = DataJuggler.Core.UltimateHelper.Objects;
+using Task = System.Threading.Tasks.Task;
+using DataJuggler.Regionizer.UI;
+using WinForms = System.Windows.Forms;
 
 #endregion
 
@@ -121,6 +126,14 @@ namespace DataJuggler.Regionizer
                         
                             // required
                             break;
+
+                        case "LaunchBlazorComponentBuilder":
+
+                            // Launch the form
+                            VSUI.ShowBlazorComponentsForm();
+
+                            // required
+                            break;
                         
                         case "InsertPrivateVariable":
                         
@@ -141,29 +154,6 @@ namespace DataJuggler.Regionizer
                             // required
                             break;
                        
-                        case "LaunchBlazorComponentBuilder":
-
-                            // Get screen working area (excluding taskbar)
-                            System.Drawing.Rectangle screenBounds = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
-
-                            // Create and configure form
-                            BlazorComponentsForm form = new BlazorComponentsForm
-                            {  
-                                Width = 308,
-                                Height = 762,
-                                Location = new System.Drawing.Point(
-                                    screenBounds.Right - 388, // align to right edge
-                                    screenBounds.Top + 80
-                                ),
-                                MainWindowCallback = this
-                            };
-
-                            // Show the Form
-                            form.Show();
-
-                            // required
-                            break;
-
                         case "CreatePropertiesFromSelection":
                         
                             // if the dte object exists
@@ -648,15 +638,15 @@ namespace DataJuggler.Regionizer
                             break;
                     }
                 }
-                catch (Exception error)
+                catch (System.Exception error)
                 {
                     string err = error.ToString();
 
                     // Set the Text
-                    Clipboard.SetText(err);
+                    // Clipboard.SetText(err);
                     
                     // Show the error
-                    MessageBox.Show(err, "File Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show(err, "File Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             #endregion
@@ -712,7 +702,7 @@ namespace DataJuggler.Regionizer
                         selectedText = codeManager.GetSelectedText(keepSelection);
                     }
                 }
-                catch (Exception error)
+                catch (System.Exception error)
                 {
                     // for debugging only
                     DebugHelper.WriteDebugError("GetSelectedText", "RegionizerMainWindow", error);
@@ -796,7 +786,7 @@ namespace DataJuggler.Regionizer
                     string err = error.ToString();
 
                     // Show the user an error
-                    MessageBox.Show("An error occurred attempted to load the CommentDictionary.");
+                    System.Windows.MessageBox.Show("An error occurred attempted to load the CommentDictionary.");
 	            }
             }
             #endregion

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using DataJuggler.Core.UltimateHelper.Objects;
 
 #endregion
@@ -536,6 +537,129 @@ namespace DataJuggler.Core.UltimateHelper
                             textLines.Add(textLine);
                         }
                     }
+                }
+
+                // return value
+                return textLines;
+            }
+            #endregion
+
+            #region GetTextLines(string sourceText, bool parseWords = false, char[] delimiter = null)
+            /// <summary>
+            /// This method returns a list of TextLine objects.
+            /// </summary>
+            /// <param name="sourceText"></param>
+            /// <param name="parseWords">If true, the words will be attempted to be parsed for each line.</param>
+            /// <param name="delimiter">A character array of the delmiters to parse on.</param>
+            /// <returns></returns>
+            public static List<TextLine> GetTextLines(string sourceText, bool parseWords = false, char[] delimiter = null)
+            {  
+                // initial value
+                List<TextLine> textLines = null;
+
+                // local
+                int index = -1;
+
+                // If the value for the property Exists.sourceText is true
+                if (Exists(sourceText))
+                {
+                    // Create a new collection of 'TextLine' objects.
+                    textLines = new List<TextLine>();
+
+                    // if the NewLine is not found
+                    if (!sourceText.Contains(Environment.NewLine))
+                    {
+                        if (sourceText.Contains("\r"))
+                        {   
+                            // The parsing on lines isn't working, this is a good hack till
+                            // I rewrite the parser to be more robust someday
+                            sourceText = sourceText.Replace("\r", Environment.NewLine);
+                        }
+                        else if (sourceText.Contains("\n"))
+                        {
+                            // The parsing on lines isn't working, this is a good hack till
+                            // I rewrite the parser to be more robust someday
+                            sourceText = sourceText.Replace("\n", Environment.NewLine);
+                        }
+                    }
+
+                    // just in case, fix for the hack
+                    sourceText = sourceText.Replace("\r\r", "\r").Replace("\n\n", "\n");
+
+                    // typical delimiter characters
+                    char[] delimiterChars = Environment.NewLine.ToCharArray();
+
+                    // local
+                    int counter = -1;
+
+                    // verify the sourceText exists
+                    if (!String.IsNullOrEmpty(sourceText))
+                    {
+                        // Get the list of strings
+                        string[] linesOfText = sourceText.Split(delimiterChars);
+
+                        // now iterate the strings
+                        foreach (string lineOfText in linesOfText)
+                        {
+                            // local
+                            string text = lineOfText;
+
+                            // increment the counter
+                            counter++;
+
+                            // add every other row
+                            if ((counter % 2) == 0)
+                            {
+                                // Increment the value for index
+                                index++;
+
+                                // Create a new TextLine
+                                TextLine textLine = new TextLine(text);
+
+                                // Set Index and LineNumber
+                                textLine.Index = index;
+                                textLine.LineNumber = index + 1;
+
+                                // if parseWords is true and the textLine exists
+                                if ((parseWords) && (textLine.HasText))
+                                {
+                                    // parse the words for this textLine
+                                    textLine.Words = TextHelper.GetWords(textLine.Text, delimiter);
+                                }
+
+                                // now add this textLine to textLines collection
+                                textLines.Add(textLine);
+                            }
+                        }
+                    }
+                }
+
+                // return value
+                return textLines;
+            }
+            #endregion
+
+            #region GetTextLinesFromFile(string filePath, bool parseWords = false, char[] delimiter = null)
+            /// <summary>
+            /// This method returns a list of TextLine objects form a file.
+            /// </summary>
+            /// <param name="filePath">The file to read the text of and parse the lines from.</param>            
+            /// <param name="parseWords">If true, the words will be attempted to be parsed for each line.</param>
+            /// <param name="delimiter">A character array of the delmiters to parse on.</param>
+            /// <returns></returns>
+            public static List<TextLine> GetTextLinesFromFile(string filePath, bool parseWords = false, char[] delimiter = null)
+            {  
+                // initial value
+                List<TextLine> textLines = null;
+
+                // If the value for the property Exists.sourceText is true
+                if ((TextHelper.Exists(filePath)) && (FileHelper.Exists(filePath)))
+                {
+                    // get the sourceText
+                    string sourceText = File.ReadAllText(filePath);
+
+                    // Call the GetTextLines to handle the rest
+                    textLines = GetTextLines(sourceText, parseWords, delimiter);
                 }
 
                 // return value

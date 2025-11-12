@@ -80,11 +80,13 @@
     <Compile Include="Objects\DictionaryInfo.cs" />
     <Compile Include="Objects\IfStatement.cs" />
     <Compile Include="Objects\Replacement.cs" />
+    <Compile Include="Objects\RowBuilderInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CSharpCodeParser.cs" />
     <Compile Include="Util\DescriptionHelper.cs" />
     <Compile Include="Util\FileCodeModelHelper.cs" />
     <Compile Include="Util\IfStatementParser.cs" />
+    <Compile Include="Util\CommandRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="stdole">

@@ -1,0 +1,5 @@
+﻿<ImageComponet TextColor=@Color.Black Parent="this" Position="relative"
+    Name="[Name]" Unit="px" HeightUnit="px" Left="0" Top="0"
+    Height="64" Width="64" Text="[Text]" ClassName="textdonotwrap"
+    ImageUrl="@ImageUrl" FontSize="14">
+</ImageComponent>

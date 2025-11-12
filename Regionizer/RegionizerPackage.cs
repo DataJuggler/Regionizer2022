@@ -2,13 +2,15 @@
 
 #region using statements
 
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.ComponentModel.Design;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Shell;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -27,13 +29,14 @@ namespace DataJuggler.Regionizer
     /// register itself and its components with the shell.
     /// </summary>
     // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
-    // a package.
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    // a package.    
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(RegionizerMainWindow))]
-    [Guid(GuidList.guidRegionizerPkgString)]
-    public sealed class RegionizerPackage : Package
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [Guid(GuidList.guidRegionizerPkgString)]    
+    public sealed class RegionizerPackage : AsyncPackage
     {
         
         #region Private Variables
@@ -101,29 +104,29 @@ namespace DataJuggler.Regionizer
         
         #region Methods
             
-            #region Initialize()
+            #region InitializeAsync()
             /// <summary>
             /// Initialization of the package; this method is called right after the package is sited, so this is the place
             /// where you can put all the initilaization code that rely on services provided by VisualStudio.
             /// </summary>
-            protected override void Initialize()
+            protected override async Task InitializeAsync(System.Threading.CancellationToken cancellationToken, IProgress<Microsoft.VisualStudio.Shell.ServiceProgressData> progress)
             {
-                // call the base Initialize
-                base.Initialize();
-                
-                // Add our command handlers for menu (commands must exist in the .vsct file)
-                OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-                if ( null != mcs )
-                {
-                    // Create the command for the menu item.
-                    CommandID menuCommandID = new CommandID(GuidList.guidRegionizerCmdSet, (int)PkgCmdIDList.cmdRegionizerPro);
-                    MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID );
-                    mcs.AddCommand( menuItem );
+                await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+                await base.InitializeAsync(cancellationToken, progress);
 
-                    // Create the command for the tool window
+                // get the service async
+                OleMenuCommandService mcs = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+
+                // if the servie exists
+                if (mcs != null)
+                {
+                    CommandID menuCommandID = new CommandID(GuidList.guidRegionizerCmdSet, (int)PkgCmdIDList.cmdRegionizerPro);
+                    MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
+                    mcs.AddCommand(menuItem);
+
                     CommandID toolwndCommandID = new CommandID(GuidList.guidRegionizerCmdSet, (int)PkgCmdIDList.cmdRegionizerToolWindow);
                     MenuCommand menuToolWin = new MenuCommand(ShowToolWindow, toolwndCommandID);
-                    mcs.AddCommand( menuToolWin );
+                    mcs.AddCommand(menuToolWin);
                 }
             }
             #endregion

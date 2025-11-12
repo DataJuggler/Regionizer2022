@@ -2,6 +2,7 @@
 
 #region using statements
 
+using System;
 using System.Collections.Generic;
 
 #endregion
@@ -20,6 +21,7 @@ namespace DataJuggler.Core.UltimateHelper.Objects
         private string text;
         private List<Word> words;
         private int lineNumber;
+        private int index;
         #endregion
 
         #region Constructors
@@ -67,6 +69,23 @@ namespace DataJuggler.Core.UltimateHelper.Objects
       
         #region Properties
             
+            #region HasText
+            /// <summary>
+            /// This property returns true if the 'Text' exists.
+            /// </summary>
+            public bool HasText
+            {
+                get
+                {
+                    // initial value
+                    bool hasText = !String.IsNullOrEmpty(this.Text);
+                    
+                    // return value
+                    return hasText;
+                }
+            }
+            #endregion
+
             #region HasWords
             /// <summary>
             /// This property returns true if this object has a 'Words'.
@@ -81,6 +100,17 @@ namespace DataJuggler.Core.UltimateHelper.Objects
                     // return value
                     return hasWords;
                 }
+            }
+            #endregion
+            
+            #region Index
+            /// <summary>
+            /// This property gets or sets the value for 'Index'.
+            /// </summary>
+            public int Index
+            {
+                get { return index; }
+                set { index = value; }
             }
             #endregion
             

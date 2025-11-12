@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Template package metadata -->
+    <PackageType>Template</PackageType>
+    <PackageId>DataJuggler.RowBuilder.Template</PackageId>
+    <Title>DataJuggler.RowBuilder.Template</Title>
+    <Version>9.20.3</Version>
+    <PackageVersion>9.20.3</PackageVersion>
+    <Authors>Data Juggler</Authors>
+    <Description>This item template creates a RowBuilder class for DataJuggler.Blazor.Components / DataTier.NET projects.</Description>
+    <PackageTags>DataJuggler;Blazor;RowBuilder;DataTier.Net;Template;C#</PackageTags>
+
+    <!-- Target/packing -->
+    <TargetFramework>net9.0</TargetFramework>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackAsTool>false</PackAsTool>
+
+    <!-- Repo metadata (point to Regionizer2022) -->
+    <RepositoryUrl>https://github.com/DataJuggler/Regionizer2022</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageProjectUrl>https://github.com/DataJuggler/Regionizer2022</PackageProjectUrl>
+
+    <!-- Version stamping (optional but consistent) -->
+    <AssemblyVersion>9.20.3</AssemblyVersion>
+    <FileVersion>9.20.3</FileVersion>
+
+    <!-- Licensing -->
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <!-- Pack everything under templates\ into the nupkg as content -->
+  <ItemGroup>
+    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="License\License.txt">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="templates\DataJuggler.Templates.RowBuilder\.template.config\ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

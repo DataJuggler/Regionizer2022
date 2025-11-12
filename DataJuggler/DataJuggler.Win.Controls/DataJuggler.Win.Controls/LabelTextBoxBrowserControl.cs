@@ -59,6 +59,7 @@ namespace DataJuggler.Win.Controls
         private int textBoxTopMargin;
         private string selectedPath;
         private string startPath;
+        private Color browseButtonTextColor;
         private CustomOpenDelegate openCallback;
         private ThemeEnum theme;
         #endregion
@@ -224,6 +225,27 @@ namespace DataJuggler.Win.Controls
         #endregion
         
         #region Properties
+            
+            #region BrowseButtonTextColor
+            /// <summary>
+            /// This property gets or sets the value for 'BrowseButtonTextColor'.
+            /// </summary>
+            public Color BrowseButtonTextColor
+            {
+                get { return browseButtonTextColor; }
+                set 
+                {
+                    browseButtonTextColor = value;
+
+                    // If the BrowseButton object exists
+                    if (BrowseButton != null)
+                    {
+                        // Set the color
+                        BrowseButton.ForeColor = value;
+                    }
+                }
+            }
+            #endregion
             
             #region BrowseType
             /// <summary>
@@ -944,22 +966,22 @@ namespace DataJuggler.Win.Controls
                     theme = value;
 
                     // if using the Blue Theme
-                    if (theme == ThemeEnum.Blue)
+                    if (theme == ThemeEnum.Wood)
                     {
                         // use Dark Theme
                         this.LabelColor = Color.Black;
-                        this.ButtonImage = Properties.Resources.DarkBlueButton;
+                        this.ButtonImage = Properties.Resources.WoodButtonWidth640;
                         this.EnabledLabelColor = Color.Black;
                         this.DisabledLabelColor = Color.DarkGray;
                     }
                     else
                     {
                         // use Dark Theme
-                        this.LabelColor = Color.LemonChiffon;
+                        this.LabelColor = Color.White;
                         this.ButtonImage = Properties.Resources.DarkButton;
 
                         // Set the Enable and Disabled colors in case Enabled changes
-                        this.EnabledLabelColor = Color.LemonChiffon;
+                        this.EnabledLabelColor = Color.White;
                         this.DisabledLabelColor = Color.LightGray;
                     }
 

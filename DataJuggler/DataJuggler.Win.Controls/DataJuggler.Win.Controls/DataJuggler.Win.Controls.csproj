@@ -57,6 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Button.Designer.cs">
+      <DependentUpon>Button.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ICheckChangedListener.cs" />
     <Compile Include="Interfaces\IListEditorHost.cs" />
     <Compile Include="Interfaces\ISliderValueChangedListener.cs" />
@@ -142,6 +148,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Button.resx">
+      <DependentUpon>Button.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LabelCheckBoxControl.resx">
       <DependentUpon>LabelCheckBoxControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +193,10 @@
     <None Include="Resources\WoodButtonWidth640.png" />
     <None Include="Resources\Deep Black.jpg" />
     <None Include="Resources\WoodButtonWidth640Disabled.png" />
+    <Content Include="Resources\BlackButton.png" />
+    <Content Include="Resources\BlackButtonDisabled.png" />
+    <Content Include="Resources\BlackImage.png" />
+    <Content Include="Resources\GlassButtonBlack.png" />
     <Content Include="Tools.ico" />
     <None Include="Resources\DarkButton.png" />
     <None Include="Images\DarkBlueButton.png" />

@@ -84,6 +84,32 @@ namespace DataJuggler.Regionizer.CodeModel.Enumerations
     }
     #endregion
 
+    #region DataTypeEnum : int
+    /// <summary>
+    /// This is from DataJuggler.NET, but easiest way was just copy it here
+    /// </summary>
+    public enum DataTypeEnum : int
+    {
+        NotSupported = 0,
+		Object = 1,
+        Autonumber = 3,
+        Currency = 6,
+        DateTime = 7,
+        Double = 5,
+        Integer = 2,
+        Percentage = 4,
+        String = 130,
+        YesNo = 11,
+        Decimal = 12,
+        DataTable = 10000,
+        Binary = 10001,
+        Boolean = 10002,
+        Guid = 10003,
+        Custom = 10004,
+        Enumeration = 10005
+    }
+    #endregion
+
     #region ReplacementTargetEnum
     /// <summary>
     /// This enumeration is used to determine the target of Replacement and is applied

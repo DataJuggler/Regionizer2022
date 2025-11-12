@@ -22,6 +22,8 @@ namespace DataJuggler.Regionizer.CodeModel.Util
         public const string ComboBoxEnd = "</ComboBox>";
         public const string Grid = "<Grid";
         public const string GridEnd = "</Grid>";
+        public const string ImageComponent = "<ImageComponent";
+        public const string ImageComponentEnd = "</ImageComponent>";
         public const string ImageButton = "<ImageButton";
         public const string ImageButtonEnd = "</ImageButton>";
         public const string InformationBox = "<InformationBox";

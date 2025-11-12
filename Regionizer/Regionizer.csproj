@@ -100,8 +100,10 @@
     <Compile Include="Commenting\Inspectors\InspectorManager.cs" />
     <Compile Include="Commenting\Interfaces\IInspector.cs" />
     <Compile Include="Guids.cs" />
+    <Compile Include="Objects\GridColumn.cs" />
     <Compile Include="Parsers\CommentDictionaryParser.base.cs" />
     <Compile Include="Parsers\CommentDictionaryParser.custom.cs" />
+    <Compile Include="Parsers\GridColumnAttributeParser.cs" />
     <Compile Include="Parsers\ReplacementParser.base.cs" />
     <Compile Include="Parsers\ReplacementParser.custom.cs" />
     <Compile Include="RegionizerCodeManager.cs" />
@@ -134,6 +136,8 @@
     <Compile Include="UI\Forms\XmlReservedCharacterHelperForm.Designer.cs">
       <DependentUpon>XmlReservedCharacterHelperForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\VSUI.cs" />
+    <Compile Include="UI\Win32Window.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -164,16 +168,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Templates\ImageComponentSlim.txt" />
     <Resource Include="Templates\ListBoxSlim.txt" />
     <Resource Include="Templates\ListBoxComponent.txt" />
     <EmbeddedResource Include="Templates\ToggleSlim.txt" />
     <EmbeddedResource Include="Templates\ToggleComponent.txt" />
     <EmbeddedResource Include="Templates\TimeSlim.txt" />
-    <EmbeddedResource Include="Templates\TimeComponet.txt" />
+    <EmbeddedResource Include="Templates\TimeComponent.txt" />
     <EmbeddedResource Include="Templates\LabelSlim.txt" />
     <EmbeddedResource Include="Templates\LabelComponent.txt" />
     <Resource Include="Templates\ImageButtonSlim.txt" />
-    <EmbeddedResource Include="Templates\ImageButtonComponent.txt" />
     <Resource Include="Templates\ComboBoxCheckListSlim.txt" />
     <EmbeddedResource Include="Templates\ComboBoxCheckListComponent.txt" />
     <EmbeddedResource Include="Templates\TextBoxSlim.txt" />

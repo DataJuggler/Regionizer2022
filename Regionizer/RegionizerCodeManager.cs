@@ -11,6 +11,7 @@ using DataJuggler.Regionizer.Commenting.Inspectors;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using XmlMirror.Runtime.Objects;
@@ -844,6 +846,30 @@ namespace DataJuggler.Regionizer
             }            
             #endregion
 
+            #region AddTextLine(ref List<TextLine> lines, string text, int index)
+            /// <summary>
+            /// returns the Text Line
+            /// </summary>
+            public int AddTextLine(ref List<TextLine> lines, string text, int index)
+            {
+                // if the lines collection exists and has one or more items and the index is in range
+                if ((ListHelper.HasOneOrMoreItems(lines)) && (index < lines.Count - 1))
+                {
+                    // Create a new instance of a 'TextLine' object.
+                    TextLine line = new TextLine(text);
+
+                    // Add this line
+                    lines.Insert(index, line);
+
+                    // increment the value for index
+                    index++;
+                }
+
+                // return value
+                return index;
+            }
+            #endregion
+            
             #region AutoComment(DictionaryInfo dictionaryInfo)
             /// <summary>
             /// This method is used to Auto Comment the selected line or line below
@@ -3421,14 +3447,14 @@ namespace DataJuggler.Regionizer
             }
             #endregion
 
-            #region HandleRegisterComponents(EnvDTE.DTE dte, List<BlazorComponent> blazorComponents)
+            #region HandleRegisterComponents(EnvDTE.DTE dte, List<BlazorComponent> blazorComponents, string codeFilePath)
             /// <summary>
             /// Handle Register Components
             /// </summary>
-            public void HandleRegisterComponents(EnvDTE.DTE dte, List<BlazorComponent> blazorComponents)
+            public void HandleRegisterComponents( EnvDTE80.DTE2 dte2, List<BlazorComponent> blazorComponents, string codeFilePath)
             {                
                 // Create the code manager object each time
-                RegionizerCodeManager codeManager = new RegionizerCodeManager(dte.ActiveDocument);
+                RegionizerCodeManager codeManager = new RegionizerCodeManager(dte2.ActiveDocument);
 
                 // locals
                 int registerMethodLineIndex = -1;
@@ -3438,7 +3464,7 @@ namespace DataJuggler.Regionizer
                 CSharpCodeFile codeFile = codeManager.GetCodeFile();
 
                 // Find the registerMethod
-                CM.CodeMethod registerMethod = FindRegisterMethod(dte, codeFile);
+                CM.CodeMethod registerMethod = FindRegisterMethod(dte2, codeFile);
 
                 // If the registerMethod object exists
                 if ((NullHelper.Exists(registerMethod)) && (ListHelper.HasOneOrMoreItems(registerMethod.CodeLines)))
@@ -3447,7 +3473,7 @@ namespace DataJuggler.Regionizer
                     registerMethodLineIndex = registerMethod.CodeLines[0].LineNumber;
 
                     // If there are 4, this is the empty Register method when the Interface is created
-                    isBlankRegisterMethod = registerMethod.CodeLines.Count == 4;
+                    isBlankRegisterMethod = registerMethod.CodeLines.Count <= 4;
                 }
 
                 // if the registerMethod was found
@@ -3463,10 +3489,10 @@ namespace DataJuggler.Regionizer
                     }
                     else
                     {
-                        // This is harder because you have to check if each property is already there
+                        // First You Must Clear The Existing Register Method and write to it offline
 
-                        // Write out a Blank Register Method
-                        UpdateExistingRegisterMethod(registerMethod, registerMethodLineIndex, codeFile, codeManager, blazorComponents);
+                        // Update the existing register method
+                        UpdateExistingRegisterMethod(registerMethod, registerMethodLineIndex, codeFile, codeManager, blazorComponents, codeFilePath, dte2);                        
                     }
                 }
             }
@@ -3992,146 +4018,153 @@ namespace DataJuggler.Regionizer
                 
                 // get the return type
                 string propertyDeclarationLineText = "public bool " + property.Name;
-                
-                // create the codeLines that make up this property
-                CM.CodeLine propertyDeclarationLine = new CM.CodeLine(propertyDeclarationLineText);
-                CM.CodeLine openBracket = new CM.CodeLine("{");
-                
-                // set the getLineText
-                string getLineText = "get";
-                CM.CodeLine getLine = new CM.CodeLine(getLineText);
-                
-                // Create another OpenBracket
-                CM.CodeLine openBracket2 = new CM.CodeLine("{");
-                
-                // set the initialValueComment
-                string initialValueCommentText = "// initial value";
-                CM.CodeLine initialValueCommentLine = new CM.CodeLine(initialValueCommentText);
-                
-                // create the initialValue line
-                string variableName = "has" + propertyName;
-                
-                // get the equation
-                string equation = "(" + propertyName + " != null);";
-                
-                // if the dataType is set
-                if (!String.IsNullOrEmpty(dataType))
-                {
-                    // if this is a string
-                    if (dataType.ToLower() == "string")
-                    {
-                        // change for a string
-                        equation = "(!String.IsNullOrEmpty(" + propertyName + "));";
-                    }
-                    else if ((dataType.ToLower() == "int") || (dataType.ToLower() == "double"))
-                    {
-                        // change for a string
-                        equation = "(" + propertyName + " > 0);";
-                    }
-                }
-                
-                // get the text for the initialValueLine
-                string initialValueText = "bool " + variableName + " = " + equation;
-                
-                // Create the InitialValueLine
-                CM.CodeLine initialValueLine = new CM.CodeLine(initialValueText);
-                
-                // create a new line
-                CM.CodeLine blankLine = new CM.CodeLine(Environment.NewLine);
-                
-                // Create a comment for return value
-                CM.CodeLine returnValueComment = new CM.CodeLine("// return value");
-                
-                // Now create the Return Value line
-                string returnValueText = "return " + variableName + ";";
-                CM.CodeLine  returnValueLine = new CM.CodeLine(returnValueText);
-                
-                // create the CloseBracket
-                CM.CodeLine closeBracket = new CM.CodeLine("}");
-                
-                // create the CloseBracket
-                CM.CodeLine closeBracket2 = new CM.CodeLine("}");
-                
-                // create a summary
-                string summary1Text = "/// <summary>";
-                string summary2Text = "/// This property returns true if this object has a '" + propertyName + "'.";
-                
-                // if this is a vowel for the first character
-                bool isVowel = CheckIfVowel(propertyName);
-                
-                // if this is a vowel
-                if (isVowel)
-                {
-                    // replace out the text
-                    summary2Text = summary2Text.Replace("has a ", "has an ");
-                }
-                
-                // set the last line of the summary
-                string summary3Text = @"/// </summary>";
-                
-                // verify the data type is set
-                if (!String.IsNullOrEmpty(dataType))
-                {
-                    // if this is a string
-                    if (dataType.ToLower() == "string")
-                    {
-                        // change for a string
-                        summary2Text = "/// This property returns true if the '" + propertyName + "' exists.";
-                    }
-                    else if ((dataType.ToLower() == "int") || (dataType.ToLower() == "double"))
-                    {
-                        // change for a string
-                        summary2Text = "/// This property returns true if the '" + propertyName + "' is set.";
-                    }
-                }
-                
-                // create the codeLine
-                CM.CodeLine summary1 = new CM.CodeLine(summary1Text);
-                CM.CodeLine summary2 = new CM.CodeLine(summary2Text);
-                CM.CodeLine summary3 = new CM.CodeLine(summary3Text);
-                
-                // Add the summary
-                property.Summary.CodeLines.Add(summary1);
-                property.Summary.CodeLines.Add(summary2);
-                property.Summary.CodeLines.Add(summary3);
-                
-                // Now it is time to insert the codeLines
-                property.CodeLines.Add(propertyDeclarationLine);
-                property.CodeLines.Add(openBracket);
-                property.CodeLines.Add(getLine);
-                property.CodeLines.Add(openBracket2);
-                property.CodeLines.Add(initialValueCommentLine);
-                property.CodeLines.Add(initialValueLine);
-                property.CodeLines.Add(blankLine);
-                property.CodeLines.Add(returnValueComment);
-                property.CodeLines.Add(returnValueLine);
-                property.CodeLines.Add(closeBracket2);
-                property.CodeLines.Add(closeBracket);
 
-                // default to 3
-                int propertyIndent = 3;
-                
-                // before writing this property we need to find the insert index
-                int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile, out propertyIndent);
-                
-                // get the textDoc
-                TextDocument textDoc = GetActiveTextDocument();
-                
-                // if the textDoc was found
-                if ((textDoc != null) && (lineNumber > 0))
+                // Is there an existing line with this text
+                CodeLine existingLine = codeFile.CodeLines.Where(x => x.Text.Trim() == propertyDeclarationLineText).FirstOrDefault();
+
+                // Only insert this property if it doesn't already exist (so this can be run to update also)
+                if (NullHelper.IsNull(existingLine))
                 {
-                    // Get the currentLine
-                    var currentLine = codeFile.CodeLines[lineNumber - 1];
-
-                    // Reset the Indent
-                    Indent = propertyIndent;
-
-                    // go to this line
-                    textDoc.Selection.GotoLine(lineNumber, false);
-                }
+                    // create the codeLines that make up this property
+                    CM.CodeLine propertyDeclarationLine = new CM.CodeLine(propertyDeclarationLineText);
+                    CM.CodeLine openBracket = new CM.CodeLine("{");
                 
-                // now write the property
-                WriteProperty(property, true);
+                    // set the getLineText
+                    string getLineText = "get";
+                    CM.CodeLine getLine = new CM.CodeLine(getLineText);
+                
+                    // Create another OpenBracket
+                    CM.CodeLine openBracket2 = new CM.CodeLine("{");
+                
+                    // set the initialValueComment
+                    string initialValueCommentText = "// initial value";
+                    CM.CodeLine initialValueCommentLine = new CM.CodeLine(initialValueCommentText);
+                
+                    // create the initialValue line
+                    string variableName = "has" + propertyName;
+                
+                    // get the equation
+                    string equation = "(" + propertyName + " != null);";
+                
+                    // if the dataType is set
+                    if (!String.IsNullOrEmpty(dataType))
+                    {
+                        // if this is a string
+                        if (dataType.ToLower() == "string")
+                        {
+                            // change for a string
+                            equation = "(!String.IsNullOrEmpty(" + propertyName + "));";
+                        }
+                        else if ((dataType.ToLower() == "int") || (dataType.ToLower() == "double"))
+                        {
+                            // change for a string
+                            equation = "(" + propertyName + " > 0);";
+                        }
+                    }
+                
+                    // get the text for the initialValueLine
+                    string initialValueText = "bool " + variableName + " = " + equation;
+                
+                    // Create the InitialValueLine
+                    CM.CodeLine initialValueLine = new CM.CodeLine(initialValueText);
+                
+                    // create a new line
+                    CM.CodeLine blankLine = new CM.CodeLine(Environment.NewLine);
+                
+                    // Create a comment for return value
+                    CM.CodeLine returnValueComment = new CM.CodeLine("// return value");
+                
+                    // Now create the Return Value line
+                    string returnValueText = "return " + variableName + ";";
+                    CM.CodeLine  returnValueLine = new CM.CodeLine(returnValueText);
+                
+                    // create the CloseBracket
+                    CM.CodeLine closeBracket = new CM.CodeLine("}");
+                
+                    // create the CloseBracket
+                    CM.CodeLine closeBracket2 = new CM.CodeLine("}");
+                
+                    // create a summary
+                    string summary1Text = "/// <summary>";
+                    string summary2Text = "/// This property returns true if this object has a '" + propertyName + "'.";
+                
+                    // if this is a vowel for the first character
+                    bool isVowel = CheckIfVowel(propertyName);
+                
+                    // if this is a vowel
+                    if (isVowel)
+                    {
+                        // replace out the text
+                        summary2Text = summary2Text.Replace("has a ", "has an ");
+                    }
+                
+                    // set the last line of the summary
+                    string summary3Text = @"/// </summary>";
+                
+                    // verify the data type is set
+                    if (!String.IsNullOrEmpty(dataType))
+                    {
+                        // if this is a string
+                        if (dataType.ToLower() == "string")
+                        {
+                            // change for a string
+                            summary2Text = "/// This property returns true if the '" + propertyName + "' exists.";
+                        }
+                        else if ((dataType.ToLower() == "int") || (dataType.ToLower() == "double"))
+                        {
+                            // change for a string
+                            summary2Text = "/// This property returns true if the '" + propertyName + "' is set.";
+                        }
+                    }
+                
+                    // create the codeLine
+                    CM.CodeLine summary1 = new CM.CodeLine(summary1Text);
+                    CM.CodeLine summary2 = new CM.CodeLine(summary2Text);
+                    CM.CodeLine summary3 = new CM.CodeLine(summary3Text);
+                
+                    // Add the summary
+                    property.Summary.CodeLines.Add(summary1);
+                    property.Summary.CodeLines.Add(summary2);
+                    property.Summary.CodeLines.Add(summary3);
+                
+                    // Now it is time to insert the codeLines
+                    property.CodeLines.Add(propertyDeclarationLine);
+                    property.CodeLines.Add(openBracket);
+                    property.CodeLines.Add(getLine);
+                    property.CodeLines.Add(openBracket2);
+                    property.CodeLines.Add(initialValueCommentLine);
+                    property.CodeLines.Add(initialValueLine);
+                    property.CodeLines.Add(blankLine);
+                    property.CodeLines.Add(returnValueComment);
+                    property.CodeLines.Add(returnValueLine);
+                    property.CodeLines.Add(closeBracket2);
+                    property.CodeLines.Add(closeBracket);
+
+                    // default to 3
+                    int propertyIndent = 3;
+                
+                    // before writing this property we need to find the insert index
+                    int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile, out propertyIndent);
+                
+                    // get the textDoc
+                    TextDocument textDoc = GetActiveTextDocument();
+                
+                    // if the textDoc was found
+                    if ((textDoc != null) && (lineNumber > 0))
+                    {
+                        // Get the currentLine
+                        var currentLine = codeFile.CodeLines[lineNumber - 1];
+
+                        // Reset the Indent
+                        Indent = propertyIndent;
+
+                        // go to this line
+                        textDoc.Selection.GotoLine(lineNumber, false);
+                    }
+                
+                    // now write the property
+                    WriteProperty(property, true);
+                }
             }
             #endregion
 
@@ -4631,67 +4664,74 @@ namespace DataJuggler.Regionizer
                                 
                                 // get the return type
                                 string propertyDeclarationLineText = "public " + returnType + " " + property.Name;
-                                
-                                // create the codeLines that make up this property
-                                CM.CodeLine propertyDeclarationLine = new CM.CodeLine(propertyDeclarationLineText);
-                                CM.CodeLine openBracket = new CM.CodeLine("{");
-                                
-                                // set the getLineText
-                                string getLineText = "get { return " + privateVariableName + "; }";
-                                CM.CodeLine getLine = new CM.CodeLine(getLineText);
-                                
-                                // set the setLineText
-                                string setLineText = "set { " + privateVariableName + " = value; }";
-                                CM.CodeLine setLine = new CM.CodeLine(setLineText);
-                                
-                                // create the CloseBracket
-                                CM.CodeLine closeBracket = new CM.CodeLine("}");
 
-                                // Create the summary
-                                property.Summary = CreateSummary("This property gets or sets the value for '" + property.Name + "'.");
-                                
-                                // Now it is time to insert the codeLines
-                                property.CodeLines.Add(propertyDeclarationLine);
-                                property.CodeLines.Add(openBracket);
-                                property.CodeLines.Add(getLine);
-                                property.CodeLines.Add(setLine);
-                                property.CodeLines.Add(closeBracket);
+                                // Is there an existing line with this text
+                                CodeLine existingLine = codeFile.CodeLines.Where(x => x.Text.Trim() == propertyDeclarationLineText).FirstOrDefault();
 
-                                // Default to 3
-                                int propertyIndent = 3;
-                                
-                                // before writing this property we need to find the insert index
-                                int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile, out propertyIndent);
-                                
-                                // if the lineNumber was found
-                                if (lineNumber > 0)
+                                // Only insert this property if it doesn't already exist (so this can be run to update also)
+                                if (NullHelper.IsNull(existingLine))
                                 {
-                                    // Get the currentLine
-                                    var currentLine = codeFile.CodeLines[lineNumber - 1];
-
-                                    // Set the Indent for Properties
-                                    Indent = propertyIndent;
-                                    
-                                    // get the textDoc
-                                    TextDocument textDoc = GetActiveTextDocument();
+                                    // create the codeLines that make up this property
+                                    CM.CodeLine propertyDeclarationLine = new CM.CodeLine(propertyDeclarationLineText);
+                                    CM.CodeLine openBracket = new CM.CodeLine("{");
                                 
-                                    // if the textDoc was found
-                                    if (textDoc != null)
+                                    // set the getLineText
+                                    string getLineText = "get { return " + privateVariableName + "; }";
+                                    CM.CodeLine getLine = new CM.CodeLine(getLineText);
+                                
+                                    // set the setLineText
+                                    string setLineText = "set { " + privateVariableName + " = value; }";
+                                    CM.CodeLine setLine = new CM.CodeLine(setLineText);
+                                
+                                    // create the CloseBracket
+                                    CM.CodeLine closeBracket = new CM.CodeLine("}");
+
+                                    // Create the summary
+                                    property.Summary = CreateSummary("This property gets or sets the value for '" + property.Name + "'.");
+                                
+                                    // Now it is time to insert the codeLines
+                                    property.CodeLines.Add(propertyDeclarationLine);
+                                    property.CodeLines.Add(openBracket);
+                                    property.CodeLines.Add(getLine);
+                                    property.CodeLines.Add(setLine);
+                                    property.CodeLines.Add(closeBracket);
+
+                                    // Default to 3
+                                    int propertyIndent = 3;
+                                
+                                    // before writing this property we need to find the insert index
+                                    int lineNumber = GetPropertyInsertLineNumber(property.Name, codeFile, out propertyIndent);
+                                
+                                    // if the lineNumber was found
+                                    if (lineNumber > 0)
                                     {
-                                        // go to this line
-                                        textDoc.Selection.GotoLine(lineNumber, false);
+                                        // Get the currentLine
+                                        var currentLine = codeFile.CodeLines[lineNumber - 1];
 
-                                        // now write the property
-                                        WriteProperty(property, true);
+                                        // Set the Indent for Properties
+                                        Indent = propertyIndent;
+                                    
+                                        // get the textDoc
+                                        TextDocument textDoc = GetActiveTextDocument();
+                                
+                                        // if the textDoc was found
+                                        if (textDoc != null)
+                                        {
+                                            // go to this line
+                                            textDoc.Selection.GotoLine(lineNumber, false);
+
+                                            // now write the property
+                                            WriteProperty(property, true);
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    // Show the user a message
-                                    MessageBox.Show("The 'Properties' region does not exist in the current document." + Environment.NewLine + "Create the 'Properties' region and try again.", "Properties Region Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    else
+                                    {
+                                        // Show the user a message
+                                        MessageBox.Show("The 'Properties' region does not exist in the current document." + Environment.NewLine + "Create the 'Properties' region and try again.", "Properties Region Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-                                    // break out of the loop
-                                    break;
+                                        // break out of the loop
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -4865,25 +4905,16 @@ namespace DataJuggler.Regionizer
             }
             #endregion
 
-            #region SelectActiveDocument(EnvDTE.DTE dte, string path)
+            #region SelectActiveDocument(EnvDTE.DTE dte, string path, System.Threading.CancellationToken token)
             /// <summary>
             /// Select Active Document
             /// </summary>
-            public void SelectActiveDocument(EnvDTE.DTE dte, string path)
-            {
-                try
-                {
-                    // verify everything thing is set
-                    if ((NullHelper.Exists(dte)) && (TextHelper.Exists(path)) && (File.Exists(path)))
-                    {
-                        // Open the file if it exists                    
-                        dte.ItemOperations.OpenFile(path);
-                    }
-                }
-                catch (Exception error)
-                {
-                    // for debugging only fornow
-                    DebugHelper.WriteDebugError("SelectActiveDocument", "RegionizerCodeManager", error);
+            public void SelectActiveDocument(EnvDTE80.DTE2 dte, string path, System.Threading.CancellationToken token)
+{
+                if ((NullHelper.Exists(dte)) && (TextHelper.Exists(path)) && (System.IO.File.Exists(path)))
+                {  
+                    dte.ItemOperations.OpenFile(path);
+                    WaitForActiveDocument(dte, path, token);
                 }
             }
             #endregion
@@ -4924,6 +4955,11 @@ namespace DataJuggler.Regionizer
                     {
                         componentName = BlazorConstants.Grid;
                         componentEndName = BlazorConstants.GridEnd;
+                    }
+                    else if (lineText.Contains(BlazorConstants.ImageComponent))
+                    {
+                        componentName = BlazorConstants.ImageComponent;
+                        componentEndName = BlazorConstants.ImageComponentEnd;
                     }
                     else if (lineText.Contains(BlazorConstants.ImageButton))
                     {
@@ -5034,101 +5070,54 @@ namespace DataJuggler.Regionizer
                 }
                 #endregion
             
-            #region UpdateExistingRegisterMethod(CM.CodeMethod registerMethod, int registerMethodLineIndex, CM.CSharpCodeFile codeFile, RegionizerCodeManager codeManager, List<BlazorComponent> blazorComponents)
+            #region UpdateExistingRegisterMethod(CM.CodeMethod registerMethod, int registerMethodLineIndex, CM.CSharpCodeFile codeFile, RegionizerCodeManager codeManager, List<BlazorComponent> blazorComponents, string codeFilePath)
             /// <summary>
             /// This is a litle complicated. Each component has to be checked if it already exists.
             /// The components are 
             /// </summary>
-            public void UpdateExistingRegisterMethod(CM.CodeMethod registerMethod, int registerMethodLineIndex, CM.CSharpCodeFile codeFile, RegionizerCodeManager codeManager, List<BlazorComponent> blazorComponents)
+            public void UpdateExistingRegisterMethod(CM.CodeMethod registerMethod, int registerMethodLineIndex, CM.CSharpCodeFile codeFile, RegionizerCodeManager codeManager, List<BlazorComponent> blazorComponents, string codeFilePath,  EnvDTE80.DTE2 dte2)
             {
-                // Get a distinct list of componentTypes
-                List<string> componentTypes = blazorComponents.Select(bc => bc.Type).Distinct().OrderBy(type => type).ToList();
-
-                // iterate the list of componentTypes
-                if ((ListHelper.HasOneOrMoreItems(componentTypes)) && (NullHelper.Exists(registerMethod)) && (ListHelper.HasOneOrMoreItems(registerMethod.CodeLines)))
+                // if the value for HasActiveDocument is true
+                if (HasActiveDocument)
                 {
-                    // locals
-                    int count = 0;
-                    int componentsOfThisTypeCount = 0;
-                    int lineNumber = 0;
-                    string text = "";
+                    // Close the Active Document
+                    ActiveDocument.Close(vsSaveChanges.vsSaveChangesYes);
+                }
+            
+                // locals
+                int rangeStart = registerMethodLineIndex + 1;
+                
+                // here we are bypassing Visual Studio due to removing the lines wasn't working
+                List<TextLine> lines = TextHelper.GetTextLinesFromFile(codeFilePath);
+
+                // if there are lines in the file
+                if (ListHelper.HasOneOrMoreItems(lines))
+                {
+                    // remove the lines from the file
+                    lines.RemoveRange(rangeStart, registerMethod.CodeLines.Count - 3);
+
+                    // Write out the components
+                    lines = WriteRegisterMethodOffline(lines, blazorComponents, registerMethodLineIndex + 1);
+
+                    // Make a copy
+                    File.Copy(codeFilePath, codeFilePath + ".backup", true);
+
+                    // delete the existing file
+                    File.Delete(codeFilePath);
+
+                    // now write out the new file
+                    string documentText = TextHelper.ExportTextLines(lines);
+
+                    // Now write the file
+                    File.WriteAllText(codeFilePath, documentText);
                     
-                    // Iterate the collection of string objects
-                    foreach (string componentType in componentTypes)
-                    {
-                        // Get the components of this Type
-                        List<BlazorComponent> componentsOfThisType = blazorComponents.Where(x => x.Type == componentType).ToList();
-
-                        // Set the counts
-                        count++;
-                        componentsOfThisTypeCount = 0;
-
-                        // Set the lineNumber
-                        lineNumber = registerMethodLineIndex + count;
-
-                        // Start at 4 tabs
-                        codeManager.Indent = 4;
-
-                        // if the first type
-                        if (count == 1)
-                        {
-                            // Use If
-                            text = "if (component is " + componentType + " temp" + componentType + ")";
-                        }
-                        else
-                        {
-                            // Use Else If                                    
-                            text = "else if (component is " + componentType + " temp" + componentType + ")";
-                        }
-
-                        // Here we have to check does this method contain any components of this type
-                        CM.CodeLine existingIfComponentIsType = registerMethod.CodeLines.FirstOrDefault(x => x.Text.Trim() == text);
-
-                        // If the existingIfComponentIsType object does not exist
-                        if ((NullHelper.IsNull(existingIfComponentIsType)) && (count > 1))
-                        {  
-                            // here we have to check if an 'if exists since now this will be an else if
-                            string text2 = "if (component is " + componentType + " temp" + componentType + ")";
-
-                            // try again
-                            existingIfComponentIsType = registerMethod.CodeLines.FirstOrDefault(x => x.Text.Trim() == text2);
-
-                            // If the existingIfComponentIsType object exists
-                            if (NullHelper.Exists(existingIfComponentIsType))
-                            {
-                                // This mean this text need to be changed from if to else if
-                                existingIfComponentIsType.Text = text2;
-
-                                // Update this line
-                                codeManager.UpdateLine(existingIfComponentIsType, lineNumber);
-                            }
-                        }
-
-                        // If the existingIfComponentIsType object does not exist
-                        if (NullHelper.IsNull(existingIfComponentIsType))
-                        {  
-                            // Write out this ComponentType
-                            WriteComponentType(componentType, registerMethodLineIndex, codeManager, blazorComponents, ref count, ref lineNumber, ref componentsOfThisTypeCount);
-                        }
-                        else
-                        {
-                            // Here the text for the check if component is this type already exists
-                            // We need to determine if anything needs to be updated for this componentType
-                            List<BlazorComponent> registeredComponents = GetRegisteredComponents(registerMethod.CodeLines);
-
-                            // If the registeredComponents collection exists and has one or more items
-                            if (ListHelper.HasOneOrMoreItems(registeredComponents))
-                            {
-                                // test only
-                                int x = registeredComponents.Count;
-                            }
-                        }
-                    }
+                    // Select the ActiveDocument
+                    SelectActiveDocument(dte2, codeFilePath, System.Threading.CancellationToken.None);
                 }
             }
             #endregion
 
-            #region
+            #region UpdateLine
             /// <summary>
             /// This method updates an existing line
             /// </summary>
@@ -5168,12 +5157,37 @@ namespace DataJuggler.Regionizer
             }
             #endregion
             
+            #region WaitForActiveDocument(EnvDTE80.DTE2 dte, string fullPath, System.Threading.CancellationToken token)
+            /// <summary>
+            /// method waits for VS to open the Active Document
+            /// </summary>
+            private void WaitForActiveDocument(EnvDTE80.DTE2 dte, string fullPath, System.Threading.CancellationToken token)
+            {
+                System.DateTime start = System.DateTime.UtcNow;
+                while (dte.ActiveDocument == null || !string.Equals(dte.ActiveDocument.FullName, fullPath, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    if (token.WaitHandle.WaitOne(10))
+                    {
+                        break;
+                    }
+                    System.Threading.Thread.Sleep(0);
+                    if ((System.DateTime.UtcNow - start).TotalSeconds > 3.0)
+                    {
+                        break;
+                    }
+                }
+            }
+            #endregion
+            
             #region WireUpComponents(EnvDTE.DTE dte)
             /// <summary>
             /// Wire Up Components
             /// </summary>
             public void WireUpComponents(EnvDTE.DTE dte)
-            {
+            { 
+                // Cast to DTE2 (safe — DTE is really DTE2 under the hood)
+                EnvDTE80.DTE2 dte2 = (EnvDTE80.DTE2)dte;
+
                 // Parse all the BlazorComponents out of the ActiveDocument
                 List<BlazorComponent> blazorComponents = ParseBlazorComponents();
 
@@ -5187,19 +5201,19 @@ namespace DataJuggler.Regionizer
                     string csFilePath = ActiveDocument.FullName + ".cs";
 
                     // Select the ActiveDocument
-                    SelectActiveDocument(dte, csFilePath);
-   
+                    SelectActiveDocument(dte2, csFilePath, System.Threading.CancellationToken.None);
+
                     // Get the selected text
-                    string selectedPrivateVariables = InsertPrivateVariables(dte, blazorComponents);
+                    string selectedPrivateVariables = InsertPrivateVariables(dte2, blazorComponents);
 
                     // Insert Properties
-                    InsertProperties(dte, selectedPrivateVariables);
+                    InsertProperties(dte2, selectedPrivateVariables);
 
                     // Insert the HasProperties
-                    InsertHasProperties(dte, blazorComponents);
+                    InsertHasProperties(dte2, blazorComponents);
 
                     // Make sure each component is registered
-                    HandleRegisterComponents(dte, blazorComponents);                    
+                    HandleRegisterComponents(dte2, blazorComponents, csFilePath);                        
                 }
             }
             #endregion
@@ -5319,6 +5333,72 @@ namespace DataJuggler.Regionizer
             }
             #endregion
             
+            #region WriteBlazorComponentOffline(List<TextLine> lines, BlazorComponent component, string componentType, bool firstComponent, ref int index)
+            /// <summary>
+            /// Write Blazor Component to a List of lines<TextLine> 
+            /// </summary>
+            public List<TextLine> WriteBlazorComponentOffline(List<TextLine> lines, BlazorComponent component, string componentType, bool firstComponent, ref int index)
+            {
+                // locals
+                string text = "";
+
+                // if there are one or more lines
+                if ((ListHelper.HasOneOrMoreItems(lines)) && (lines.Count > index))
+                {
+                    // Get the propertyName
+                    string propertyName = TextHelper.CapitalizeFirstChar(component.Name);
+
+                    // If there is not a name
+                    if (!component.HasNameParameter)
+                    {
+                        // No need to test by Name and there must be only 1 of this type
+                        text = TextHelper.Indent(20) + propertyName + " = " + "temp" + componentType + ";";
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+                    }
+                    else
+                    {
+                        // If the firstComponent of this type
+                        if (firstComponent)
+                        {
+                            text = TextHelper.Indent(20) + "if (component.Name == \"" + component.Name + "\")";
+                        }
+                        else
+                        {
+                            text = TextHelper.Indent(20) + "else if (component.Name == \"" + component.Name + "\")";
+                        }
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+
+                        // Add an open bracket
+                        text = TextHelper.Indent(20) + "{";
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+
+                        // Set the text to store this object
+                        text = TextHelper.Indent(24) + propertyName + " = " + "temp" + componentType + ";";
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+
+                        // write a close bracket
+
+                        // Insert the close bracket
+                        text = TextHelper.Indent(20) + "}";
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+                    }
+                }
+
+                // return value
+                return lines;
+            }
+            #endregion
+
             #region WriteClass(CodeModel.Objects.CodeClass codeClass)
             /// <summary>
             /// This method writes the class object passed in.
@@ -5519,6 +5599,96 @@ namespace DataJuggler.Regionizer
             }
             #endregion
             
+            #region WriteComponentTypeOffline(List<TextLine> lines, string componentType, ref int index, List<BlazorComponent> blazorComponents, bool firstComponentType)
+            /// <summary>
+            /// Same as the WriteComponentType, but this method writes to a list of TextLine objects
+            /// </summary>
+            public List<TextLine> WriteComponentTypeOffline(List<TextLine> lines, string componentType, ref int index, List<BlazorComponent> blazorComponents, bool firstComponentType)
+            {
+                // locals
+                string text = "";
+                bool firstComponent = true;
+
+                // if both lists exist and have one or more items and the index is in range
+                if ((ListHelper.HasOneOrMoreItems(lines, blazorComponents)) && (lines.Count > index))
+                {
+                    // Start at 16 spaces
+                    string indent = TextHelper.Indent(16);
+
+                    // second level of indent is 20 spaces
+                    string indent2 = TextHelper.Indent(20);
+
+                    // if the first component of this type
+                    if (firstComponentType)
+                    {
+                        // Use If
+                        text = indent + "if (component is " + componentType + " temp" + componentType + ")";
+                    }
+                    else
+                    {
+                        // Use Else If                                    
+                        text = indent + "else if (component is " + componentType + " temp" + componentType + ")";
+                    }
+
+                    // Add this line
+                    index = AddTextLine(ref lines, text, index);
+
+                    // Add an OpenBracket
+                    text = indent + "{";
+
+                    // Add this line
+                    index = AddTextLine(ref lines, text, index);
+
+                    // Get the components of this Type
+                    List<BlazorComponent> componentsOfThisType = blazorComponents.Where(x => x.Type == componentType).ToList();
+
+                    // Has to always be true
+                    if (ListHelper.HasOneOrMoreItems(componentsOfThisType))
+                    {
+                        // if there are more than one of this type
+                        if (componentsOfThisType.Count > 1)
+                        {
+                            // Use Plural word components
+
+                            // Add a comment to store the components of this type
+                            text = indent2 + "// store the " + componentType + " components";
+                        }
+                        else
+                        {
+                            // Use Singular word component
+
+                            // Add a comment to store the component of this type
+                            text = indent2 + "// store the " + componentType + " component";
+                        }
+
+                        // now write this comment
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+
+                        // Iterate the collection of BlazorComponent objects
+                        foreach (BlazorComponent component in componentsOfThisType)
+                        {
+                            // Write out Registering This Component
+                            lines = WriteBlazorComponentOffline(lines, component, componentType, firstComponent, ref index);
+
+                            // change to false. No longer the firstComponent
+                            firstComponent = false;
+                        }
+
+                        // Add a Close Bracket
+                        text = indent + "}";
+
+                        // Create a textLine
+                        index = AddTextLine(ref lines, text, index);
+                    }
+                }
+
+                // return value
+                return lines;
+            }
+            #endregion
+
             #region WriteConstructor(CM.CodeConstructor constructor, bool surroundWithRegion, string className
             /// <summary>
             /// This method writes the Constructor passed in.
@@ -5798,6 +5968,41 @@ namespace DataJuggler.Regionizer
             }
         #endregion
 
+            #region WriteRegisterMethodOffline(List<TextLine> lines, List<BlazorComponent> components, int index)
+            /// <summary>
+            /// returns a list of Register Method Offline
+            /// </summary>
+            public List<TextLine> WriteRegisterMethodOffline(List<TextLine> lines, List<BlazorComponent> components, int index)
+            {
+                // local
+                bool firstComponentType = true;
+
+                // if both lists exist and the index is in range
+                if ((ListHelper.HasOneOrMoreItems(lines, components)) && (lines.Count > index))
+                {
+                    // Get a distinct list of componentTypes
+                    List<string> componentTypes = components.Select(bc => bc.Type).Distinct().OrderBy(type => type).ToList();
+
+                    // iterate the list of componentTypes
+                    if (ListHelper.HasOneOrMoreItems(componentTypes))
+                    {
+                        // Iterate the collection of string objects
+                        foreach (string componentType in componentTypes)
+                        {
+                            // Write out this ComponentType
+                            lines = WriteComponentTypeOffline(lines, componentType, ref index, components, firstComponentType);
+
+                            // no longer the firstComponentType
+                            firstComponentType = false;
+                        }                        
+                    }    
+                }
+
+                // return value
+                return lines;
+            }
+            #endregion
+            
             #region WriteSummary(string objectName, CM.CodeNotes summary, CodeTypeEnum codeType, string returnType = "", string className = "")
             /// <summary>
             /// This method writes the Tags
